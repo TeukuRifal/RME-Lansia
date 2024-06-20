@@ -7,9 +7,28 @@ use App\Models\Patient;
 
 class AdminController extends Controller
 {
+
     public function dashboard()
     {
-        return view('pages.admin.dashboard');
+        $totalPatients = Patient::count(); // Menghitung jumlah total pasien
+        $totalLansia = Patient::where('umur', '>=', 60)->count(); // Menghitung jumlah pasien lansia (>60 tahun)
+        
+        $genderCounts = Patient::select('jenis_kelamin', \DB::raw('COUNT(*) as count'))
+                               ->groupBy('jenis_kelamin')
+                               ->pluck('count', 'jenis_kelamin');
+    
+        $genderLabels = $genderCounts->keys();
+
+         // Mengambil data untuk chart distribusi umur
+         $ageCounts = [
+            'Anak - Anak' => Patient::whereBetween('umur', [0, 20])->count(),
+            'Remaja' => Patient::whereBetween('umur', [21, 40])->count(),
+            'Dewasa' => Patient::whereBetween('umur', [41, 60])->count(),
+            'Lansia' => Patient::where('umur', '>', 60)->count(),
+        ];
+        $ageLabels = array_keys($ageCounts);
+    
+        return view('pages.admin.dashboard', compact('genderLabels', 'genderCounts','ageLabels', 'ageCounts', 'totalPatients', 'totalLansia'));
     }
 
     public function tambahPasien()
@@ -53,6 +72,7 @@ class AdminController extends Controller
 
         return redirect()->route('daftarPasien');
     }
+
 
     public function daftarPasien()
     {

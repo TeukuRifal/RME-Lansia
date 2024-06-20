@@ -4,7 +4,7 @@
     <div>
         <h2 class="text-2xl font-bold mb-6">Daftar Pasien</h2>
         <!-- Tabel Daftar Pasien -->
-        <table class="min-w-full bg-white">
+        <table id="patientsTable" class="min-w-full bg-white">
             <thead>
                 <tr>
                     <th class="py-2 px-4 bg-blue-400 border">No</th>
@@ -82,4 +82,9 @@
             </tbody>
         </table>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#patientsTable').DataTable();
+        });
+    </script>
 @endsection

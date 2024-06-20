@@ -1,7 +1,7 @@
 <!-- resources/views/layouts/sidebar.blade.php -->
 
-<div class="bg-blue-900 md:w-64 w-full flex-shrink-0">
-    <div class="p-4 text-white text-2xl font-bold text-center bg-blue-700">
+<div class="bg-sky-600 md:w-64 w-full flex-shrink-0">
+    <div class="p-4 text-white text-2xl font-bold text-center bg-cyan-400">
         Admin Panel
     </div>
     <div class="p-4 h-screen text-white">

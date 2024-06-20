@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EditDataPasienController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ChartController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +18,8 @@ Route::get('/pasien', function () {
 
 
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('pages/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
 Route::get('/admin/tambah-pasien', [AdminController::class, 'tambahPasien'])->name('tambahPasien');
 Route::post('/admin/tambah-pasien', [AdminController::class, 'storePasien'])->name('storePasien');
 Route::get('/admin/daftar-pasien', [AdminController::class, 'daftarPasien'])->name('daftarPasien');
