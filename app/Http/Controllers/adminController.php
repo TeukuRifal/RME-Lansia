@@ -70,7 +70,7 @@ class AdminController extends Controller
         $patient->tindak_lanjut = $request->tindak_lanjut;
         $patient->save();
 
-        return redirect()->route('daftarPasien');
+        return back()->with('message', 'Data Pasien Berhasil Ditembahkan');
     }
 
 
@@ -105,9 +105,14 @@ class AdminController extends Controller
     }
 
     public function deletePasien($id)
-    {
-        $patient = Patient::find($id);
+{
+    $patient = Patient::find($id);
+    if ($patient) {
         $patient->delete();
-        return redirect()->route('daftarPasien');
+        return response()->json(['success' => 'Pasien berhasil dihapus']);
+    } else {
+        return response()->json(['error' => 'Pasien tidak ditemukan'], 404);
     }
+}
+
 }

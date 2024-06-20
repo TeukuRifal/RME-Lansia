@@ -23,9 +23,11 @@
         </div>
         <!-- Chart -->
         <div class="bg-white p-6 rounded-lg shadow-md col-span-2 md:col-span-1">
+            <h2 class="text-xl font-bold">Jenis Kelamin</h2>
             <canvas id="genderChart" width="800" height="400"></canvas>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold">Umur Pasien</h2>
             <canvas id="ageChart" width="800" height="400"></canvas>
         </div>
     </div>

@@ -1,90 +1,151 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div>
+    <div class="container mt-5">
         <h2 class="text-2xl font-bold mb-6">Daftar Pasien</h2>
         <!-- Tabel Daftar Pasien -->
-        <table id="patientsTable" class="min-w-full bg-white">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 bg-blue-400 border">No</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Nama Lengkap</th>
-                    <th class="py-2 px-4 bg-blue-400 border">NIK</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Tanggal Lahir</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Umur</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Jenis Kelamin</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Alamat</th>
-                    <th class="py-2 px-4 bg-blue-400 border">No HP</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Pendidikan Terakhir</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Pekerjaan</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Status Kawin</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Gol. Darah</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Email</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Riwayat PTM Keluarga</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Riwayat PTM Sendiri</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Merokok</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Kurang Aktivitas Fisik</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Kurang Sayur Buah</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Konsumsi Alkohol</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Stress</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Berat Badan</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Tinggi Badan</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Indeks Massa Tubuh</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Lingkar Perut</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Tekanan Darah</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Gula Darah Sewaktu</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Kolesterol Total</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Masalah Kesehatan</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Obat & Fasilitas</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Tindak Lanjut</th>
-                    <th class="py-2 px-4 bg-blue-400 border">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($patients as $patient)
-                <tr>
-                    <td class="py-2 px-4 border-b">{{ $loop->iteration }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->nama_lengkap }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->nik }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->tanggal_lahir }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->umur }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->jenis_kelamin }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->alamat }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->no_hp }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->pendidikan_terakhir }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->pekerjaan }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->status_kawin }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->gol_darah }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->email }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->riwayat_ptm_keluarga }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->riwayat_ptm_sendiri }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->merokok }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->kurang_aktivitas_fisik }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->kurang_sayur_buah }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->konsumsi_alkohol }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->stress }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->berat_badan }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->tinggi_badan }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->indeks_massa_tubuh }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->lingkar_perut }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->tekanan_darah }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->gula_darah_sewaktu }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->kolesterol_total }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->masalah_kesehatan }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->obat_fasilitas }}</td>
-                    <td class="py-2 px-4 border">{{ $patient->tindak_lanjut }}</td>
-                    <td class="py-2 px-4 border">
-                        <a href="{{ route('editPasien', $patient->id) }}" class="bg-blue-500 px-2 rounded-lg font-bold">Edit</a>
-                        <a href="{{ route('deletePasien', $patient->id) }}" class="bg-red-500 px-2 rounded-lg font-bold">Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="patientsTable" class="table table-striped table-bordered table-hover p-2 ">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Lengkap</th>
+                        <th>NIK</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Umur</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>No HP</th>
+                        <th>Pendidikan Terakhir</th>
+                        <th>Pekerjaan</th>
+                        <th>Status Kawin</th>
+                        <th>Gol. Darah</th>
+                        <th>Email</th>
+                        <th>Riwayat PTM Keluarga</th>
+                        <th>Riwayat PTM Sendiri</th>
+                        <th>Merokok</th>
+                        <th>Kurang Aktivitas Fisik</th>
+                        <th>Kurang Sayur Buah</th>
+                        <th>Konsumsi Alkohol</th>
+                        <th>Stress</th>
+                        <th>Berat Badan</th>
+                        <th>Tinggi Badan</th>
+                        <th>Indeks Massa Tubuh</th>
+                        <th>Lingkar Perut</th>
+                        <th>Tekanan Darah</th>
+                        <th>Gula Darah Sewaktu</th>
+                        <th>Kolesterol Total</th>
+                        <th>Masalah Kesehatan</th>
+                        <th>Obat & Fasilitas</th>
+                        <th>Tindak Lanjut</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($patients as $patient)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $patient->nama_lengkap }}</td>
+                            <td>{{ $patient->nik }}</td>
+                            <td>{{ $patient->tanggal_lahir }}</td>
+                            <td>{{ $patient->umur }}</td>
+                            <td>{{ $patient->jenis_kelamin }}</td>
+                            <td>{{ $patient->alamat }}</td>
+                            <td>{{ $patient->no_hp }}</td>
+                            <td>{{ $patient->pendidikan_terakhir }}</td>
+                            <td>{{ $patient->pekerjaan }}</td>
+                            <td>{{ $patient->status_kawin }}</td>
+                            <td>{{ $patient->gol_darah }}</td>
+                            <td>{{ $patient->email }}</td>
+                            <td>{{ $patient->riwayat_ptm_keluarga }}</td>
+                            <td>{{ $patient->riwayat_ptm_sendiri }}</td>
+                            <td>{{ $patient->merokok }}</td>
+                            <td>{{ $patient->kurang_aktivitas_fisik }}</td>
+                            <td>{{ $patient->kurang_sayur_buah }}</td>
+                            <td>{{ $patient->konsumsi_alkohol }}</td>
+                            <td>{{ $patient->stress }}</td>
+                            <td>{{ $patient->berat_badan }}</td>
+                            <td>{{ $patient->tinggi_badan }}</td>
+                            <td>{{ $patient->indeks_massa_tubuh }}</td>
+                            <td>{{ $patient->lingkar_perut }}</td>
+                            <td>{{ $patient->tekanan_darah }}</td>
+                            <td>{{ $patient->gula_darah_sewaktu }}</td>
+                            <td>{{ $patient->kolesterol_total }}</td>
+                            <td>{{ $patient->masalah_kesehatan }}</td>
+                            <td>{{ $patient->obat_fasilitas }}</td>
+                            <td>{{ $patient->tindak_lanjut }}</td>
+                            <td>
+                                <a href="{{ route('editPasien', $patient->id) }}" class="btn btn-primary btn-sm"><i
+                                        class="fas fa-edit"></i> Edit</a>
+                                <button class="btn btn-danger btn-sm delete-button" data-id="{{ $patient->id }}"><i
+                                        class="fas fa-trash-alt"></i> Delete</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
+
     <script>
         $(document).ready(function() {
             $('#patientsTable').DataTable();
+
+            $('.delete-button').on('click', function(e) {
+                e.preventDefault();
+                var patientId = $(this).data('id');
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                swal.fire({
+                    title: "Apakah Anda yakin?",
+                    text: "Data ini tidak dapat dikembalikan!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!",
+                    confirmButtonText: "Ya, hapus!",
+                    cancelButtonText: "Tidak, batalkan!",
+                    reverseButtons: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/admin/delete-pasien/' + patientId,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                swal.fire(
+                                    "Dihapus!",
+                                    "Data pasien telah dihapus.",
+                                    "success"
+                                ).then(() => {
+                                    location.reload();
+                                });
+                            },
+                            error: function(xhr) {
+                                swal.fire(
+                                    "Error",
+                                    "Terjadi kesalahan. Data pasien tidak bisa dihapus.",
+                                    "error"
+                                );
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        swal.fire(
+                            "Dibatalkan",
+                            "Data Anda aman :)",
+                            "error"
+                        );
+                    }
+                });
+            });
         });
     </script>
 @endsection

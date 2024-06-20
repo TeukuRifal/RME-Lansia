@@ -26,8 +26,10 @@ Route::get('/admin/daftar-pasien', [AdminController::class, 'daftarPasien'])->na
 Route::get('/pages/admin/pengaturan', [AdminController::class, 'pengaturan'])->name('pengaturan');
 Route::post('/pages/admin/pengaturan', [AdminController::class, 'updateSettings'])->name('updateSettings');
 
+Route::delete('/admin/delete-pasien/{id}', [AdminController::class, 'deletePasien'])->name('deletePasien');
+
 
 Route::get('/admin/edit-pasien/{id}', [EditDataPasienController::class, 'editPasien'])->name('editPasien');
 Route::post('/admin/edit-pasien/{id}', [EditDataPasienController::class, 'updatePasien'])->name('updatePasien');
-Route::get('/admin/delete-pasien/{id}', [EditDataPasienController::class, 'deletePasien'])->name('deletePasien');   
+   
 
