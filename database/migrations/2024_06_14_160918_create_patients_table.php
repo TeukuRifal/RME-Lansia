@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap');
-            $table->string('nik');
+            $table->string('nik')->unique();
             $table->date('tanggal_lahir');
             $table->integer('umur');
             $table->string('jenis_kelamin');
@@ -49,7 +49,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('patients');
     }

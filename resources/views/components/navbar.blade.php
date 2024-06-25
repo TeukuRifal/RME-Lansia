@@ -6,7 +6,6 @@
       <ul class="hidden md:flex space-x-8  font-semibold text-">
         <li><a href="/" class="hover:text-gray-300">Beranda</a></li>
         <li><a href="/pasien" class="hover:text-gray-300">Kesehatan</a></li>
-        <li><a href="/admin/dashboard" class=" bg-blue-800 text-white p-2 rounded-lg">Admin</a></li>
         <li><a href="/keluar" class=" bg-blue-800 text-white p-2 rounded-lg">Keluar</a></li>
       </ul>
     </div>
