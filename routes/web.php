@@ -1,7 +1,5 @@
 <?php
-
 // web.php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -13,11 +11,11 @@ Route::get('/', function () {
 
 // Auth routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Admin routes
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/tambah-pasien', [AdminController::class, 'tambahPasien'])->name('tambahPasien');
     Route::post('/admin/store-pasien', [AdminController::class, 'storePasien'])->name('storePasien');
@@ -30,6 +28,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Patient routes
-Route::middleware(['auth', 'patient'])->group(function () {
-    Route::get('/patient/kesehatan', [PatientController::class, 'kesehatan'])->name('patient.kesehatan');
+Route::middleware(['auth:patient'])->group(function () {
+    Route::get('/pasien/kesehatan', [PatientController::class, 'kesehatan'])->name('pasien.kesehatan');
 });

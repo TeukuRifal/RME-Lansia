@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins', // Menggunakan provider 'admins' untuk guard 'admin'
+        ],
+
+        'patient' => [
+            'driver' => 'session',
+            'provider' => 'patients', // Menggunakan provider 'patients' untuk guard 'patient'
+        ],
     ],
 
     /*
@@ -62,13 +72,18 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // Model yang digunakan untuk admin
+        ],
+
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Patient::class, // Model yang digunakan untuk pasien
+        ],
     ],
 
     /*

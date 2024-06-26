@@ -1,51 +1,60 @@
-<!-- resources/views/auth/login.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-    
-        <div>
-            <label for="role" class="block font-medium text-sm text-gray-700">Role</label>
-            <select id="role" name="role" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                <option value="admin">Admin</option>
-                <option value="patient">Patient</option>
-            </select>
-        </div>
-    
-        <div class="mt-4">
-            <label for="identifier" class="block font-medium text-sm text-gray-700">
-                @if ($errors->has('identifier'))
-                    <span class="text-red-500">{{ $errors->first('identifier') }}</span>
-                @else
-                    NIK/Email
-                @endif
-            </label>
-            <input id="identifier" type="text" name="identifier" value="{{ old('identifier') }}" required autofocus autocomplete="off" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-    
-        <div class="mt-4">
-            <label for="password" class="block font-medium text-sm text-gray-700">Password</label>
-            <input id="password" type="password" name="password" required autocomplete="current-password" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-    
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                    Forgot your password?
-                </a>
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+        <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+            @if (session('error'))
+                <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+                    {{ session('error') }}
+                </div>
             @endif
-    
-            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Log in
-            </button>
+            <form method="POST" action="{{ route('login.post') }}">
+                @csrf
+                <div class="mb-4">
+                    <label for="role" class="block text-gray-700">Role:</label>
+                    <select name="role" id="role" class="block w-full border border-gray-300 rounded p-2 mt-1">
+                        <option value="admin">Admin</option>
+                        <option value="patient">Patient</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700">Username:</label>
+                    <input type="text" name="username" id="username" class="block w-full border border-gray-300 rounded p-2 mt-1" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700">Password:</label>
+                    <input type="password" name="password" id="password" class="block w-full border border-gray-300 rounded p-2 mt-1" required>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+    <script>
+        const roleSelect = document.getElementById('role');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+    
+        roleSelect.addEventListener('change', function() {
+            if (roleSelect.value === 'patient') {
+                // Jika role pasien dipilih, atur input username dengan nama lengkap
+                usernameInput.placeholder = 'Nama Lengkap';
+                // Atur input password dengan NIK
+                passwordInput.placeholder = 'NIK';
+            } else {
+                // Jika role admin dipilih atau role lainnya, atur kembali input ke default
+                usernameInput.placeholder = 'Username';
+                passwordInput.placeholder = 'Password';
+            }
+        });
+    </script>
 </body>
 </html>

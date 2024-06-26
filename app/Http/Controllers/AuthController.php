@@ -14,48 +14,37 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'identifier' => 'required',
-            'password' => 'required',
-            'role' => 'required|in:admin,patient',
-        ]);
+        $credentials = $request->only('username', 'password');
+        $role = $request->input('role');
 
-        // Determine the field to use for login
-        $field = filter_var($request->input('identifier'), FILTER_VALIDATE_EMAIL) ? 'email' : 'nik';
-        $credentials[$field] = $request->input('identifier');
-        unset($credentials['identifier']);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return $this->authenticated($request, Auth::user()->role);
-        }
-
-        return back()->withErrors([
-            'identifier' => 'The provided credentials do not match our records.',
-        ]);
-    }
-
-    protected function authenticated(Request $request, $role)
-    {
         if ($role === 'admin') {
-            return redirect()->route('admin.dashboard'); // Redirect to admin dashboard
+            if (Auth::guard('admin')->attempt(['email' => $credentials['username'], 'password' => $credentials['password']])) {
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->back()->with('error', 'Login failed. Please check your credentials and try again.');
+            }
         } elseif ($role === 'patient') {
-            return redirect()->route('patient.kesehatan'); // Redirect to patient kesehatan page
+            $field = filter_var($credentials['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'nama_lengkap';
+            $credentials[$field] = $credentials['username'];
+            unset($credentials['username']);
+
+            if (Auth::guard('patient')->attempt($credentials)) {
+                return redirect()->route('kesehatan');
+            } else {
+                return redirect()->back()->with('error', 'Login failed. Please check your credentials and try again.');
+            }
         }
 
-        // Default fallback if role is not recognized
-        return redirect('/');
+        return redirect()->back()->with('error', 'Invalid role selected.');
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 }
+
