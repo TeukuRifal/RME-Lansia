@@ -1,16 +1,19 @@
 <?php
+// app/Models/Admin.php
 
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
 
+    protected $guard = 'admin';
+
     protected $fillable = [
-        'name', 'username', 'password', 'role',
+        'name', 'email', 'password',
     ];
 
     protected $hidden = [

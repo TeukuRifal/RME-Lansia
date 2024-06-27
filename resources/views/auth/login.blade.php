@@ -1,3 +1,5 @@
+<!-- resources/views/auth/login.blade.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,11 +27,11 @@
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label for="username" class="block text-gray-700">Username:</label>
+                    <label for="username" class="block text-gray-700" id="username-label">Username:</label>
                     <input type="text" name="username" id="username" class="block w-full border border-gray-300 rounded p-2 mt-1" required>
                 </div>
                 <div class="mb-4">
-                    <label for="password" class="block text-gray-700">Password:</label>
+                    <label for="password" class="block text-gray-700" id="password-label">Password:</label>
                     <input type="password" name="password" id="password" class="block w-full border border-gray-300 rounded p-2 mt-1" required>
                 </div>
                 <div class="flex items-center justify-between">
@@ -40,18 +42,21 @@
     </div>
     <script>
         const roleSelect = document.getElementById('role');
+        const usernameLabel = document.getElementById('username-label');
         const usernameInput = document.getElementById('username');
+        const passwordLabel = document.getElementById('password-label');
         const passwordInput = document.getElementById('password');
     
         roleSelect.addEventListener('change', function() {
             if (roleSelect.value === 'patient') {
-                // Jika role pasien dipilih, atur input username dengan nama lengkap
+                usernameLabel.textContent = 'Nama Lengkap:';
                 usernameInput.placeholder = 'Nama Lengkap';
-                // Atur input password dengan NIK
+                passwordLabel.textContent = 'NIK:';
                 passwordInput.placeholder = 'NIK';
             } else {
-                // Jika role admin dipilih atau role lainnya, atur kembali input ke default
+                usernameLabel.textContent = 'Username:';
                 usernameInput.placeholder = 'Username';
+                passwordLabel.textContent = 'Password:';
                 passwordInput.placeholder = 'Password';
             }
         });

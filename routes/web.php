@@ -1,6 +1,7 @@
 <?php
-// web.php
-use Illuminate\Support\Facades\Route;
+// routes/web.php
+// routes/web.php
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
@@ -15,7 +16,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Admin routes
-Route::middleware(['auth:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/tambah-pasien', [AdminController::class, 'tambahPasien'])->name('tambahPasien');
     Route::post('/admin/store-pasien', [AdminController::class, 'storePasien'])->name('storePasien');
@@ -28,6 +29,6 @@ Route::middleware(['auth:admin'])->group(function () {
 });
 
 // Patient routes
-Route::middleware(['auth:patient'])->group(function () {
-    Route::get('/pasien/kesehatan', [PatientController::class, 'kesehatan'])->name('pasien.kesehatan');
+Route::middleware(['auth', 'role:patient'])->group(function () {
+    Route::get('/pages/pasien/', [PatientController::class, 'kesehatan'])->name('pages.pasien');
 });

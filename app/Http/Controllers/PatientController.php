@@ -9,6 +9,6 @@ class PatientController extends Controller
     public function kesehatan()
     {
         // Logic untuk halaman kesehatan pasien
-        return view('pasien.kesehatan');
+        return view('pages.pasien.kesehatan');
     }
 }

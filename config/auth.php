@@ -35,20 +35,15 @@ return [
     |
     */
 
-    'guards' => [
+  'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
 
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins', // Menggunakan provider 'admins' untuk guard 'admin'
-        ],
-
-        'patient' => [
-            'driver' => 'session',
-            'provider' => 'patients', // Menggunakan provider 'patients' untuk guard 'patient'
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
         ],
     ],
 
@@ -72,17 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class, // Model yang digunakan untuk admin
-        ],
-
-        'patients' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Patient::class, // Model yang digunakan untuk pasien
+            'model' => App\Models\User::class, // Sesuaikan dengan namespace model User Anda
         ],
     ],
 

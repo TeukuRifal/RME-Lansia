@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use App\Models\Patient;
 
 class AdminController extends Controller
 {
-
     public function dashboard()
     {
         $totalPatients = Patient::count(); // Menghitung jumlah total pasien
@@ -19,8 +20,8 @@ class AdminController extends Controller
     
         $genderLabels = $genderCounts->keys();
 
-         // Mengambil data untuk chart distribusi umur
-         $ageCounts = [
+        // Mengambil data untuk chart distribusi umur
+        $ageCounts = [
             'Anak - Anak' => Patient::whereBetween('umur', [0, 20])->count(),
             'Remaja' => Patient::whereBetween('umur', [21, 40])->count(),
             'Dewasa' => Patient::whereBetween('umur', [41, 60])->count(),
@@ -28,7 +29,7 @@ class AdminController extends Controller
         ];
         $ageLabels = array_keys($ageCounts);
     
-        return view('pages.admin.dashboard', compact('genderLabels', 'genderCounts','ageLabels', 'ageCounts', 'totalPatients', 'totalLansia'));
+        return view('pages.admin.dashboard', compact('genderLabels', 'genderCounts', 'ageLabels', 'ageCounts', 'totalPatients', 'totalLansia'));
     }
 
     public function tambahPasien()
@@ -38,6 +39,14 @@ class AdminController extends Controller
 
     public function storePasien(Request $request)
     {
+        // Validasi input jika diperlukan
+        $request->validate([
+            'nama_lengkap' => 'required|string',
+            'nik' => 'required|string|unique:patients',
+            // tambahkan validasi sesuai dengan kebutuhan
+        ]);
+
+        // Simpan data pasien ke tabel patients
         $patient = new Patient();
         $patient->nama_lengkap = $request->nama_lengkap;
         $patient->nik = $request->nik;
@@ -68,27 +77,24 @@ class AdminController extends Controller
         $patient->masalah_kesehatan = $request->masalah_kesehatan;
         $patient->obat_fasilitas = $request->obat_fasilitas;
         $patient->tindak_lanjut = $request->tindak_lanjut;
+
         $patient->save();
 
-        return back()->with('message', 'Data Pasien Berhasil Ditembahkan');
-    }
+        // Buat akun pengguna untuk pasien
+        User::create([
+            'name' => $patient->nama_lengkap,
+            'username' => $patient->nik, // Gunakan NIK sebagai username
+            'password' => bcrypt($request->input('password')), // Password yang di-hash
+            'role' => 'patient',
+        ]);
 
+        return back()->with('message', 'Data Pasien Berhasil Ditambahkan');
+    }
 
     public function daftarPasien()
     {
         $patients = Patient::all();
         return view('pages.admin.daftarPasien', compact('patients'));
-    }
-
-    public function pengaturan()
-    {
-        return view('pages.admin.pengaturan');
-    }
-
-    public function updateSettings(Request $request)
-    {
-        // Logic to update settings
-        return redirect()->route('pengaturan');
     }
 
     public function editPasien($id)
@@ -99,20 +105,38 @@ class AdminController extends Controller
 
     public function updatePasien(Request $request, $id)
     {
+        // Validasi input jika diperlukan
+        $request->validate([
+            'nama_lengkap' => 'required|string',
+            'nik' => 'required|string|unique:patients,nik,' . $id,
+            // tambahkan validasi sesuai dengan kebutuhan
+        ]);
+
         $patient = Patient::find($id);
         $patient->update($request->all());
-        return redirect()->route('daftarPasien');
+
+        return redirect()->route('daftarPasien')->with('message', 'Data Pasien berhasil diperbarui');
     }
 
     public function deletePasien($id)
-{
-    $patient = Patient::find($id);
-    if ($patient) {
-        $patient->delete();
-        return response()->json(['success' => 'Pasien berhasil dihapus']);
-    } else {
-        return response()->json(['error' => 'Pasien tidak ditemukan'], 404);
+    {
+        $patient = Patient::find($id);
+        if ($patient) {
+            $patient->delete();
+            return response()->json(['success' => 'Pasien berhasil dihapus']);
+        } else {
+            return response()->json(['error' => 'Pasien tidak ditemukan'], 404);
+        }
     }
-}
 
+    public function pengaturan()
+    {
+        return view('pages.admin.pengaturan');
+    }
+
+    public function updateSettings(Request $request)
+    {
+        // Logic untuk menyimpan pengaturan
+        return redirect()->route('pengaturan')->with('message', 'Pengaturan berhasil diperbarui');
+    }
 }
