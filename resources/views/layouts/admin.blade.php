@@ -17,7 +17,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class=" bg-lightblue font-sans leading-normal tracking-normal min-h-screen">
 
     <div class="flex flex-col md:flex-row">
 

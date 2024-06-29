@@ -16,7 +16,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-100">
+<body class="bg-lightblue ">
     <div class="container m-auto">
         @include('components.navbar')
         <main class="py-4">
