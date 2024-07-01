@@ -4,7 +4,7 @@
     <div>
         <h2 class="text-2xl font-bold mb-6">Pengaturan</h2>
         <!-- Form Pengaturan -->
-        <form action="{{ route('updateSettings') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+        <form action="{{ route('updatePengaturan') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
             @csrf
             <div class="mb-4">
                 <label for="site_name" class="block text-gray-700 font-bold">Nama Situs</label>

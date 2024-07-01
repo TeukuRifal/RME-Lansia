@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
 
 class SuperAdminController extends Controller
@@ -16,7 +16,7 @@ class SuperAdminController extends Controller
 
     public function indexSuperadmins()
     {
-        $superadmins = User::where('role', 'superadmin')->get();
+        $superadmins = User::whereIn('role', ['admin', 'superadmin', 'patient'])->get(); // Menampilkan admin dan superadmin
         return view('pages.superadmin.admins.index', compact('superadmins'));
     }
 
@@ -31,16 +31,24 @@ class SuperAdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|in:admin,superadmin', // Validate role input
         ]);
+
+        // Determine role based on form input
+        $role = $request->role;
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'superadmin',
+            'role' => $role,
         ]);
 
-        return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin created successfully.');
+        if ($role === 'superadmin') {
+            return redirect()->route('superadmin.admins.index')->with('success', 'Superadmin created successfully.');
+        } else {
+            return redirect()->route('superadmin.admins.index')->with('success', 'Admin created successfully.');
+        }
     }
 
     public function edit($id)
@@ -69,7 +77,11 @@ class SuperAdminController extends Controller
             'password' => $superadmin->password,
         ]);
 
-        return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin updated successfully.');
+        if ($superadmin->role === 'superadmin') {
+            return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin updated successfully.');
+        } else {
+            return redirect()->route('superadmin.admins.index')->with('success', 'Admin updated successfully.');
+        }
     }
 
     public function destroy($id)

@@ -14,9 +14,9 @@
         </div>
 
         <!-- Charts -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- IMT Chart -->
-            <div class="bg-white rounded-lg shadow-md p-4 ">
+            <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-bold mb-2">Indeks Massa Tubuh (IMT)</h2>
                 <canvas id="imtChart" width="400" height="300"></canvas>
             </div>
@@ -48,10 +48,16 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var months = {!! json_encode($imtDataPerMonth->pluck('month')) !!};
-        var avgImt = {!! json_encode($imtDataPerMonth->pluck('avg_imt')) !!};
+        // Contoh data IMT per bulan
+        var months = {!! json_encode($imtDataPerMonth) !!}.map(function(item) {
+            return item.month;
+        });
+        var avgImt = {!! json_encode($imtDataPerMonth) !!}.map(function(item) {
+            return item.avg_imt;
+        });
 
         var ctxImt = document.getElementById('imtChart').getContext('2d');
         var imtChart = new Chart(ctxImt, {

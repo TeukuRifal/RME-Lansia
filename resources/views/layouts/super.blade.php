@@ -15,7 +15,7 @@
                 <nav class="mt-6">
                     <ul>
                         <li class="py-2"><a href="{{ route('superadmin.dashboard') }}" class="block hover:bg-gray-700 px-4 py-2">Dashboard</a></li>
-                        <li class="py-2"><a href="{{ route('superadmin.superadmins.index') }}" class="block hover:bg-gray-700 px-4 py-2">Manage Admins</a></li>
+                        <li class="py-2"><a href="{{ route('superadmin.superadmins.index') }}" class="block hover:bg-gray-700 px-4 py-2">Manage Akun</a></li>
                         <li class="py-2"><a href="{{ route('superadmin.logs') }}" class="block hover:bg-gray-700 px-4 py-2">Activity Logs</a></li>
                         <li class="py-2">
                             <form action="{{ route('logout') }}" method="POST" class="block hover:bg-gray-700 px-4 py-2">

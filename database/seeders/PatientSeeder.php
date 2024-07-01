@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Patient;
+use App\Models\PatientRecord;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -24,23 +25,6 @@ class PatientSeeder extends Seeder
                 'status_kawin' => 'Menikah',
                 'gol_darah' => 'O',
                 'email' => 'johndoe@example.com',
-                'riwayat_ptm_keluarga' => 'Diabetes',
-                'riwayat_ptm_sendiri' => 'Hipertensi',
-                'merokok' => 'Tidak',
-                'kurang_aktivitas_fisik' => 'Ya',
-                'kurang_sayur_buah' => 'Ya',
-                'konsumsi_alkohol' => 'Tidak',
-                'stress' => 'Ya',
-                'berat_badan' => 70,
-                'tinggi_badan' => 170,
-                'indeks_massa_tubuh' => 24.2,
-                'lingkar_perut' => 90,
-                'tekanan_darah' => '120/80',
-                'gula_darah_sewaktu' => 'Normal',
-                'kolesterol_total' => 'Normal',
-                'masalah_kesehatan' => 'Tidak ada',
-                'obat_fasilitas' => 'Tidak ada',
-                'tindak_lanjut' => 'Check-up rutin',
             ],
             // Tambahkan data pasien lainnya jika perlu
         ];
@@ -59,6 +43,37 @@ class PatientSeeder extends Seeder
             $patient = new Patient($data);
             $patient->user()->associate($user);
             $patient->save();
+
+            // Buat data catatan pasien
+            $patientRecords = [
+                [
+                    'record_date' => now(),
+                    'riwayat_ptm_keluarga' => 'Diabetes',
+                    'riwayat_ptm_sendiri' => 'Hipertensi',
+                    'merokok' => 'Tidak',
+                    'kurang_aktivitas_fisik' => 'Ya',
+                    'kurang_sayur_buah' => 'Ya',
+                    'konsumsi_alkohol' => 'Tidak',
+                    'stress' => 'Ya',
+                    'berat_badan' => 70,
+                    'tinggi_badan' => 170,
+                    'indeks_massa_tubuh' => 24.2,
+                    'lingkar_perut' => 90,
+                    'tekanan_darah' => '120/80',
+                    'gula_darah_sewaktu' => 'Normal',
+                    'kolesterol_total' => 'Normal',
+                    'masalah_kesehatan' => 'Tidak ada',
+                    'obat_fasilitas' => 'Tidak ada',
+                    'tindak_lanjut' => 'Check-up rutin',
+                ],
+                // Tambahkan data catatan pasien lainnya jika perlu
+            ];
+
+            foreach ($patientRecords as $recordData) {
+                $patientRecord = new PatientRecord($recordData);
+                $patientRecord->patient()->associate($patient);
+                $patientRecord->save();
+            }
         }
     }
 }

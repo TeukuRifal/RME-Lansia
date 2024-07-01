@@ -14,7 +14,7 @@
 
         @auth
         <div class="hidden md:flex items-center space-x-8 font-semibold text-2xl">
-            <a href="{{ route('kesehatan') }}" class="p-2">Kesehatan</a>
+            <a href="{{ route('pasien.dashboard') }}" class="p-2">Kesehatan</a>
             <div class="relative">
                 <img src="https://cdn-icons-png.flaticon.com/128/2102/2102647.png" alt="Profile" id="profileIcon"
                     class="w-10 h-10 rounded-full cursor-pointer">

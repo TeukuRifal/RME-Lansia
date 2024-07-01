@@ -26,7 +26,7 @@ class AuthController extends Controller
 
             if ($user && Hash::check($credentials['password'], $user->password)) {
                 Auth::login($user);
-                return redirect()->route('dashboard');
+                return redirect()->route('admin.dashboard');
             }
         } elseif ($role === 'patient') {
             // Login untuk Pasien
@@ -34,7 +34,7 @@ class AuthController extends Controller
 
             if ($patient && Hash::check($credentials['password'], $patient->password)) {
                 Auth::login($patient);
-                return redirect()->route('kesehatan');
+                return redirect()->route('pasien.dashboard');
             }
         }
 
@@ -57,6 +57,7 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
+    //Auth Super admin
     public function showSuperAdminLoginForm()
     {
         return view('auth.superadmin_login');
