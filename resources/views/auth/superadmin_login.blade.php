@@ -11,11 +11,13 @@
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
         <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
             <h2 class="text-2xl font-bold mb-6 text-center">Super Admin Login</h2>
-            @if (session('error'))
-                <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
-                    {{ session('error') }}
-                </div>
-            @endif
+            @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                role="alert">
+                <strong class="font-bold">Oops!</strong>
+                <span class="block sm:inline">{{ $errors->first() }}</span>
+            </div>
+        @endif
             <form method="POST" action="{{ route('superadmin.login.post') }}">
                 @csrf
                 <div class="mb-4">

@@ -1,6 +1,6 @@
 <!-- resources/views/layouts/sidebar.blade.php -->
 
-<div class="bg-white md:w-64 w-full flex-shrink-0 h-screen justify-start m-3 rounded-xl shadow-lg ">
+<div class="bg-white md:w-64 w-full flex-shrink-0 h-screen justify-start m-3 rounded-xl shadow-md ">
     <div class="p-4 text-2xl font-bold text-center bg-cyan-400 text-white rounded-t-xl">
         Admin Panel
     </div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,14 +14,32 @@
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     @vite('resources/css/app.css')
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
-<body class="bg-lightblue ">
-    <div class="container m-auto">
+<body class="bg-lightblue">
+    <div>
         @include('components.navbar')
         <main class="py-4">
             @yield('content')
         </main>
-        
     </div>
+
+    <script>
+        document.getElementById('profileIcon').addEventListener('click', function() {
+            var dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', function(e) {
+            var dropdown = document.getElementById('profileDropdown');
+            if (!document.getElementById('profileIcon').contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
