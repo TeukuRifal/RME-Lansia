@@ -50,6 +50,7 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::get('/superadmin/logs', [SuperAdminController::class, 'logs'])->name('superadmin.logs');
 });
 
+
 // Custom login for super admin
 Route::get('/superadmin/login', [AuthController::class, 'showSuperAdminLoginForm'])->name('superadmin.login');
 Route::post('/superadmin/login', [AuthController::class, 'superAdminLogin'])->name('superadmin.login.post');

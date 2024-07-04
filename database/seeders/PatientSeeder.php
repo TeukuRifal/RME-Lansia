@@ -13,7 +13,7 @@ class PatientSeeder extends Seeder
     {
         $patients = [
             [
-                'nama_lengkap' => 'John Doe',
+                'nama_lengkap' => 'Farhan Alghifari',
                 'nik' => '1234567890123456',
                 'tanggal_lahir' => '1970-01-01',
                 'umur' => 54,
@@ -41,7 +41,7 @@ class PatientSeeder extends Seeder
 
             // Buat data pasien dan hubungkan dengan pengguna
             $patient = new Patient($data);
-            $patient->user()->associate($user);
+            $patient->user_id = $user->id;  // Menghubungkan user dengan pasien
             $patient->save();
 
             // Buat data catatan pasien
@@ -71,7 +71,7 @@ class PatientSeeder extends Seeder
 
             foreach ($patientRecords as $recordData) {
                 $patientRecord = new PatientRecord($recordData);
-                $patientRecord->patient()->associate($patient);
+                $patientRecord->patient_id = $patient->id;  // Menghubungkan catatan pasien dengan pasien
                 $patientRecord->save();
             }
         }

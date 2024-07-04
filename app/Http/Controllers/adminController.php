@@ -42,78 +42,70 @@ class AdminController extends Controller
     public function storePasien(Request $request)
     {
         $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'nik' => 'required|string|max:255|unique:patients',
+            'nama_lengkap' => 'required',
+            'nik' => 'required|unique:patients',
             'tanggal_lahir' => 'required|date',
             'umur' => 'required|integer',
-            'jenis_kelamin' => 'required|string',
-            'alamat' => 'nullable|string',
-            'no_hp' => 'nullable|string',
-            'pendidikan_terakhir' => 'nullable|string',
-            'pekerjaan' => 'nullable|string',
-            'status_kawin' => 'required|string',
-            'gol_darah' => 'nullable|string',
-            'email' => 'nullable|email',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required',
+            'pendidikan_terakhir' => 'required',
+            'pekerjaan' => 'required',
+            'status_kawin' => 'required',
+            'gol_darah' => 'required',
+            'email' => 'required|email|unique:patients',
             'record_date' => 'required|date',
-            'riwayat_ptm_keluarga' => 'nullable|string',
-            'riwayat_ptm_sendiri' => 'nullable|string',
-            'merokok' => 'nullable|string',
-            'kurang_aktivitas_fisik' => 'nullable|string',
-            'kurang_sayur_buah' => 'nullable|string',
-            'konsumsi_alkohol' => 'nullable|string',
-            'stress' => 'nullable|string',
-            'berat_badan' => 'nullable|integer',
-            'tinggi_badan' => 'nullable|integer',
-            'indeks_massa_tubuh' => 'nullable|integer',
-            'lingkar_perut' => 'nullable|integer',
-            'tekanan_darah' => 'nullable|string',
-            'gula_darah_sewaktu' => 'nullable|integer',
-            'kolesterol_total' => 'nullable|integer',
-            'masalah_kesehatan' => 'nullable|string',
-            'obat_fasilitas' => 'nullable|string',
-            'tindak_lanjut' => 'nullable|string',
         ]);
-
-        // Simpan data pasien
-        $patient = new Patient();
-        $patient->nama_lengkap = $request->nama_lengkap;
-        $patient->nik = $request->nik;
-        $patient->tanggal_lahir = $request->tanggal_lahir;
-        $patient->umur = $request->umur;
-        $patient->jenis_kelamin = $request->jenis_kelamin;
-        $patient->alamat = $request->alamat;
-        $patient->no_hp = $request->no_hp;
-        $patient->pendidikan_terakhir = $request->pendidikan_terakhir;
-        $patient->pekerjaan = $request->pekerjaan;
-        $patient->status_kawin = $request->status_kawin;
-        $patient->gol_darah = $request->gol_darah;
-        $patient->email = $request->email;
-        $patient->save();
-
-        // Simpan riwayat kesehatan pasien
-        $patientRecord = new PatientRecord();
-        $patientRecord->patient_id = $patient->id;
-        $patientRecord->record_date = $request->record_date;
-        $patientRecord->riwayat_ptm_keluarga = $request->riwayat_ptm_keluarga;
-        $patientRecord->riwayat_ptm_sendiri = $request->riwayat_ptm_sendiri;
-        $patientRecord->merokok = $request->merokok;
-        $patientRecord->kurang_aktivitas_fisik = $request->kurang_aktivitas_fisik;
-        $patientRecord->kurang_sayur_buah = $request->kurang_sayur_buah;
-        $patientRecord->konsumsi_alkohol = $request->konsumsi_alkohol;
-        $patientRecord->stress = $request->stress;
-        $patientRecord->berat_badan = $request->berat_badan;
-        $patientRecord->tinggi_badan = $request->tinggi_badan;
-        $patientRecord->indeks_massa_tubuh = $request->indeks_massa_tubuh;
-        $patientRecord->lingkar_perut = $request->lingkar_perut;
-        $patientRecord->tekanan_darah = $request->tekanan_darah;
-        $patientRecord->gula_darah_sewaktu = $request->gula_darah_sewaktu;
-        $patientRecord->kolesterol_total = $request->kolesterol_total;
-        $patientRecord->masalah_kesehatan = $request->masalah_kesehatan;
-        $patientRecord->obat_fasilitas = $request->obat_fasilitas;
-        $patientRecord->tindak_lanjut = $request->tindak_lanjut;
-        $patientRecord->save();
-
-        return redirect()->route('admin.dashboard')->with('success', 'Data pasien berhasil ditambahkan.');
+    
+        // Membuat user baru
+        $user = User::create([
+            'name' => $request->nama_lengkap,
+            'email' => $request->email,
+            'username' => $request->nik, // Set username sebagai NIK
+            'password' => bcrypt('password'), // Atur password default "password"
+        ]);
+    
+        // Menambahkan data pasien
+        $patient = Patient::create([
+            'user_id' => $user->id,
+            'nama_lengkap' => $request->nama_lengkap,
+            'nik' => $request->nik,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'umur' => $request->umur,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'pendidikan_terakhir' => $request->pendidikan_terakhir,
+            'pekerjaan' => $request->pekerjaan,
+            'status_kawin' => $request->status_kawin,
+            'gol_darah' => $request->gol_darah,
+            'email' => $request->email,
+        ]);
+    
+        // Menambahkan data riwayat kesehatan pasien
+        $patientRecord = PatientRecord::create([
+            'patient_id' => $patient->id,
+            'record_date' => $request->record_date,
+            'riwayat_ptm_keluarga' => $request->riwayat_ptm_keluarga,
+            'riwayat_ptm_sendiri' => $request->riwayat_ptm_sendiri,
+            'merokok' => $request->merokok,
+            'kurang_aktivitas_fisik' => $request->kurang_aktivitas_fisik,
+            'kurang_sayur_buah' => $request->kurang_sayur_buah,
+            'konsumsi_alkohol' => $request->konsumsi_alkohol,
+            'stress' => $request->stress,
+            'berat_badan' => $request->berat_badan,
+            'tinggi_badan' => $request->tinggi_badan,
+            'indeks_massa_tubuh' => $request->indeks_massa_tubuh,
+            'lingkar_perut' => $request->lingkar_perut,
+            'tekanan_darah' => $request->tekanan_darah,
+            'gula_darah_sewaktu' => $request->gula_darah_sewaktu,
+            'kolesterol_total' => $request->kolesterol_total,
+            'masalah_kesehatan' => $request->masalah_kesehatan,
+            'obat_fasilitas' => $request->obat_fasilitas,
+            'tindak_lanjut' => $request->tindak_lanjut,
+        ]);
+    
+        return redirect()->back()->with('success', 'Data pasien berhasil ditambahkan');
     }
     
 

@@ -5,8 +5,9 @@
         <h2 class="text-2xl font-bold mb-6">Daftar Pasien</h2>
 
         <!-- Tambah Akun Button -->
-        <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('tambahPasien') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <div class="flex justify-between items-center mb-6 p-2">
+            <a href="{{ route('tambahPasien') }}" class="flex items-center bg-blue-500 text-white py-2 px-4 rounded">
+                <img src="{{ asset('images/addPasien.png') }}" alt="tambah pasien" class=" w-5 h-5 mr-2">
                 Tambah Akun
             </a>
         </div>
@@ -61,8 +62,7 @@
                                 <a href="{{ route('editRiwayat', $patient->id) }}"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i
                                         class="fas fa-edit"></i> Edit</a>
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded delete-button"
-                                    data-id="{{ $patient->id }}"><i class="fas fa-trash"></i> Hapus</button>
+
                             </td>
                         </tr>
                     @endforeach
@@ -89,61 +89,13 @@
 
             @if (session('success'))
                 Swal.fire({
-                title: "Berhasil!",
-                text: "{{ session('success') }}",
-                icon: "success"
+                    title: "Berhasil!",
+                    text: "{{ session('success') }}",
+                    icon: "success"
                 });
             @endif
 
-            // Fungsi untuk menangani klik tombol delete
-            $('.delete-button').on('click', function(e) {
-                e.preventDefault();
-                var patientId = $(this).data('id');
-                Swal.fire({
-                    title: "Apakah Anda yakin?",
-                    text: "Data ini tidak dapat dikembalikan!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Ya, hapus!",
-                    cancelButtonText: "Tidak, batalkan!",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '/admin/hapus-pasien/' + patientId,
-                            type: 'DELETE',
-                            data: {
-                                _token: '{{ csrf_token() }}'
-                            },
-                            success: function(response) {
-                                Swal.fire(
-                                    "Dihapus!",
-                                    "Data pasien telah dihapus.",
-                                    "success"
-                                ).then(() => {
-                                    location.reload();
-                                });
-                            },
-                            error: function(xhr) {
-                                Swal.fire(
-                                    "Error",
-                                    "Terjadi kesalahan. Data pasien tidak bisa dihapus.",
-                                    "error"
-                                );
-                            }
-                        });
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.fire(
-                            "Dibatalkan",
-                            "Data Anda aman :)",
-                            "error"
-                        );
-                    }
-                });
-            });
-        });
 
+        });
     </script>
 @endsection

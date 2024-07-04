@@ -81,7 +81,7 @@
             </div>
             <div>
                 <label for="obat_fasilitas_kesehatan" class="block text-gray-700 font-bold">Obat dan Fasilitas Kesehatan</label>
-                <textarea id="obat_fasilitas_kesehatan" name="obat_fasilitas_kesehatan" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">{{ $riwayat->obat_fasilitas_kesehatan ?? old('obat_fasilitas_kesehatan') }}</textarea>
+                <textarea id="obat_fasilitas_kesehatan" name="obat_fasilitas_kesehatan" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">{{ $riwayat->obat_fasilitas ?? old('obat_fasilitas_kesehatan') }}</textarea>
             </div>
         </div>
         <div class="mt-6">

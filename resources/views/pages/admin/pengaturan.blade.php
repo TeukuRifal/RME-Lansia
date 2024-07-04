@@ -2,9 +2,9 @@
 
 @section('content')
     <div>
-        <h2 class="text-2xl font-bold mb-6">Pengaturan</h2>
+        {{-- <h2 class="text-2xl font-bold mb-6">Pengaturan</h2>
         <!-- Form Pengaturan -->
-        <form action="{{ route('updatePengaturan') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+        <form action="{{ }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
             @csrf
             <div class="mb-4">
                 <label for="site_name" class="block text-gray-700 font-bold">Nama Situs</label>
@@ -17,6 +17,6 @@
             <div>
                 <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Simpan Perubahan</button>
             </div>
-        </form>
+        </form> --}}
     </div>
 @endsection

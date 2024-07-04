@@ -36,8 +36,9 @@
         <div class="flex justify-center items-center">
             <div class="container flex flex-col md:flex-row justify-between items-center p-8 rounded-lg">
                 <div class="welcome flex flex-col justify-center items-start text-left md:w-1/2">
-                    <h1 class="text-4xl font-bold mb-4">Selamat Datang di Website Rekam Medik Elektronik</h1>
-                    <p class="text-lg mb-8">Silahkan login untuk mengakses halaman kesehatan Anda.</p>
+                    <h1 class="text-4xl font-bold mb-4">Selamat Datang di REMELA </h1>
+                    <h3 class="text-4xl font-bold mb-4">Website Rekam Medik Lansia</h3>
+                    <p class="text-xl mb-8">Silahkan login untuk mengakses halaman kesehatan Anda.</p>
                     <a href="{{ route('login') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Login</a>
                 </div>
                 <div class="hidden md:flex md:w-1/2 justify-center">

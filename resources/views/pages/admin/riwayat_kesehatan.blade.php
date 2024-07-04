@@ -23,14 +23,14 @@
                     @else
                         @foreach ($healthRecords as $record)
                             <div class="bg-white shadow-md rounded-lg overflow-hidden p-4 mb-4">
-                                <p><strong>Tanggal Rekam:</strong> {{ $record->record_date }}</p>
-                                <p><strong>Riwayat PTM Keluarga:</strong> {{ $record->riwayat_ptm_keluarga ? 'Ya' : 'Tidak' }}</p>
-                                <p><strong>Riwayat PTM Sendiri:</strong> {{ $record->riwayat_ptm_sendiri ? 'Ya' : 'Tidak' }}</p>
-                                <p><strong>Merokok:</strong> {{ $record->merokok ? 'Ya' : 'Tidak' }}</p>
-                                <p><strong>Kurang Aktivitas Fisik:</strong> {{ $record->kurang_aktivitas_fisik ? 'Ya' : 'Tidak' }}</p>
-                                <p><strong>Kurang Sayur Buah:</strong> {{ $record->kurang_sayur_buah ? 'Ya' : 'Tidak' }}</p>
-                                <p><strong>Konsumsi Alkohol:</strong> {{ $record->konsumsi_alkohol ? 'Ya' : 'Tidak' }}</p>
-                                <p><strong>Stress:</strong> {{ $record->stress ? 'Ya' : 'Tidak' }}</p>
+                                <p><strong>Tanggal Rekam Medik:</strong> {{ $record->record_date }}</p>
+                                <hr class="h-px bg-black border-0 ">
+                                <p><strong>Riwayat Penyakit Keluarga:</strong> {{ $record->riwayat_ptm_keluarga  }}</p>
+                                <p><strong>Riwayat Penyakit Sendiri:</strong> {{ $record->riwayat_ptm_sendiri  }}</p>
+                                <p><strong>Merokok:</strong> {{ $record->merokok  }}</p>
+                                <p><strong>Rutin Aktivitas Fisik:</strong> {{ $record->kurang_aktivitas_fisik  }}</p>
+                                <p><strong>Rutin Konsumsi Sayur Buah:</strong> {{ $record->kurang_sayur_buah  }}</p>
+                                <p><strong>Konsumsi Alkohol:</strong> {{ $record->konsumsi_alkohol  }}</p>
                                 <p><strong>Berat Badan (kg):</strong> {{ $record->berat_badan }}</p>
                                 <p><strong>Tinggi Badan (cm):</strong> {{ $record->tinggi_badan }}</p>
                                 <p><strong>Indeks Massa Tubuh:</strong> {{ $record->indeks_massa_tubuh }}</p>
@@ -39,7 +39,7 @@
                                 <p><strong>Gula Darah Sewaktu:</strong> {{ $record->gula_darah_sewaktu }}</p>
                                 <p><strong>Kolesterol Total:</strong> {{ $record->kolesterol_total }}</p>
                                 <p><strong>Masalah Kesehatan:</strong> {{ $record->masalah_kesehatan }}</p>
-                                <p><strong>Obat/Fasilitas:</strong> {{ $record->obat_fasilitas }}</p>
+                                <p><strong>Obat:</strong> {{ $record->obat_fasilitas }}</p>
                                 <p><strong>Tindak Lanjut:</strong> {{ $record->tindak_lanjut }}</p>
                             </div>
                         @endforeach

@@ -16,7 +16,7 @@ class SuperAdminController extends Controller
 
     public function indexSuperadmins()
     {
-        $superadmins = User::whereIn('role', ['admin', 'superadmin', 'patient'])->get(); // Menampilkan admin dan superadmin
+        $superadmins = User::whereIn('role', ['admin', 'superadmin', 'patient'])->get();
         return view('pages.superadmin.admins.index', compact('superadmins'));
     }
 
@@ -31,10 +31,9 @@ class SuperAdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,superadmin', // Validate role input
+            'role' => 'required|in:admin,superadmin',
         ]);
 
-        // Determine role based on form input
         $role = $request->role;
 
         User::create([
@@ -45,9 +44,9 @@ class SuperAdminController extends Controller
         ]);
 
         if ($role === 'superadmin') {
-            return redirect()->route('superadmin.admins.index')->with('success', 'Superadmin created successfully.');
+            return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin created successfully.');
         } else {
-            return redirect()->route('superadmin.admins.index')->with('success', 'Admin created successfully.');
+            return redirect()->route('superadmin.superadmins.index')->with('success', 'Admin created successfully.');
         }
     }
 
@@ -80,14 +79,15 @@ class SuperAdminController extends Controller
         if ($superadmin->role === 'superadmin') {
             return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin updated successfully.');
         } else {
-            return redirect()->route('superadmin.admins.index')->with('success', 'Admin updated successfully.');
+            return redirect()->route('superadmin.superadmins.index')->with('success', 'Admin updated successfully.');
         }
     }
 
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
-        return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin deleted successfully.');
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['success' => 'Akun berhasil dihapus.']);
     }
 
     public function logs()
