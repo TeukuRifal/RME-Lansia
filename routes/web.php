@@ -20,22 +20,24 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    // Route::get('/admin/detailuser/{patientRecord}', [AdminController::class, 'detailUser'])->name('detailUser');
 
     Route::get('/admin/tambah-pasien', [AdminController::class, 'tambahPasien'])->name('tambahPasien');
     Route::post('/admin/simpan-pasien', [AdminController::class, 'storePasien'])->name('simpanPasien');
     Route::get('/admin/daftar-pasien', [AdminController::class, 'daftarPasien'])->name('daftarPasien');
-    // Route::get('/admin/edit-pasien/{id}', [AdminController::class, 'editPasien'])->name('editPasien');
-    // Route::put('/admin/update-pasien/{patient}', [AdminController::class, 'update'])->name('updatePasien');
-    // Route::delete('/admin/hapus-pasien/{id}', [AdminController::class, 'deletePasien'])->name('hapusPasien');
+
+    Route::get('/admin/patient-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
+    Route::post('/admin/patient-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
+
+    Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
+
     Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan'])->name('pengaturan');
     Route::post('/admin/update-pengaturan', [AdminController::class, 'updateSettings'])->name('updatePengaturan');
 
-    // Riwayat Kesehatan
     Route::get('riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
     Route::get('riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
     Route::put('riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
 });
+
 
 
 // Super admin routes

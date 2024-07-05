@@ -44,10 +44,6 @@
                 <input type="text" id="konsumsi_alkohol" name="konsumsi_alkohol" value="{{ $riwayat->konsumsi_alkohol ?? old('konsumsi_alkohol') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
             <div>
-                <label for="stress" class="block text-gray-700 font-bold">Stress</label>
-                <input type="text" id="stress" name="stress" value="{{ $riwayat->stress ?? old('stress') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
                 <label for="berat_badan" class="block text-gray-700 font-bold">Berat Badan</label>
                 <input type="number" id="berat_badan" name="berat_badan" value="{{ $riwayat->berat_badan ?? old('berat_badan') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>

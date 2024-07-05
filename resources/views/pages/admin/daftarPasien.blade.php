@@ -29,6 +29,7 @@
                         <th class="py-3 px-4">Tanggal Lahir</th>
                         <th class="py-3 px-4">Umur</th>
                         <th class="py-3 px-4">Jenis Kelamin</th>
+                        <th class="py-3 px-4">Agama</th>
                         <th class="py-3 px-4">Alamat</th>
                         <th class="py-3 px-4">No HP</th>
                         <th class="py-3 px-4">Pendidikan Terakhir</th>
@@ -48,6 +49,7 @@
                             <td class="py-3 px-4">{{ $patient->tanggal_lahir }}</td>
                             <td class="py-3 px-4">{{ $patient->umur }}</td>
                             <td class="py-3 px-4">{{ $patient->jenis_kelamin }}</td>
+                            <td class="py-3 px-4">{{ $patient->agama }}</td>
                             <td class="py-3 px-4">{{ $patient->alamat }}</td>
                             <td class="py-3 px-4">{{ $patient->no_hp }}</td>
                             <td class="py-3 px-4">{{ $patient->pendidikan_terakhir }}</td>

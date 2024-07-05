@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 
 @section('content')
@@ -52,6 +53,18 @@
                 </select>
             </div>
             <div>
+                <label for="agama" class="block text-gray-700 font-bold">Agama</label>
+                <select id="agama" name="agama"
+                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200 ">
+                    <option value="Islam">Islam</option>
+                    <option value="kristen">Kristen</option>
+                    <option value="katolik">Katolik</option>
+                    <option value="hindu">Hindu</option>
+                    <option value="buddha">Buddha</option>
+                    <option value="khonghucu">Khonghucu</option>
+                </select>
+            </div>
+            <div>
                 <label for="alamat" class="block text-gray-700 font-bold">Alamat</label>
                 <textarea id="alamat" name="alamat"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
@@ -94,12 +107,12 @@
             <!-- Riwayat Kesehatan -->
             
             <div>
-                <label for="riwayat_ptm_keluarga" class="block text-gray-700 font-bold">Riwayat PTM Keluarga</label>
+                <label for="riwayat_ptm_keluarga" class="block text-gray-700 font-bold">Riwayat Penyakit Keluarga</label>
                 <textarea id="riwayat_ptm_keluarga" name="riwayat_ptm_keluarga"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
             </div>
             <div>
-                <label for="riwayat_ptm_sendiri" class="block text-gray-700 font-bold">Riwayat PTM Sendiri</label>
+                <label for="riwayat_ptm_sendiri" class="block text-gray-700 font-bold">Riwayat Penyakit Sendiri</label>
                 <textarea id="riwayat_ptm_sendiri" name="riwayat_ptm_sendiri"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
             </div>
@@ -130,14 +143,6 @@
             <div>
                 <label for="konsumsi_alkohol" class="block text-gray-700 font-bold">Konsumsi Alkohol</label>
                 <select id="konsumsi_alkohol" name="konsumsi_alkohol"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-                    <option value="Tidak">Tidak</option>
-                    <option value="Ya">Ya</option>
-                </select>
-            </div>
-            <div>
-                <label for="stress" class="block text-gray-700 font-bold">Stress</label>
-                <select id="stress" name="stress"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
                     <option value="Tidak">Tidak</option>
                     <option value="Ya">Ya</option>
