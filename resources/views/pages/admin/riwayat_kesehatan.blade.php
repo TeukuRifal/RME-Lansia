@@ -4,22 +4,33 @@
     <div class="container mx-auto px-4 mt-5">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold">Riwayat Kesehatan Pasien: {{ $patient->nama_lengkap }}</h2>
-            <div>
-                <a href="{{ route('editRiwayat', $patient->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit Data Pasien</a>
-                <a href="{{ route('addPatientRecord', $patient->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">Tambah Data Riwayat</a>
-            </div>
+            <a href="{{ route('daftarPasien') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-200 mb-4">Kembali</a>
+
         </div>
 
         <div class="grid grid-cols-2 gap-6">
             <div class="pasien">
                 <div class="data bg-white shadow-md rounded-lg overflow-hidden p-4 mb-4">
+                    <p class=" font-bold text-2xl">Data Diri</p>
+                    <hr class="h-px bg-black border-0 ">
+                    <br>
                     <p><strong>NIK:</strong> {{ $patient->nik }}</p>
                     <p><strong>Tanggal Lahir:</strong> {{ $patient->tanggal_lahir }}</p>
                     <p><strong>Umur:</strong> {{ $patient->umur }} tahun</p>
+                    <p><strong>Jenis Kelamin:</strong> {{ $patient->jenis_kelamin }}</p>
+                    <p><strong>Agama:</strong> {{ $patient->agama }}</p>
+                    <p><strong>Alamat:</strong> {{ $patient->alamat }}</p>
+                    <p><strong>No. HP:</strong> {{ $patient->no_hp }}</p>
+                    
+
+
                     <!-- tambahkan informasi lainnya sesuai kebutuhan -->
                 </div>
 
                 <div class="riwayat bg-white shadow-md rounded-lg overflow-hidden p-4 mb-4">
+                    <p class=" font-bold text-2xl">Riwayat Kesehatan</p>
+                    <hr class="h-px bg-black border-0 ">
+                    <br>
                     <div class="dropdown mb-4">
                         <label for="tanggalRekamMedik">Pilih Tanggal Rekam Medik:</label>
                         <select id="tanggalRekamMedik" class="form-select block w-full mt-1" onchange="selectRecordDate(this.value)">

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RiwayatKesehatanController;
 
@@ -11,32 +11,48 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::delete('/admin/pasien/{id}', [AdminController::class, 'deletePasien'])->name('deletePasien');
+
 // Auth routes for admin and patient
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Admin routes
-// Admin routes
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/admin/tambah-pasien', [AdminController::class, 'tambahPasien'])->name('tambahPasien');
-    Route::post('/admin/simpan-pasien', [AdminController::class, 'storePasien'])->name('simpanPasien');
-    Route::get('/admin/daftar-pasien', [AdminController::class, 'daftarPasien'])->name('daftarPasien');
-
-    Route::get('/admin/patient-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
-    Route::post('/admin/patient-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
-
-    Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
-
+    //CRUD pasien
+    Route::get('/admin/tambah-pasien', [PasienController::class, 'tambahPasien'])->name('tambahPasien');
+    Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
+    Route::get('/admin/daftar-pasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
+    Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
+    Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
+    Route::delete('/admin/hapus-pasien/{id}', [PasienController::class, 'deletePasien'])->name('deletePasien');
+    
     Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan'])->name('pengaturan');
     Route::post('/admin/update-pengaturan', [AdminController::class, 'updateSettings'])->name('updatePengaturan');
 
+    //rekam medis
+    Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');
+    Route::get('/admin/rekam-medik/buat', [RiwayatKesehatanController::class, 'create'])->name('admin.patientRecords.create');
+    Route::post('/admin/patient-records', [RiwayatKesehatanController::class, 'store'])->name('simpanData');
+    Route::get('/admin/fetchPatients', [RiwayatKesehatanController::class, 'fetchPatients'])->name('admin.fetchPatients');
+
+    Route::get('/admin/patient-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
+    Route::post('/admin/patient-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
+    
+    Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
+
+    //riwayat kesehatan
     Route::get('riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
     Route::get('riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
     Route::put('riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
+
+   
 });
+
 
 
 
@@ -59,7 +75,7 @@ Route::post('/superadmin/login', [AuthController::class, 'superAdminLogin'])->na
 
 // Patient routes
 Route::middleware(['auth', 'role:patient'])->group(function () {
-    Route::get('/pasien/dashboard', [PatientController::class, 'index'])->name('pasien.dashboard');
-    Route::get('/pasien/profil', [PatientController::class, 'profil'])->name('profil');
+    Route::get('/pasien/dashboard', [PasienController::class, 'index'])->name('pasien.dashboard');
+    Route::get('/pasien/profil', [PasienController::class, 'profil'])->name('profil');
     
 });

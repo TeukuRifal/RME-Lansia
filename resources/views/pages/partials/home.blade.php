@@ -7,26 +7,12 @@
     <title>Wave Animation with Tailwind CSS</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        @keyframes wave {
-            0% {
-                transform: translateX(0);
-            }
-
-            50% {
-                transform: translateX(-25%);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
-        }
-
-        .waves g {
-            animation: wave 10s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-        }
-
-        .wave {
-            height: 100px;
+        body {
+            background-image: url('{{ asset('images/bgremela.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
         }
     </style>
 </head>
@@ -39,15 +25,16 @@
                     <h1 class="text-4xl font-bold mb-4">Selamat Datang di REMELA </h1>
                     <h3 class="text-4xl font-bold mb-4">Website Rekam Medik Lansia</h3>
                     <p class="text-xl mb-8">Silahkan login untuk mengakses halaman kesehatan Anda.</p>
-                    <a href="{{ route('login') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Login</a>
+                    <a href="{{ route('login') }}" class=" bg-lightblue hover:bg-teal-200 text-zinc-950 font-bold py-2 px-4 rounded">Login</a>
                 </div>
-                <div class="hidden md:flex md:w-1/2 justify-center">
+                {{-- <div class="hidden md:flex md:w-1/2 justify-center">
                     <img src="{{ asset('images/welcomelansia.png') }}" alt="Welcome Image" class=" w-3/6 h-auto">
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
     </div>
+    
 </body>
 
 </html>
