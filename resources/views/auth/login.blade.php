@@ -11,6 +11,15 @@
             background-color: #BDE0DF;
         }
     </style> --}}
+    <style>
+        body {
+            background-image: url('{{ asset('images/bgremela.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+    </style>
 </head>
 
 <body>

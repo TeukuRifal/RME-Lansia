@@ -1,6 +1,8 @@
 <?php
 // app/Models/Patient.php
 
+// app/Models/Patient.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +13,7 @@ class Patient extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'nama_lengkap', 'nik', 'tanggal_lahir', 'umur', 'jenis_kelamin',
+        'user_id', 'nama_lengkap', 'nik', 'tanggal_lahir', 'umur', 'jenis_kelamin', 'agama',
         'alamat', 'no_hp', 'pendidikan_terakhir', 'pekerjaan', 'status_kawin',
         'gol_darah', 'email',
     ];

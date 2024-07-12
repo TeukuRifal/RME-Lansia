@@ -104,6 +104,7 @@
             <img src="{{ asset('images/Lansia.png') }}" alt="Welcome Image" class="w-4/8 h-auto slide-in float">
         </div>
     </div>
+    
 </body>
 
 </html>

@@ -1,49 +1,62 @@
-<!-- resources/views/pages/admin/riwayat_kesehatan.blade.php -->
-
 @extends('layouts.admin')
 
 @section('content')
     <div class="container mx-auto px-4 mt-5">
-        <h2 class="text-2xl font-bold mb-6">Riwayat Kesehatan Pasien: {{ $patient->nama_lengkap }}</h2>
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Riwayat Kesehatan Pasien: {{ $patient->nama_lengkap }}</h2>
+            <a href="{{ route('daftarPasien') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-200 mb-4">Kembali</a>
+
+        </div>
 
         <div class="grid grid-cols-2 gap-6">
             <div class="pasien">
                 <div class="data bg-white shadow-md rounded-lg overflow-hidden p-4 mb-4">
+                    <p class=" font-bold text-2xl">Data Diri</p>
+                    <hr class="h-px bg-black border-0 ">
+                    <br>
                     <p><strong>NIK:</strong> {{ $patient->nik }}</p>
                     <p><strong>Tanggal Lahir:</strong> {{ $patient->tanggal_lahir }}</p>
                     <p><strong>Umur:</strong> {{ $patient->umur }} tahun</p>
+                    <p><strong>Jenis Kelamin:</strong> {{ $patient->jenis_kelamin }}</p>
+                    <p><strong>Agama:</strong> {{ $patient->agama }}</p>
+                    <p><strong>Alamat:</strong> {{ $patient->alamat }}</p>
+                    <p><strong>No. HP:</strong> {{ $patient->no_hp }}</p>
+                    
+
+
                     <!-- tambahkan informasi lainnya sesuai kebutuhan -->
                 </div>
 
-                <div>
-                    @if ($healthRecords->isEmpty())
-                        <div class="bg-white shadow-md rounded-lg overflow-hidden p-4">
-                            <p class="text-center text-gray-500">Tidak ada riwayat kesehatan untuk ditampilkan.</p>
-                        </div>
-                    @else
-                        @foreach ($healthRecords as $record)
-                            <div class="bg-white shadow-md rounded-lg overflow-hidden p-4 mb-4">
-                                <p><strong>Tanggal Rekam Medik:</strong> {{ $record->record_date }}</p>
-                                <hr class="h-px bg-black border-0 ">
-                                <p><strong>Riwayat Penyakit Keluarga:</strong> {{ $record->riwayat_ptm_keluarga  }}</p>
-                                <p><strong>Riwayat Penyakit Sendiri:</strong> {{ $record->riwayat_ptm_sendiri  }}</p>
-                                <p><strong>Merokok:</strong> {{ $record->merokok  }}</p>
-                                <p><strong>Rutin Aktivitas Fisik:</strong> {{ $record->kurang_aktivitas_fisik  }}</p>
-                                <p><strong>Rutin Konsumsi Sayur Buah:</strong> {{ $record->kurang_sayur_buah  }}</p>
-                                <p><strong>Konsumsi Alkohol:</strong> {{ $record->konsumsi_alkohol  }}</p>
-                                <p><strong>Berat Badan (kg):</strong> {{ $record->berat_badan }}</p>
-                                <p><strong>Tinggi Badan (cm):</strong> {{ $record->tinggi_badan }}</p>
-                                <p><strong>Indeks Massa Tubuh:</strong> {{ $record->indeks_massa_tubuh }}</p>
-                                <p><strong>Lingkar Perut (cm):</strong> {{ $record->lingkar_perut }}</p>
-                                <p><strong>Tekanan Darah:</strong> {{ $record->tekanan_darah }}</p>
-                                <p><strong>Gula Darah Sewaktu:</strong> {{ $record->gula_darah_sewaktu }}</p>
-                                <p><strong>Kolesterol Total:</strong> {{ $record->kolesterol_total }}</p>
-                                <p><strong>Masalah Kesehatan:</strong> {{ $record->masalah_kesehatan }}</p>
-                                <p><strong>Obat:</strong> {{ $record->obat_fasilitas }}</p>
-                                <p><strong>Tindak Lanjut:</strong> {{ $record->tindak_lanjut }}</p>
-                            </div>
-                        @endforeach
-                    @endif
+                <div class="riwayat bg-white shadow-md rounded-lg overflow-hidden p-4 mb-4">
+                    <p class=" font-bold text-2xl">Riwayat Kesehatan</p>
+                    <hr class="h-px bg-black border-0 ">
+                    <br>
+                    <div class="dropdown mb-4">
+                        <label for="tanggalRekamMedik">Pilih Tanggal Rekam Medik:</label>
+                        <select id="tanggalRekamMedik" class="form-select block w-full mt-1" onchange="selectRecordDate(this.value)">
+                            @foreach ($recordDates as $date)
+                                <option value="{{ $date }}">{{ \Carbon\Carbon::parse($date)->isoFormat('dddd, D MMMM YYYY') }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <hr class="h-px bg-black border-0 ">
+                    <p><strong>Riwayat Penyakit Keluarga:</strong> <span id="riwayatPenyakitKeluarga">-</span></p>
+                    <p><strong>Riwayat Penyakit Sendiri:</strong> <span id="riwayatPenyakitSendiri">-</span></p>
+                    <p><strong>Merokok:</strong> <span id="merokok">-</span></p>
+                    <p><strong>Rutin Aktivitas Fisik:</strong> <span id="aktivitasFisik">-</span></p>
+                    <p><strong>Rutin Konsumsi Sayur Buah:</strong> <span id="konsumsiSayurBuah">-</span></p>
+                    <p><strong>Konsumsi Alkohol:</strong> <span id="konsumsiAlkohol">-</span></p>
+                    <p><strong>Berat Badan (kg):</strong> <span id="beratBadan">-</span></p>
+                    <p><strong>Tinggi Badan (cm):</strong> <span id="tinggiBadan">-</span></p>
+                    <p><strong>Indeks Massa Tubuh:</strong> <span id="indeksMassaTubuh">-</span></p>
+                    <p><strong>Lingkar Perut (cm):</strong> <span id="lingkarPerut">-</span></p>
+                    <p><strong>Tekanan Darah:</strong> <span id="tekananDarah">-</span></p>
+                    <p><strong>Gula Darah Sewaktu:</strong> <span id="gulaDarahSewaktu">-</span></p>
+                    <p><strong>Kolesterol Total:</strong> <span id="kolesterolTotal">-</span></p>
+                    <p><strong>Masalah Kesehatan:</strong> <span id="masalahKesehatan">-</span></p>
+                    <p><strong>Obat yang Diberikan oleh Fasilitas:</strong> <span id="obatFasilitas">-</span></p>
+                    <p><strong>Tindak Lanjut:</strong> <span id="tindakLanjut">-</span></p>
                 </div>
             </div>
 
@@ -51,17 +64,19 @@
             <div class="bg-white shadow-md rounded-lg p-4 mb-4">
                 <h3 class="text-xl font-bold mb-4">Grafik Kesehatan</h3>
 
+                <div id="loading" class="hidden text-center text-gray-500 mb-4">Memuat data...</div>
+
                 <!-- Chart untuk IMT -->
-                <canvas id="chartIMT" width="400" height="200"></canvas>
+                <canvas id="chartIMT" width="400" height="200" class="mb-4"></canvas>
 
                 <!-- Chart untuk Lingkar Perut -->
-                <canvas id="chartLingkarPerut" width="400" height="200"></canvas>
+                <canvas id="chartLingkarPerut" width="400" height="200" class="mb-4"></canvas>
 
                 <!-- Chart untuk Tekanan Darah -->
-                <canvas id="chartTekananDarah" width="400" height="200"></canvas>
+                <canvas id="chartTekananDarah" width="400" height="200" class="mb-4"></canvas>
 
                 <!-- Chart untuk Gula Darah Sewaktu -->
-                <canvas id="chartGulaDarah" width="400" height="200"></canvas>
+                <canvas id="chartGulaDarah" width="400" height="200" class="mb-4"></canvas>
 
                 <!-- Chart untuk Kolesterol -->
                 <canvas id="chartKolesterol" width="400" height="200"></canvas>
@@ -70,22 +85,36 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Data untuk Chart (Contoh statis)
-        const dataIMT = [ /* Data IMT */ ];
-        const dataLingkarPerut = [ /* Data Lingkar Perut */ ];
-        const dataTekananDarah = [ /* Data Tekanan Darah */ ];
-        const dataGulaDarah = [ /* Data Gula Darah Sewaktu */ ];
-        const dataKolesterol = [ /* Data Kolesterol */ ];
+        $(document).ready(function() {
+            // Mengatur nilai default untuk dropdown
+            selectRecordDate($('#tanggalRekamMedik').val());
+            loadCharts();
+        });
 
-        // Fungsi untuk menggambar chart
-        function drawCharts() {
-            // Chart untuk IMT
-            var ctxIMT = document.getElementById('chartIMT').getContext('2d');
-            var chartIMT = new Chart(ctxIMT, {
+        // Fungsi untuk memuat grafik
+        function loadCharts() {
+            const records = @json($healthRecords);
+
+            if (records.length === 0) {
+                // Menampilkan pesan jika tidak ada data riwayat kesehatan
+                $('#loading').addClass('hidden');
+                return;
+            }
+
+            const dataIMT = records.map(record => record.indeks_massa_tubuh);
+            const dataLingkarPerut = records.map(record => record.lingkar_perut);
+            const dataTekananDarah = records.map(record => record.tekanan_darah);
+            const dataGulaDarah = records.map(record => record.gula_darah_sewaktu);
+            const dataKolesterol = records.map(record => record.kolesterol_total);
+            const labels = records.map(record => record.record_date);
+
+            // Inisialisasi chart untuk IMT
+            const chartIMT = new Chart(document.getElementById('chartIMT').getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: ['Label Bulan'],
+                    labels: labels,
                     datasets: [{
                         label: 'IMT',
                         data: dataIMT,
@@ -103,17 +132,16 @@
                 }
             });
 
-            // Chart untuk Lingkar Perut
-            var ctxLingkarPerut = document.getElementById('chartLingkarPerut').getContext('2d');
-            var chartLingkarPerut = new Chart(ctxLingkarPerut, {
-                type: 'bar',
+            // Inisialisasi chart untuk Lingkar Perut
+            const chartLingkarPerut = new Chart(document.getElementById('chartLingkarPerut').getContext('2d'), {
+                type: 'line',
                 data: {
-                    labels: ['Label Bulan'],
+                    labels: labels,
                     datasets: [{
                         label: 'Lingkar Perut',
                         data: dataLingkarPerut,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -126,12 +154,11 @@
                 }
             });
 
-            // Chart untuk Tekanan Darah
-            var ctxTekananDarah = document.getElementById('chartTekananDarah').getContext('2d');
-            var chartTekananDarah = new Chart(ctxTekananDarah, {
-                type: 'bar',
+            // Inisialisasi chart untuk Tekanan Darah
+            const chartTekananDarah = new Chart(document.getElementById('chartTekananDarah').getContext('2d'), {
+                type: 'line',
                 data: {
-                    labels: ['Label Bulan'],
+                    labels: labels,
                     datasets: [{
                         label: 'Tekanan Darah',
                         data: dataTekananDarah,
@@ -149,12 +176,11 @@
                 }
             });
 
-            // Chart untuk Gula Darah Sewaktu
-            var ctxGulaDarah = document.getElementById('chartGulaDarah').getContext('2d');
-            var chartGulaDarah = new Chart(ctxGulaDarah, {
+            // Inisialisasi chart untuk Gula Darah Sewaktu
+            const chartGulaDarah = new Chart(document.getElementById('chartGulaDarah').getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: ['Label Bulan'],
+                    labels: labels,
                     datasets: [{
                         label: 'Gula Darah Sewaktu',
                         data: dataGulaDarah,
@@ -172,17 +198,16 @@
                 }
             });
 
-            // Chart untuk Kolesterol
-            var ctxKolesterol = document.getElementById('chartKolesterol').getContext('2d');
-            var chartKolesterol = new Chart(ctxKolesterol, {
+            // Inisialisasi chart untuk Kolesterol
+            const chartKolesterol = new Chart(document.getElementById('chartKolesterol').getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: ['Label Bulan'],
+                    labels: labels,
                     datasets: [{
-                        label: 'Kolesterol',
+                        label: 'Kolesterol Total',
                         data: dataKolesterol,
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -194,9 +219,36 @@
                     }
                 }
             });
-        }
 
-        // Panggil fungsi untuk menggambar chart saat halaman dimuat
-        drawCharts();
+            // Menghilangkan pesan loading setelah grafik dimuat
+            $('#loading').addClass('hidden');
+        }
+         // Mendapatkan data riwayat kesehatan sesuai tanggal yang dipilih
+         const filteredRecords = @json($healthRecords->where('record_date', $date)->first());
+
+        // Fungsi untuk memuat data riwayat kesehatan berdasarkan tanggal yang dipilih
+        function selectRecordDate(date) {
+            const records = @json($healthRecords);
+
+            const selectedRecord = records.find(record => record.record_date === date);
+            if (selectedRecord) {
+                $('#riwayatPenyakitKeluarga').text(selectedRecord.riwayat_penyakit_keluarga || '-');
+                $('#riwayatPenyakitSendiri').text(selectedRecord.riwayat_penyakit_sendiri || '-');
+                $('#merokok').text(selectedRecord.merokok || '-');
+                $('#aktivitasFisik').text(selectedRecord.rutin_aktivitas_fisik || '-');
+                $('#konsumsiSayurBuah').text(selectedRecord.rutin_konsumsi_sayur_buah || '-');
+                $('#konsumsiAlkohol').text(selectedRecord.konsumsi_alkohol || '-');
+                $('#beratBadan').text(selectedRecord.berat_badan || '-');
+                $('#tinggiBadan').text(selectedRecord.tinggi_badan || '-');
+                $('#indeksMassaTubuh').text(selectedRecord.indeks_massa_tubuh || '-');
+                $('#lingkarPerut').text(selectedRecord.lingkar_perut || '-');
+                $('#tekananDarah').text(selectedRecord.tekanan_darah || '-');
+                $('#gulaDarahSewaktu').text(selectedRecord.gula_darah_sewaktu || '-');
+                $('#kolesterolTotal').text(selectedRecord.kolesterol_total || '-');
+                $('#masalahKesehatan').text(selectedRecord.masalah_kesehatan || '-');
+                $('#obatFasilitas').text(selectedRecord.obat_fasilitas || '-');
+                $('#tindakLanjut').text(selectedRecord.tindak_lanjut || '-');
+            }
+        }
     </script>
 @endsection

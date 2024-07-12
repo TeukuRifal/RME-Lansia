@@ -44,10 +44,6 @@
                 <input type="text" id="konsumsi_alkohol" name="konsumsi_alkohol" value="{{ $riwayat->konsumsi_alkohol ?? old('konsumsi_alkohol') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
             <div>
-                <label for="stress" class="block text-gray-700 font-bold">Stress</label>
-                <input type="text" id="stress" name="stress" value="{{ $riwayat->stress ?? old('stress') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
                 <label for="berat_badan" class="block text-gray-700 font-bold">Berat Badan</label>
                 <input type="number" id="berat_badan" name="berat_badan" value="{{ $riwayat->berat_badan ?? old('berat_badan') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
@@ -87,6 +83,7 @@
         <div class="mt-6">
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-200">Simpan Perubahan</button>
             <a href="{{ route('healthHistory', ['patient_id' => $riwayat->patient_id ?? '']) }}" class="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-200">Batal</a>
+            
         </div>
     </form>
 </div>

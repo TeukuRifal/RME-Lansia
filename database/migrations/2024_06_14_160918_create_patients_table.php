@@ -16,6 +16,7 @@ class CreatePatientsTable extends Migration
             $table->date('tanggal_lahir');
             $table->integer('umur');
             $table->string('jenis_kelamin');
+            $table->string('agama');
             $table->text('alamat');
             $table->string('no_hp');
             $table->string('pendidikan_terakhir');

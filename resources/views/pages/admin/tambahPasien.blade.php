@@ -1,10 +1,11 @@
+
 @extends('layouts.admin')
 
 @section('content')
 <div class="container mx-auto p-4">
     <form action="{{ route('simpanPasien') }}" method="POST" class="bg-white p-5 rounded-lg shadow-md">
         <div class="header flex justify-between flex-row p-2 ">
-            <h2 class="text-2xl font-bold mb-2">Tambah Data Pasien</h2>
+            <h2 class="text-2xl font-bold mb-2">Tambah Data Diri Pasien</h2>
             <div class="border p-2 rounded-md">
                 <label for="record_date" class="block text-gray-700 font-bold">Tanggal Kegiatan</label>
                 <input type="date" id="record_date" name="record_date"
@@ -14,6 +15,16 @@
        
         <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
         @csrf
+        @if(session('success'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
+        @endif
         @if ($errors->any())
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             <strong class="font-bold">Ada kesalahan!</strong>
@@ -49,6 +60,18 @@
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
+                </select>
+            </div>
+            <div>
+                <label for="agama" class="block text-gray-700 font-bold">Agama</label>
+                <select id="agama" name="agama"
+                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200 ">
+                    <option value="Islam">Islam</option>
+                    <option value="kristen">Kristen</option>
+                    <option value="katolik">Katolik</option>
+                    <option value="hindu">Hindu</option>
+                    <option value="buddha">Buddha</option>
+                    <option value="khonghucu">Khonghucu</option>
                 </select>
             </div>
             <div>
@@ -91,109 +114,7 @@
                 <input type="email" id="email" name="email"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
-            <!-- Riwayat Kesehatan -->
-            
-            <div>
-                <label for="riwayat_ptm_keluarga" class="block text-gray-700 font-bold">Riwayat PTM Keluarga</label>
-                <textarea id="riwayat_ptm_keluarga" name="riwayat_ptm_keluarga"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
-            </div>
-            <div>
-                <label for="riwayat_ptm_sendiri" class="block text-gray-700 font-bold">Riwayat PTM Sendiri</label>
-                <textarea id="riwayat_ptm_sendiri" name="riwayat_ptm_sendiri"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
-            </div>
-            <div>
-                <label for="merokok" class="block text-gray-700 font-bold">Merokok</label>
-                <select id="merokok" name="merokok"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-                    <option value="Tidak">Tidak</option>
-                    <option value="Ya">Ya</option>
-                </select>
-            </div>
-            <div>
-                <label for="kurang_aktivitas_fisik" class="block text-gray-700 font-bold">Kurang Aktivitas Fisik</label>
-                <select id="kurang_aktivitas_fisik" name="kurang_aktivitas_fisik"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-                    <option value="Tidak">Tidak</option>
-                    <option value="Ya">Ya</option>
-                </select>
-            </div>
-            <div>
-                <label for="kurang_sayur_buah" class="block text-gray-700 font-bold">Kurang Sayur dan Buah</label>
-                <select id="kurang_sayur_buah" name="kurang_sayur_buah"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-                    <option value="Tidak">Tidak</option>
-                    <option value="Ya">Ya</option>
-                </select>
-            </div>
-            <div>
-                <label for="konsumsi_alkohol" class="block text-gray-700 font-bold">Konsumsi Alkohol</label>
-                <select id="konsumsi_alkohol" name="konsumsi_alkohol"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-                    <option value="Tidak">Tidak</option>
-                    <option value="Ya">Ya</option>
-                </select>
-            </div>
-            <div>
-                <label for="stress" class="block text-gray-700 font-bold">Stress</label>
-                <select id="stress" name="stress"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-                    <option value="Tidak">Tidak</option>
-                    <option value="Ya">Ya</option>
-                </select>
-            </div>
-            <div>
-                <label for="berat_badan" class="block text-gray-700 font-bold">Berat Badan</label>
-                <input type="number" id="berat_badan" name="berat_badan"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label for="tinggi_badan" class="block text-gray-700 font-bold">Tinggi Badan</label>
-                <input type="number" id="tinggi_badan" name="tinggi_badan"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label for="indeks_massa_tubuh" class="block text-gray-700 font-bold">Indeks Massa Tubuh</label>
-                <input type="text" id="indeks_massa_tubuh" name="indeks_massa_tubuh"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label for="lingkar_perut" class="block text-gray-700 font-bold">Lingkar Perut</label>
-                <input type="text" id="lingkar_perut" name="lingkar_perut"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label for="tekanan_darah" class="block text-gray-700 font-bold">Tekanan Darah</label>
-                <input type="text" id="tekanan_darah" name="tekanan_darah"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label for="gula_darah_sewaktu" class="block text-gray-700 font-bold">Gula Darah Sewaktu</label>
-                <input type="text" id="gula_darah_sewaktu" name="gula_darah_sewaktu"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label for="kolesterol_total" class="block text-gray-700 font-bold">Kolesterol Total</label>
-                <input type="text" id="kolesterol_total" name="kolesterol_total"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
-            <div>
-                <label for="masalah_kesehatan" class="block text-gray-700 font-bold">Masalah Kesehatan</label>
-                <textarea id="masalah_kesehatan" name="masalah_kesehatan"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
-            </div>
-            <div>
-                <label for="obat_fasilitas" class="block text-gray-700 font-bold">Obat yang Diberikan oleh Fasilitas</label>
-                <textarea id="obat_fasilitas" name="obat_fasilitas"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
-            </div>
-            <div>
-                <label for="tindak_lanjut" class="block text-gray-700 font-bold">Tindak Lanjut</label>
-                <textarea id="tindak_lanjut" name="tindak_lanjut"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
-            </div>
-        </div>
+        
 
         <div class="mt-4">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-400">Simpan</button>

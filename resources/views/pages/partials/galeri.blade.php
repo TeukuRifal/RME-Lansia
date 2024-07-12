@@ -1,5 +1,6 @@
 <!-- Section Galeri -->
-<div id="galeri" class=" h-screen m-auto mt-32 p-5 rounded-xl bg-white">
+
+<div id="galeri" class=" h-screen m-auto p-5 rounded-xl bg-white">
     <h2 class="text-3xl font-bold mb-8 text-center bg">Galeri</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 m-auto w-3/4 h-auto gap-8 text-xl">
         <div class="gallery-item">
