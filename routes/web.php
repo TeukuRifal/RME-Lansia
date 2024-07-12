@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::delete('/admin/pasien/{id}', [AdminController::class, 'deletePasien'])->name('deletePasien');
+Route::delete('/admin/hapus-pasien/{id}', [PasienController::class, 'deletePasien'])->name('deletePasien');
 
 // Auth routes for admin and patient
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -22,14 +22,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    
 
     //CRUD pasien
     Route::get('/admin/tambah-pasien', [PasienController::class, 'tambahPasien'])->name('tambahPasien');
     Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
     Route::get('/admin/daftar-pasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
+    
     Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
     Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
-    Route::delete('/admin/hapus-pasien/{id}', [PasienController::class, 'deletePasien'])->name('deletePasien');
+
     
     Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan'])->name('pengaturan');
     Route::post('/admin/update-pengaturan', [AdminController::class, 'updateSettings'])->name('updatePengaturan');
