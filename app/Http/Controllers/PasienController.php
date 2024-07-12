@@ -17,40 +17,9 @@ class PasienController extends Controller
     public function index()
     {
         // Mendapatkan data pasien berdasarkan user yang sedang login
-        $patient = Auth::user()->patient;
+        $pasien = Auth::user()->patient;
 
-        // Total pasien dan lansia
-        $totalPatients = Patient::count();
-        $totalLansia = Patient::where('umur', '>', 60)->count();
-
-        // Data untuk chart jenis kelamin
-        $genderData = Patient::selectRaw('jenis_kelamin, count(*) as count')
-            ->groupBy('jenis_kelamin')
-            ->get();
-        $genderCounts = $genderData->pluck('count');
-        $genderLabels = $genderData->pluck('jenis_kelamin');
-
-        // Data untuk chart umur
-        $ageData = Patient::selectRaw('FLOOR(DATEDIFF(CURRENT_DATE, tanggal_lahir) / 365) as age, count(*) as count')
-            ->groupBy('age')
-            ->orderBy('age')
-            ->get();
-        $ageCounts = $ageData->pluck('count');
-        $ageLabels = $ageData->pluck('age');
-
-        // Data kesehatan pasien untuk charts
-        $healthData = [
-            'IMT' => $patient->imt,
-            'Lingkar Perut' => $patient->lingkar_perut,
-            'Tekanan Darah' => $patient->tekanan_darah,
-            'Gula Darah Sewaktu' => $patient->gula_darah_sewaktu,
-            'Kolesterol Total' => $patient->kolesterol_total,
-        ];
-
-        // Data IMT per bulan (contoh kosong, sesuaikan dengan logika Anda)
-        $imtDataPerMonth = []; // Ganti dengan logika sesuai kebutuhan aplikasi Anda
-
-        return view('pages.pasien.kesehatan', compact('totalPatients', 'totalLansia', 'genderCounts', 'genderLabels', 'ageCounts', 'ageLabels', 'patient', 'healthData', 'imtDataPerMonth'));
+        return view('pages.pasien.beranda', compact('pasien'));
     }
 
     public function tambahPasien()
@@ -180,8 +149,13 @@ class PasienController extends Controller
     public function profil()
     {
         $user = Auth::user();
-        $patient = $user->patient;
+        $pasien = $user->patient;
+        
+        return view('pages.pasien.profil', compact('pasien', 'user'));
+    }
 
-        return view('pages.pasien.profil', compact('patient', 'user'));
+    public function jadwal()
+    {
+        return view('pages.pasien.jadwal'); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
 }

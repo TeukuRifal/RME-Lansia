@@ -13,16 +13,16 @@ use App\Http\Controllers\JadwalController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/landingpage', function () {
+    return view('welcome');
+});
 
-Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
-Route::get('/profile', [HomeController::class, 'index1'])->name('profile');
 
-Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
 
 
 Route::delete('/admin/hapus-pasien/{id}', [PasienController::class, 'deletePasien'])->name('deletePasien');
 
-// Auth routes for admin and patient
+// Auth routes for admin and pasien
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -48,11 +48,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     //rekam medis
     Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');
     Route::get('/admin/rekam-medik/buat', [RiwayatKesehatanController::class, 'create'])->name('admin.patientRecords.create');
-    Route::post('/admin/patient-records', [RiwayatKesehatanController::class, 'store'])->name('simpanData');
+    Route::post('/admin/pasien-records', [RiwayatKesehatanController::class, 'store'])->name('simpanData');
     Route::get('/admin/fetchPatients', [RiwayatKesehatanController::class, 'fetchPatients'])->name('admin.fetchPatients');
 
-    Route::get('/admin/patient-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
-    Route::post('/admin/patient-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
+    Route::get('/admin/pasien-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
+    Route::post('/admin/pasien-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
     
     Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
 
@@ -83,10 +83,13 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
 Route::get('/superadmin/login', [AuthController::class, 'showSuperAdminLoginForm'])->name('superadmin.login');
 Route::post('/superadmin/login', [AuthController::class, 'superAdminLogin'])->name('superadmin.login.post');
 
-// Patient routes
+// pasien routes
 Route::middleware(['auth', 'role:patient'])->group(function () {
-    Route::get('/pasien/dashboard', [PasienController::class, 'index'])->name('pasien.dashboard');
-    Route::get('/pasien/profil', [PasienController::class, 'profil'])->name('profil');
+    Route::get('/beranda', [PasienController::class, 'index'])->name('beranda');
+    Route::get('/profil', [PasienController::class, 'profil'])->name('profil');
+    Route::get('/jadwal', [PasienController::class, 'jadwal'])->name('jadwal');
+
+
     
     
 });

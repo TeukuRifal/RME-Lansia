@@ -130,7 +130,7 @@
                 <p class="py-2">Admin Panel</p>
                 <hr class="h-px bg-white border-0 dark:bg-gray-700">
                 <div class="flex items-center p-2">
-                    <img src="{{ asset('images/profileputih.png') }}" alt="Profile" class="w-10 h-10 rounded-full">
+                    <img src="{{ asset('images/profileputih.png') }}" alt="profil" class="w-10 h-10 rounded-full">
                     <div class="ml-3 text-sm">
                         <h2>{{ Auth::user()->name }}</h2>
                     </div>
@@ -203,7 +203,7 @@
     </div>
 
     <script>
-        document.getElementById('toggleSidebar').addEventListener('click', function () {
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
             var sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('sidebar-collapsed');
         });
