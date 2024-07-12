@@ -61,7 +61,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
     Route::put('riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
 
-   
 });
 
 
