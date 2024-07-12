@@ -21,9 +21,9 @@
 
             @guest
             <div class="hidden md:flex items-center space-x-8 font-semibold text-xl">
-                <a href="/" class="p-2">Beranda</a>
-                <a href="#jadwal" class="p-2">Jadwal</a>
-                <a href="#lokasi" class="p-2">Lokasi</a>
+                <a href="{{ route('beranda') }}" class="p-2">Beranda</a>
+                <a href="{{ route('jadwal') }}" class="p-2">Jadwal</a>
+                <a href="{{ route('profile') }}" class="p-2">Profil</a>
                 <a href="{{ route('login') }}" class="p-2 hover:bg-lightblue hover:text-white rounded-md">Login</a>
             </div>
             @endguest

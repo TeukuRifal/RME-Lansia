@@ -28,25 +28,81 @@
         .wave {
             height: 100px;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .slide-in {
+            animation: slideIn 2s ease-in-out;
+        }
+
+        .slide-in-up {
+            animation: slideInUp 2s ease-in-out;
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
     </style>
 </head>
 
 <body>
-    <div class=" h-screen mx-auto px-4 flex-grow">
-        <div class="flex justify-center items-center">
-            <div class="container flex flex-col md:flex-row justify-between items-center p-8 rounded-lg">
-                <div class="welcome flex flex-col justify-center items-start text-left md:w-1/2">
-                    <h1 class="text-4xl font-bold mb-4">Selamat Datang di REMELA </h1>
-                    <h3 class="text-4xl font-bold mb-4">Website Rekam Medik Lansia</h3>
-                    <p class="text-xl mb-8">Silahkan login untuk mengakses halaman kesehatan Anda.</p>
-                    <a href="{{ route('login') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Login</a>
-                </div>
-                <div class="hidden md:flex md:w-1/2 justify-center">
-                    <img src="{{ asset('images/welcomelansia.png') }}" alt="Welcome Image" class=" w-3/6 h-auto">
-                </div>
+    <div class="h-screen flex flex-col md:flex-row">
+        <div class="flex-auto flex justify-center items-center p-8 md:p-20">
+            <div class="mx-auto slide-in-up">
+                <h1 class="text-4xl font-bold mb-4">Selamat Datang di REMELA</h1>
+                <h3 class="text-3xl font-bold mb-4">Website Rekam Medik Elektronik Lansia</h3>
+                <p class="text-xl mb-8">Silahkan masuk untuk mengakses halaman kesehatan Anda !!!</p>
+                <a href="{{ route('login') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Login</a>
             </div>
         </div>
-    </div>
+        <div class="flex-auto hidden md:flex justify-center items-center">
+            <img src="{{ asset('images/Lansia.png') }}" alt="Welcome Image" class="w-4/8 h-auto slide-in float">
+        </div>
     </div>
 </body>
 

@@ -6,10 +6,19 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RiwayatKesehatanController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JadwalController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
+Route::get('/profile', [HomeController::class, 'index1'])->name('profile');
+
+Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
+
 
 // Auth routes for admin and patient
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -59,5 +68,6 @@ Route::post('/superadmin/login', [AuthController::class, 'superAdminLogin'])->na
 Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/pasien/dashboard', [PatientController::class, 'index'])->name('pasien.dashboard');
     Route::get('/pasien/profil', [PatientController::class, 'profil'])->name('profil');
+    
     
 });

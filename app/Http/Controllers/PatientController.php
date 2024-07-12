@@ -72,4 +72,6 @@ class PatientController extends Controller
 
         return view('pages.pasien.profil', compact('patient', 'user'));
     }
+
+    
 }

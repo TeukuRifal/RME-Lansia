@@ -9,9 +9,11 @@ export default {
     extend: {
       colors: {
         lightblue: '#ADD9D8'
-      }
+      },
+      fontFamily: {
+        'sans': ['Poppins', 'sans-serif'],
+      },
     },
   },
   plugins: [],
 }
-
