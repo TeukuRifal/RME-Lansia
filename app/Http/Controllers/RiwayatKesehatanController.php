@@ -10,27 +10,49 @@ use Illuminate\Routing\Controller;
 
 class RiwayatKesehatanController extends Controller
 {
+    /**
+     * Menampilkan halaman riwayat kesehatan pasien.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index($patient_id)
     {
-        $patient = Patient::find($patient_id);
-        if (!$patient) {
-            // Jika pasien tidak ditemukan, kembalikan ke halaman sebelumnya dengan alert
-            return redirect()->back()->with('error', 'Pasien tidak ditemukan');
+        try {
+            $patient = Patient::findOrFail($patient_id);
+
+            // Ambil semua rekam medis berdasarkan pasien
+            $healthRecords = PatientRecord::where('patient_id', $patient->id)->get();
+
+            // Ambil daftar tanggal rekam medis untuk dropdown
+            $recordDates = $healthRecords->pluck('record_date')->unique();
+
+            // Mengubah format bulan menjadi Juli 2024
+            $formattedDates = $recordDates->map(function ($date) {
+                return Carbon::parse($date)->isoFormat('MMMM YYYY');
+            });
+
+            return view('pages.admin.riwayat_kesehatan', [
+                'patient' => $patient,
+                'healthRecords' => $healthRecords,
+                'recordDates' => $formattedDates,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            // Handle if patient data is not found
+            return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
         }
-    
-        // Cek apakah ada riwayat kesehatan untuk pasien ini
-        $healthRecords = PatientRecord::where('patient_id', $patient_id)->orderByDesc('record_date')->get();
-        if ($healthRecords->isEmpty()) {
-            // Jika tidak ada riwayat kesehatan, kembalikan ke halaman sebelumnya dengan alert
-            return redirect()->back()->with('error', 'Tidak ada data riwayat kesehatan untuk pasien ini');
-        }
-    
-        // Jika ada data, arahkan ke halaman riwayat kesehatan
-        $months = $this->getHealthRecordMonths($healthRecords);
-        $recordDates = $healthRecords->pluck('record_date')->unique();
-    
-        return view('pages.admin.riwayat_kesehatan', compact('patient', 'healthRecords', 'months', 'recordDates'));
     }
+
+    public function fetchHealthRecord($patient_id)
+{
+    try {
+        $patient = Patient::findOrFail($patient_id);
+        return response()->json(['url' => route('healthHistory', $patient_id)]);
+    } catch (ModelNotFoundException $e) {
+        return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
+    }
+}
+
 
     public function rekamMedis()
     {
@@ -74,6 +96,8 @@ class RiwayatKesehatanController extends Controller
         'indeks_massa_tubuh' => 'nullable|numeric',
         'lingkar_perut' => 'nullable|numeric',
         'tekanan_darah' => 'nullable|string',
+        'tekanan_darah_sistolik'=> 'nullable|string',
+        'tekanan_darah_diastolik' => 'nullable|string',
         'gula_darah_sewaktu' => 'nullable|numeric',
         'kolesterol_total' => 'nullable|numeric',
         'masalah_kesehatan' => 'nullable|string',
@@ -97,6 +121,8 @@ class RiwayatKesehatanController extends Controller
         'indeks_massa_tubuh' => $request->indeks_massa_tubuh,
         'lingkar_perut' => $request->lingkar_perut,
         'tekanan_darah' => $request->tekanan_darah,
+        'tekanan_darah_sistolik' => $request->tekanan_darah_sistolik,
+        'tekanan_darah_diastolik' => $request->tekanan_darah_diastolik,
         'gula_darah_sewaktu' => $request->gula_darah_sewaktu,
         'kolesterol_total' => $request->kolesterol_total,
         'masalah_kesehatan' => $request->masalah_kesehatan,
@@ -130,6 +156,8 @@ class RiwayatKesehatanController extends Controller
             'indeks_massa_tubuh' => 'nullable|numeric',
             'lingkar_perut' => 'nullable|numeric',
             'tekanan_darah' => 'nullable|string',
+            'tekanan_darah_sistolik'=> 'nullable|string',
+            'tekanan_darah_diastolik' => 'nullable|string',
             'gula_darah_sewaktu' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
             'masalah_kesehatan' => 'nullable|string',
@@ -165,6 +193,8 @@ class RiwayatKesehatanController extends Controller
             'indeks_massa_tubuh' => 'nullable|numeric',
             'lingkar_perut' => 'nullable|numeric',
             'tekanan_darah' => 'nullable|string',
+            'tekanan_darah_sistolik'=> 'nullable|string',
+            'tekanan_darah_diastolik' => 'nullable|string',
             'gula_darah_sewaktu' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
             'masalah_kesehatan' => 'nullable|string',
@@ -186,6 +216,8 @@ class RiwayatKesehatanController extends Controller
         $patientRecord->indeks_massa_tubuh = $request->indeks_massa_tubuh;
         $patientRecord->lingkar_perut = $request->lingkar_perut;
         $patientRecord->tekanan_darah = $request->tekanan_darah;
+        $patientRecord->tekanan_darah_sistolik = $request->tekanan_darah_sistolik;
+        $patientRecord->tekanan_darah_diastolik = $request->tekanan_darah_diastolik;
         $patientRecord->gula_darah_sewaktu = $request->gula_darah_sewaktu;
         $patientRecord->kolesterol_total = $request->kolesterol_total;
         $patientRecord->masalah_kesehatan = $request->masalah_kesehatan;
@@ -214,31 +246,26 @@ class RiwayatKesehatanController extends Controller
 
         return view('pages.admin.healthHistory', compact('patient', 'records'));
     }
-    public function getHealthRecordMonths($healthRecords)
-    {
-        $months = [];
-        foreach ($healthRecords as $record) {
-            $bulan = Carbon::parse($record->record_date)->month;
-            $namaBulan = Carbon::parse($record->record_date)->translatedFormat('F');
-            $months[$bulan] = $namaBulan;
-        }
-        return $months;
-    }
-
     public function getHealthRecordsByMonth($patientId, Request $request)
-    {
-        $bulan = $request->input('month');
-        $healthRecords = ($bulan) ?
-            PatientRecord::where('patient_id', $patientId)
-                ->whereMonth('record_date', $bulan)
-                ->orderByDesc('record_date')
-                ->get() :
-            PatientRecord::where('patient_id', $patientId)->orderByDesc('record_date')->get();
+{
+    $bulan = $request->input('month');
+    $year = $request->input('year');
 
-        $recordsHtml = view('partials.health_records', compact('healthRecords'))->render();
-
-        return response()->json(compact('healthRecords', 'recordsHtml'));
+    if ($bulan) {
+        $healthRecords = PatientRecord::where('patient_id', $patientId)
+            ->whereMonth('record_date', Carbon::createFromFormat('F Y', $bulan)->month)
+            ->whereYear('record_date', $year)
+            ->orderByDesc('record_date')
+            ->get();
+    } else {
+        $healthRecords = PatientRecord::where('patient_id', $patientId)->orderByDesc('record_date')->get();
     }
+
+    $recordsHtml = view('partials.health_records', compact('healthRecords'))->render();
+
+    return response()->json(compact('healthRecords', 'recordsHtml'));
+}
+
     public function deletePasien($id)
     {
         $patient = Patient::find($id);

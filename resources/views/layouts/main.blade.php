@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body class="">
+<body class="bg-lightblue">
 
 
     <div>
@@ -29,6 +29,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        @include('components.footer')
     </div>
 
     <script>

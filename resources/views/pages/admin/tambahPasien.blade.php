@@ -6,11 +6,11 @@
     <form action="{{ route('simpanPasien') }}" method="POST" class="bg-white p-5 rounded-lg shadow-md">
         <div class="header flex justify-between flex-row p-2 ">
             <h2 class="text-2xl font-bold mb-2">Tambah Data Diri Pasien</h2>
-            <div class="border p-2 rounded-md">
+            {{-- <div class="border p-2 rounded-md">
                 <label for="record_date" class="block text-gray-700 font-bold">Tanggal Kegiatan</label>
                 <input type="date" id="record_date" name="record_date"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
+            </div> --}}
         </div>
        
         <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
@@ -35,7 +35,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Data Pasien -->
             <div>
-                <label for="nama_lengkap" class="block text-gray-700 font-bold">Nama Lengkap</label>
+                <label for="nama_lengkap" class="block text-gray-700 font-bold">Nama Lengkap </label>
                 <input type="text" id="nama_lengkap" name="nama_lengkap"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
             </div>
@@ -98,8 +98,8 @@
                 <label for="status_kawin" class="block text-gray-700 font-bold">Status Kawin</label>
                 <select id="status_kawin" name="status_kawin"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-                    <option value="Belum Kawin">Belum Kawin</option>
-                    <option value="Kawin">Kawin</option>
+                    <option value="Belum Menikah">Belum Menikah</option>
+                    <option value="Menikah">Menikah</option>
                     <option value="Cerai Hidup">Cerai Hidup</option>
                     <option value="Cerai Mati">Cerai Mati</option>
                 </select>

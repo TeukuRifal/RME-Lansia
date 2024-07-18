@@ -62,29 +62,38 @@
             </div>
 
             <div class="mb-4">
-                <label for="berat_badan" class="block text-gray-700 text-sm font-bold mb-2">Berat Badan (kg)</label>
+                <label for="berat_badan" class="block text-gray-700 text-sm font-bold mb-2">Berat Badan (kg) <span class=" text-red-400">*</span> </label>
                 <input type="number" name="berat_badan" id="berat_badan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="tinggi_badan" class="block text-gray-700 text-sm font-bold mb-2">Tinggi Badan (cm)</label>
+                <label for="tinggi_badan" class="block text-gray-700 text-sm font-bold mb-2">Tinggi Badan (cm) <span class=" text-red-400">*</span> </label>
                 <input type="number" name="tinggi_badan" id="tinggi_badan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="indeks_massa_tubuh" class="block text-gray-700 text-sm font-bold mb-2">Indeks Massa Tubuh</label>
+                <label for="indeks_massa_tubuh" class="block text-gray-700 text-sm font-bold mb-2">Indeks Massa Tubuh <span class=" text-red-400">*</span> </label>
                 <input type="number" name="indeks_massa_tubuh" id="indeks_massa_tubuh" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="lingkar_perut" class="block text-gray-700 text-sm font-bold mb-2">Lingkar Perut (cm)</label>
+                <label for="lingkar_perut" class="block text-gray-700 text-sm font-bold mb-2">Lingkar Perut (cm) <span class=" text-red-400">*</span> </label>
                 <input type="number" name="lingkar_perut" id="lingkar_perut" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="tekanan_darah" class="block text-gray-700 text-sm font-bold mb-2">Tekanan Darah</label>
+                <label for="tekanan_darah" class="block text-gray-700 text-sm font-bold mb-2">Tekanan Darah <span class=" text-red-400">*</span> </label>
                 <input type="text" name="tekanan_darah" id="tekanan_darah" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
+            <div class="mb-4">
+                <label for="tekanan_darah_sistolik" class="block text-gray-700 text-sm font-bold mb-2">Tekanan Darah Sistolik<span class=" text-red-400">*</span> </label>
+                <input type="text" name="tekanan_darah_sistolik" id="tekanan_darah_sistolik" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label for="tekanan_darah_diastolik" class="block text-gray-700 text-sm font-bold mb-2">Tekanan Darah Diastolik<span class=" text-red-400">*</span> </label>
+                <input type="text" name="tekanan_darah_diastolik" id="tekanan_darah_diastolik" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
 
             <div class="mb-4">
                 <label for="gula_darah_sewaktu" class="block text-gray-700 text-sm font-bold mb-2">Gula Darah Sewaktu (mg/dL)</label>

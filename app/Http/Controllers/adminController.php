@@ -52,7 +52,7 @@ class AdminController extends Controller
         $patients = Patient::with(['patientRecords' => function ($query) use ($month) {
             $query->whereMonth('record_date', $month);
         }])->get();
-
+        
         return view('pages.admin.riwayatKesehatan', compact('patients', 'month'));
     }
 }

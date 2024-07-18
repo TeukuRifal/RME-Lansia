@@ -134,15 +134,31 @@
                     <div class="ml-3 text-sm">
                         <h2>{{ Auth::user()->name }}</h2>
                     </div>
+                    
                 </div>
+
             </div>
-            <button id="toggleSidebar" class="text-white focus:outline-none">
+            <div class="logout">
+                <form action="{{ route('logout') }}" method="POST" class="text-white focus:outline-none">
+                    @csrf <!-- Tambahkan CSRF Token -->
+                    <button type="submit">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            
+            {{-- <button id="toggleSidebar" class="text-white focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
                     </path>
                 </svg>
-            </button>
+            </button> --}}
         </div>
         <nav class="flex-grow sidebar-nav">
             <p class="font-bold size-5 m-2">Data</p>
@@ -171,6 +187,14 @@
                 </svg>
                 <span>Rekam Medis</span>
             </a>
+            <a href="{{ route('jadwal.index') }}">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
+                </svg>
+                <span>Jadwal</span>
+            </a>
             <a href="#">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -188,13 +212,7 @@
                 <span>Profil Admin</span>
             </a>
         </nav>
-        <div class="logout p-4">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit"
-                    class="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Logout</button>
-            </form>
-        </div>
+        
     </div>
 
     <!-- Main Content -->

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Patient;
 use App\Models\User;
+use App\Models\Patient;
+use App\Models\HealthCheckSchedule;
 use Illuminate\Http\Request;
+use App\Models\PatientRecord;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PasienController extends Controller
@@ -16,11 +19,39 @@ class PasienController extends Controller
      */
     public function index()
     {
+        
         // Mendapatkan data pasien berdasarkan user yang sedang login
-        $pasien = Auth::user()->patient;
+        $user = Auth::user();
+        $pasien = $user->patient;
+    
+        // Mendapatkan data riwayat pasien
+        $patientRecords = PatientRecord::where('patient_id', $pasien->id)->orderBy('record_date', 'asc')->get();
+    
+        // Mengambil data untuk masing-masing grafik
+        $dataPerGrafik = [
+            'Lingkar Perut' => $patientRecords->pluck('lingkar_perut'),
+            'Gula Darah' => $patientRecords->pluck('gula_darah_sewaktu'),
+            'Tekanan Darah Sistolik' => $patientRecords->pluck('tekanan_darah_sistolik'),
+            'Tekanan Darah Diastolik' => $patientRecords->pluck('tekanan_darah_diastolik'),
+            'IMT' => $patientRecords->pluck('indeks_massa_tubuh'),
+            'Kolesterol' => $patientRecords->pluck('kolesterol_total')
+        ];
+    
+        $recordDates = $patientRecords->pluck('record_date')->map(function ($date) {
+            return $date->format('F Y');
+        });
 
-        return view('pages.pasien.beranda', compact('pasien'));
+        $dates = $patientRecords->pluck('record_date')->unique(function ($item) {
+            return $item->format('Y-m');
+        })->map(function ($date) {
+            return $date->format('F Y');
+        });
+
+        $jadwal = HealthCheckSchedule::all();
+    
+        return view('pages.pasien.beranda', compact('pasien', 'dataPerGrafik', 'recordDates','jadwal', 'dates'));
     }
+    
 
     public function tambahPasien()
     {
@@ -92,6 +123,31 @@ class PasienController extends Controller
         return view('pages.admin.editPasien', compact('pasien'));
     }
 
+    public function update(Request $request, $id)
+    {
+        // Validasi input jika diperlukan
+        $request->validate([
+            // Atur validasi sesuai kebutuhan
+        ]);
+
+        // Temukan rekam medis yang akan diperbarui berdasarkan $id
+        $patientRecord = PatientRecord::findOrFail($id);
+
+        // Update data rekam medis dengan data dari request
+        $patientRecord->fill([
+            'nama_lengkap' => $request->nama_lengkap,
+            'nik' => $request->nik,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            // Tambahkan kolom lain sesuai kebutuhan
+        ]);
+
+        // Simpan perubahan
+        $patientRecord->save();
+
+        // Redirect atau kirim respons sesuai kebutuhan aplikasi Anda
+        return redirect()->back()->with('success', 'Data rekam medis berhasil diperbarui.');
+    }
+
     public function updatePasien(Request $request, $id)
     {
         // Validasi data
@@ -148,14 +204,64 @@ class PasienController extends Controller
      */
     public function profil()
     {
+        // Mendapatkan data user yang sedang login
         $user = Auth::user();
+
+        // Mendapatkan data pasien terkait dengan user
         $pasien = $user->patient;
-        
-        return view('pages.pasien.profil', compact('pasien', 'user'));
+
+        // Ambil semua record kesehatan pasien, diurutkan berdasarkan tanggal terbaru
+        $healthRecords = PatientRecord::where('patient_id', $pasien->id)
+            ->orderBy('record_date', 'desc')
+            ->get();
+
+        // Ambil daftar bulan dan tahun unik dari data yang ada
+        $months = $healthRecords->unique(function ($item) {
+            return $item->record_date->format('m');
+        })->sortBy('record_date')
+          ->pluck('record_date')
+          ->map(function ($date) {
+              return $date->format('F');
+          });
+
+        $years = $healthRecords->unique(function ($item) {
+            return $item->record_date->format('Y');
+        })->sortBy('record_date')
+          ->pluck('record_date')
+          ->map(function ($date) {
+              return $date->format('Y');
+          });
+
+        // Ambil daftar tanggal unik dalam format tertentu dari data yang ada
+        $dates = $healthRecords->pluck('record_date')->unique(function ($item) {
+            return $item->format('Y-m');
+        })->map(function ($date) {
+            return $date->format('F Y');
+        });
+
+        return view('pages.pasien.profil', compact('pasien', 'user', 'healthRecords', 'months', 'years', 'dates'));
     }
+
+    public function getHealthRecordsByDate(Request $request)
+    {
+        // Ambil tanggal yang dipilih dari request
+        $selectedDate = $request->tanggal;
+
+        // Ambil semua record kesehatan pasien berdasarkan tanggal yang dipilih
+        $healthRecords = PatientRecord::whereDate('record_date', $selectedDate)
+            ->orderBy('record_date', 'desc')
+            ->get();
+
+        // Mengembalikan data dalam format JSON
+        return response()->json($healthRecords);
+    }
+    
+
+    
 
     public function jadwal()
     {
-        return view('pages.pasien.jadwal'); // Pastikan Anda memiliki beranda.blade.php di resources/views
+        $jadwal = HealthCheckSchedule::all();
+        return view('pages.pasien.jadwal', compact('jadwal')); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
 }

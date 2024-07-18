@@ -31,6 +31,8 @@
                         <th class="py-3 px-4">IMT</th>
                         <th class="py-3 px-4">Lingkar Perut (cm)</th>
                         <th class="py-3 px-4">Tekanan Darah</th>
+                        <th class="py-3 px-4">Tekanan Darah Sistolik</th>
+                        <th class="py-3 px-4">Tekanan Darah Diastolik</th>
                         <th class="py-3 px-4">Gula Darah Sewaktu</th>
                         <th class="py-3 px-4">Kolesterol Total</th>
                         <th class="py-3 px-4">Masalah Kesehatan</th>
@@ -57,18 +59,18 @@
                             <td class="py-3 px-4">{{ $record->indeks_massa_tubuh ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->lingkar_perut ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tekanan_darah ?? '-' }}</td>
+                            <td class="py-3 px-4">{{ $record->tekanan_darah_sistolik ?? '-' }}</td>
+                            <td class="py-3 px-4">{{ $record->tekanan_darah_diastolik ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->gula_darah_sewaktu ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->kolesterol_total ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->masalah_kesehatan ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->obat_fasilitas ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tindak_lanjut ?? '-' }}</td>
-                            
+
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
- 
 @endsection

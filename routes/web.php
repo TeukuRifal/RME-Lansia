@@ -8,6 +8,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RiwayatKesehatanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\HealthCheckScheduleController;
 
 
 Route::get('/', function () {
@@ -31,36 +32,31 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    
 
-    //CRUD pasien
+    // CRUD pasien
+    Route::get('/admin/daftar-pasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
     Route::get('/admin/tambah-pasien', [PasienController::class, 'tambahPasien'])->name('tambahPasien');
     Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
-    Route::get('/admin/daftar-pasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
-    
     Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
     Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
 
-    
-    Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan'])->name('pengaturan');
-    Route::post('/admin/update-pengaturan', [AdminController::class, 'updateSettings'])->name('updatePengaturan');
-
-    //rekam medis
+    // Rekam Medis
     Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');
     Route::get('/admin/rekam-medik/buat', [RiwayatKesehatanController::class, 'create'])->name('admin.patientRecords.create');
     Route::post('/admin/pasien-records', [RiwayatKesehatanController::class, 'store'])->name('simpanData');
     Route::get('/admin/fetchPatients', [RiwayatKesehatanController::class, 'fetchPatients'])->name('admin.fetchPatients');
-
     Route::get('/admin/pasien-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
     Route::post('/admin/pasien-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
-    
     Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
 
-    //riwayat kesehatan
-    Route::get('riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
-    Route::get('riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
-    Route::put('riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
+    // Riwayat Kesehatan
+    Route::get('/riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
+    Route::get('/riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
+    Route::put('/riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
 
+    // Fetch Health Record
+    Route::get('/admin/fetchHealthRecord/{patient_id}', [RiwayatKesehatanController::class, 'fetchHealthRecord'])
+        ->name('fetchHealthRecord');
 });
 
 
@@ -76,6 +72,7 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::put('/superadmin/superadmins/{id}', [SuperAdminController::class, 'update'])->name('superadmin.superadmins.update');
     Route::delete('/superadmin/superadmins/{id}', [SuperAdminController::class, 'destroy'])->name('superadmin.superadmins.destroy');
     Route::get('/superadmin/logs', [SuperAdminController::class, 'logs'])->name('superadmin.logs');
+
 });
 
 
