@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container mx-auto p-6 bg-blue-200 rounded-lg shadow-md mt-10">
+    <div class="container mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
         <h1 class="text-4xl font-bold text-center mb-8">Profil</h1>
         <p class="text-center text-xl mb-6">Data Diri - Riwayat Kesehatan</p>
 
@@ -12,7 +12,7 @@
                 </div>
                 <div class="ml-6">
                     <h2 class="text-2xl font-semibold">{{ $pasien->nama_lengkap }}</h2>
-                    <p class="text-gray-500">Terdaftar dari 2020</p>
+                    
                 </div>
             </div>
         </div>
@@ -87,24 +87,17 @@
             </div>
 
             <div id="riwayatKesehatanContent" class="hidden">
-                {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <h2 class="text-lg font-semibold mb-2">Filter Berdasarkan Tanggal</h2>
-                        <select id="filterTanggal" class="w-full px-4 py-2 border rounded-lg">
-                            <option value="">Pilih Tanggal</option>
-                            @foreach ($dates as $date)
-                                <option value="{{ $date }}">{{ $date }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div> --}}
-
-                {{-- <h2 class="text-lg font-semibold mb-2">Grafik Kesehatan</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Grafik-gafrik lainnya disini -->
-                </div> --}}
-
                 <h2 class="text-lg font-semibold mb-2 mt-8">Data Riwayat Kesehatan</h2>
+                {{-- <div class="mb-4">
+                    <label for="recordDate" class="block mb-2 text-sm font-medium text-gray-700">Pilih Tanggal Pemeriksaan:</label>
+                    <select id="recordDate" class="form-select mt-1 block w-full">
+                        <option value="">Semua Tanggal</option>
+                        @foreach ($healthRecords as $record)
+                            <option value="{{ $record->record_date }}">{{ $record->record_date->format('d F Y') }}</option>
+                        @endforeach
+                    </select>
+                </div> --}}
+               
                 <div class="overflow-x-auto">
                     <table id="healthRecordsTable" class="table-auto w-full border-collapse border border-gray-300">
                         <thead>
@@ -117,7 +110,6 @@
                                 <th class="px-4 py-2 border">Tekanan Darah (mmHg)</th>
                                 <th class="px-4 py-2 border">Gula Darah Sewaktu (mg/dL)</th>
                                 <th class="px-4 py-2 border">Kolesterol Total (mg/dL)</th>
-                                
                             </tr>
                         </thead>
                         <tbody>
@@ -131,13 +123,15 @@
                                     <td class="px-4 py-2 border">{{ $record->tekanan_darah }}</td>
                                     <td class="px-4 py-2 border">{{ $record->gula_darah_sewaktu }}</td>
                                     <td class="px-4 py-2 border">{{ $record->kolesterol_total }}</td>
-                                    
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+            
+           
+            
         </div>
     </div>
 

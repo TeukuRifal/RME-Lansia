@@ -32,12 +32,12 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
             <div class="mb-4">
-                <label for="riwayat_ptm_keluarga" class="block text-gray-700 text-sm font-bold mb-2">Riwayat PTM Keluarga</label>
+                <label for="riwayat_ptm_keluarga" class="block text-gray-700 text-sm font-bold mb-2">Penyakit Tidak Menular Keluarga</label>
                 <input type="text" name="riwayat_ptm_keluarga" id="riwayat_ptm_keluarga" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <div class="mb-4">
-                <label for="riwayat_ptm_sendiri" class="block text-gray-700 text-sm font-bold mb-2">Riwayat PTM Sendiri</label>
+                <label for="riwayat_ptm_sendiri" class="block text-gray-700 text-sm font-bold mb-2">Penyakit Tidak Menular Sendiri</label>
                 <input type="text" name="riwayat_ptm_sendiri" id="riwayat_ptm_sendiri" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 

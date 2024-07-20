@@ -15,7 +15,7 @@
         <div class="flex items-center justify-between">
             <div class="navbar-logo justify-between flex items-center">
                 <a href="{{ route('beranda') }}" class="text-2xl font-inter-italic text-black font-bold flex items-center">
-                    <img src="{{ asset('images/logolansia.png') }}" class=" w-20 h-auto mr-2 rounded-full"
+                    <img src="{{ asset('images/logo_remela.png') }}" class=" w-16 h-auto mr-2 rounded-full"
                         alt="logo">REMELA
                 </a>
             </div>

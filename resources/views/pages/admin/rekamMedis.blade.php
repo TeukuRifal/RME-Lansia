@@ -11,12 +11,14 @@
             </a>
         </div>
 
+
         <!-- Tabel Daftar Riwayat Pasien -->
         <div class="table-responsive shadow rounded-lg overflow-auto">
             <table id="patientRecordsTable" class="min-w-full bg-white shadow-md overflow-hidden">
                 <thead class="bg-gray-800 text-white align-middle justify-center">
                     <tr>
                         <th class="py-3 px-4">No</th>
+                        <th class="py-3 px-4">Nama Pasien</th>
                         <th class="py-3 px-4">ID Pasien(NIK)</th>
                         <th class="py-3 px-4">Tanggal Rekam</th>
                         <th class="py-3 px-4">Riwayat PTM Keluarga</th>
@@ -45,6 +47,7 @@
                     @foreach ($records as $record)
                         <tr class="hover:bg-gray-100 transition duration-200">
                             <td class="py-3 px-4">{{ $loop->iteration }}</td>
+                            <td class="py-3 px-4">{{ $record->patient->nama_lengkap }}</td>
                             <td class="py-3 px-4">{{ $record->patient->nik }}</td>
                             <td class="py-3 px-4">{{ $record->record_date }}</td>
                             <td class="py-3 px-4">{{ $record->riwayat_ptm_keluarga ? 'Ya' : 'Tidak' }}</td>
@@ -66,7 +69,10 @@
                             <td class="py-3 px-4">{{ $record->masalah_kesehatan ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->obat_fasilitas ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tindak_lanjut ?? '-' }}</td>
-
+                            <td class="py-3 px-4">
+                                <a href="{{ route('print', $record->id) }}" class="text-blue-500 hover:text-blue-700">Lihat</a>
+                            </td>
+                            
                         </tr>
                     @endforeach
                 </tbody>

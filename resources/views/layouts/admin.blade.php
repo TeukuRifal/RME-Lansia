@@ -4,25 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
     <style>
         .sidebar {
             width: 240px;
-            /* Lebar sidebar saat belum dilipat */
             transition: width 0.3s ease;
         }
 
         .sidebar-collapsed {
             width: 64px;
-            /* Lebar sidebar saat dilipat */
         }
 
         .sidebar-logo {
@@ -55,7 +53,7 @@
             padding: 0.75rem 1rem;
             text-decoration: none;
             color: white;
-            transition: padding 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         .sidebar-nav a:hover {
@@ -98,10 +96,6 @@
                 display: none;
             }
 
-            .sidebar-header button {
-                margin-right: 0;
-            }
-
             .sidebar-nav a {
                 padding: 0.75rem;
                 justify-content: center;
@@ -114,10 +108,6 @@
             .sidebar-nav a span {
                 display: none;
             }
-
-            .sidebar-collapsed .sidebar-nav a span {
-                display: inline;
-            }
         }
     </style>
 </head>
@@ -126,47 +116,31 @@
     <!-- Sidebar -->
     <div class="sidebar bg-gray-800 text-white min-h-screen flex flex-col">
         <div class="sidebar-header">
-            <div class="header text-xl font-bold text-center text-white rounded-t-xl">
+            <div class="header text-xl font-bold text-center text-white">
                 <p class="py-2">Admin Panel</p>
-                <hr class="h-px bg-white border-0 dark:bg-gray-700">
+                <hr class="h-px bg-white border-0">
                 <div class="flex items-center p-2">
                     <img src="{{ asset('images/profileputih.png') }}" alt="profil" class="w-10 h-10 rounded-full">
                     <div class="ml-3 text-sm">
                         <h2>{{ Auth::user()->name }}</h2>
                     </div>
-                    
                 </div>
-
             </div>
             <div class="logout">
-                <form action="{{ route('logout') }}" method="POST" class="text-white focus:outline-none">
-                    @csrf <!-- Tambahkan CSRF Token -->
-                    <button type="submit">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                            </path>
-                        </svg>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-light">
+                        Logout
                     </button>
                 </form>
             </div>
-            
-            {{-- <button id="toggleSidebar" class="text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
-                    </path>
-                </svg>
-            </button> --}}
         </div>
         <nav class="flex-grow sidebar-nav">
             <p class="font-bold size-5 m-2">Data</p>
             <a href="{{ route('admin.dashboard') }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 6h18M3 18h18">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path>
                 </svg>
                 <span>Dashboard</span>
             </a>
@@ -174,45 +148,39 @@
             <a href="{{ route('daftarPasien') }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
                 <span>Kelola Pasien</span>
             </a>
             <a href="{{ route('rekamMedis') }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
                 <span>Rekam Medis</span>
             </a>
-            <a href="{{ route('jadwal.index') }}">
+            <a href="{{ route('jadwal') }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
                 <span>Jadwal</span>
             </a>
             <a href="#">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 8c-2.21 0-4 .9-4 2s1.79 2 4 2 4-.9 4-2-1.79-2-4-2z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
                 <span>Log Aktivitas</span>
             </a>
             <a href="#">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v4m0 4v4m0 4v4">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h8"></path>
                 </svg>
                 <span>Profil Admin</span>
             </a>
         </nav>
-        
     </div>
 
     <!-- Main Content -->
@@ -221,7 +189,7 @@
     </div>
 
     <script>
-        document.getElementById('toggleSidebar').addEventListener('click', function() {
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
             var sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('sidebar-collapsed');
         });

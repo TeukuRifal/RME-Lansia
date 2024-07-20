@@ -246,6 +246,13 @@ class RiwayatKesehatanController extends Controller
 
         return view('pages.admin.healthHistory', compact('patient', 'records'));
     }
+
+    public function print($id)
+{
+    $record = PatientRecord::findOrFail($id);
+    return view('pages.admin.print', compact('record'));
+}
+
     public function getHealthRecordsByMonth($patientId, Request $request)
 {
     $bulan = $request->input('month');

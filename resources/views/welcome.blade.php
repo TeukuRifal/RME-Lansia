@@ -114,7 +114,8 @@
                 </div>
             </div>
             <div class="flex-auto hidden md:flex justify-center items-center">
-                <img src="{{ asset('images/Lansia.png') }}" alt="Welcome Image" class="w-4/8 h-auto slide-in float">
+                <img src="{{ asset('images/Logo_Remela_Lansia.png') }}" alt="Welcome Image"
+                    class="w-4/8 h-auto slide-in float">
             </div>
         </div>
 
@@ -130,24 +131,27 @@
             <h2 class="mt-5 text-3xl font-bold mb-8 text-center">Profil Posbindu</h2>
             <div class="flex">
                 <div class="w-1/2 p-5">
-                    <img src="{{ asset('images/profil.png') }}" alt="Posbindu Image" class="w-full h-auto rounded-lg">
+                    <img src="{{ asset('images/posbindu2.jpg') }}" alt="Posbindu Image" class="w-full h-auto rounded-lg">
                 </div>
                 <div class="w-1/2 p-5">
-                    <div class="grid grid-cols-1 gap-6 mt-5">
+                    <div class="grid grid-cols-1 gap-6 mt-5 text-2xl">
                         <div class="flex items-center">
                             <img src="{{ asset('images/visi.png') }}" alt="Visi Image" class="w-32 h-auto">
                             <div class="ml-4">
                                 <h3 class="text-2xl font-semibold mb-2">Visi</h3>
-                                <p>Menjadi Posbindu terbaik di Indonesia yang memberikan pelayanan kesehatan terbaik kepada
-                                    lansia di masyarakat.</p>
+                                <p>Menjadi solusi digital terdepan dalam pemantauan kesehatan lansia, yang mendukung
+                                    peningkatan kualitas hidup melalui inovasi dan teknologi yang mudah diakses.</p>
                             </div>
                         </div>
                         <div class="flex items-center mt-4">
                             <img src="{{ asset('images/misi.png') }}" alt="Misi Image" class="w-32 h-auto">
                             <div class="ml-4">
                                 <h3 class="text-2xl font-semibold mb-2">Misi</h3>
-                                <p>Menjadi Posbindu terbaik di Indonesia yang memberikan pelayanan kesehatan terbaik kepada
-                                    lansia di masyarakat.</p>
+                                <p>Mempermudah Akses Informasi Kesehatan</p>
+                                <p>Meningkatkan Kesadaran Akan Kesehatan</p>
+                                <p>Menawarkan rekomendasi kesehatan yang dipersonalisasi berdasarkan data pengguna</p>
+                                <p>Mendorong Gaya Hidup Sehat</p>
+                                <p>Terus mengembangkan fitur dan teknologi baru yang mendukung kebutuhan kesehatan lansia.</p>
                             </div>
                         </div>
                     </div>
@@ -211,18 +215,18 @@
             <h2 class="text-3xl font-bold mb-8 text-center mt-10 bg">Galeri</h2>
             <div class=" shadow-sm grid grid-cols-1 md:grid-cols-3 m-auto w-3/4 h-auto gap-8 text-xl">
                 <div class="gallery-item">
-                    <img src="{{ asset('images/galeri1.jpeg') }}" alt="Gallery Image 1"
-                        class="w-full h-auto rounded-lg shadow-lg">
+                    <img src="{{ asset('images/posbindu.jpg') }}" alt="Gallery Image 1"
+                        class="w-auto  rounded-lg shadow-lg">
                     <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan pertama </p>
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('images/galeri2.jpeg') }}" alt="Gallery Image 2"
-                        class="w-full h-auto rounded-lg shadow-lg">
+                    <img src="{{ asset('images//posbindu.jpg') }}" alt="Gallery Image 2"
+                        class="w-auto  rounded-lg shadow-lg">
                     <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan Kedua </p>
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('images/galeri3.jpeg') }}" alt="Gallery Image 3"
-                        class="w-full h-auto rounded-lg shadow-lg">
+                    <img src="{{ asset('images//posbindu.jpg') }}" alt="Gallery Image 3"
+                        class="w-auto rounded-lg shadow-lg">
                     <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan Ketiga </p>
                 </div>
             </div>
@@ -260,7 +264,7 @@
         <!-- Memuat Google Maps API dengan callback ke initMap -->
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 
-        
+
     </body>
 
     </html>

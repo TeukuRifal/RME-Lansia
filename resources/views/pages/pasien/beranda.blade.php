@@ -65,11 +65,11 @@
                 </div>
             </div>
             <div class="flex-auto hidden md:flex justify-center items-center">
-                <img src="{{ asset('images/Lansia.png') }}" alt="Welcome Image" class="w-auto h-80 slide-in float">
+                <img src="{{ asset('images/Logo_Remela_Lansia.png') }}" alt="Welcome Image" class="w-auto h-80 slide-in float">
             </div>
         </div>
 
-        <div id="perkembangan" class="mx-auto p-5 rounded-xl bg-white h-screen">
+        <div id="perkembangan" class="mx-auto p-5  bg-white h-screen">
             <h2 class="mt-5 text-3xl font-bold text-center mb-14">Grafik Perkembangan</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 justify-items-center mx-auto">
                 @foreach (['Lingkar Perut', 'Gula Darah', 'IMT', 'Kolesterol'] as $grafik)
@@ -119,24 +119,25 @@
             </div>
         </div>
 
-        <div class=" mt-10 bg-white p-5">
+        <div class="mt-10 bg-white p-5">
             <h2 class="text-center text-3xl font-bold mb-6">Jadwal Pelayanan</h2>
-            <div class=" p-6 rounded-xl shadow-lg bg-lightblue">
+            <div class="p-6 rounded-xl shadow-lg bg-lightblue">
                 @foreach ($jadwal as $schedule)
-                    <div class="bg-white p-4 rounded-lg mb-4 flex justify-between items-center">
+                    <div class="bg-white p-4 rounded-lg mb-4 flex justify-between items-center border border-gray-200 hover:shadow-md transition-shadow duration-300">
                         <div>
-                            <h3 class="text-xl font-semibold">{{ $schedule->nama_tempat }}</h3>
-                            <p class="text-sm">{{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}</p>
+                            <h3 class="text-xl font-semibold text-gray-800">{{ $schedule->nama_tempat }}</h3>
+                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-sm">{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} -
+                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} -
                                 {{ \Carbon\Carbon::parse($schedule->waktu_selesai)->format('H:i') }} WIB</p>
-                            <p class="text-sm">{{ $schedule->lokasi }}</p>
+                            <p class="text-sm text-gray-600">{{ $schedule->lokasi }}</p>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
+        
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
