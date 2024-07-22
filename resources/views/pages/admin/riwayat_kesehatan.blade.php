@@ -27,10 +27,7 @@
                             <label for="nik" class="block text-sm font-bold text-gray-700">Nik:</label>
                             <span id="nik" class="text-gray-900"> {{ $patient->nik }}</span>
                         </div>
-                        <div class="p-2">
-                            <label for="umur" class="block text-sm font-bold text-gray-700">Umur: </label>
-                            <span id="umur" class="text-gray-900"> {{ $patient->umur }}</span>
-                        </div>
+                        
                         <div class="p-2">
                             <label for="gender" class="block text-sm font-bold text-gray-700">Jenis Kelamin:</label>
                             <span id="gender" class="text-gray-900"> {{ $patient->jenis_kelamin }}</span>
@@ -95,11 +92,7 @@
                                     (cm):</label>
                                 <span id="tinggiBadan" class="text-gray-900">-</span>
                             </div>
-                            <div>
-                                <label for="indeksMassaTubuh" class="block text-sm font-bold text-gray-700">Indeks Massa
-                                    Tubuh:</label>
-                                <span id="indeksMassaTubuh" class="text-gray-900">-</span>
-                            </div>
+                            
                             <div>
                                 <label for="lingkarPerut" class="block text-sm font-bold text-gray-700">Lingkar Perut
                                     (cm):</label>
@@ -146,8 +139,8 @@
                 <h3 class="text-xl font-bold mb-4">Grafik Kesehatan</h3>
                 <div id="loading" class="hidden text-center text-gray-500 mb-4">Memuat data...</div>
 
-                <!-- Chart untuk IMT -->
-                <canvas id="chartIMT" width="400" height="200" class="mb-4"></canvas>
+                {{-- <!-- Chart untuk IMT -->
+                <canvas id="chartIMT" width="400" height="200" class="mb-4"></canvas> --}}
 
                 <!-- Chart untuk Lingkar Perut -->
                 <canvas id="chartLingkarPerut" width="400" height="200" class="mb-4"></canvas>
@@ -187,7 +180,7 @@
                 $('#konsumsiAlkohol').text(selectedRecord.konsumsi_alkohol || '-');
                 $('#beratBadan').text(selectedRecord.berat_badan || '-');
                 $('#tinggiBadan').text(selectedRecord.tinggi_badan || '-');
-                $('#indeksMassaTubuh').text(selectedRecord.indeks_massa_tubuh || '-');
+                
                 $('#lingkarPerut').text(selectedRecord.lingkar_perut || '-');
                 $('#tekananDarah').text(selectedRecord.tekanan_darah || '-');
                 $('#gulaDarahSewaktu').text(selectedRecord.gula_darah_sewaktu || '-');
@@ -226,35 +219,11 @@
         function loadCharts() {
             const records = @json($healthRecords);
 
-            // Grafik untuk IMT
+            // Grafik untuk 
             const imtLabels = records.map(record => formatDate(record.record_date));
-            const imtData = records.map(record => record.indeks_massa_tubuh);
+           
 
-            const imtChart = document.getElementById('chartIMT').getContext('2d');
-            new Chart(imtChart, {
-                type: 'line',
-                data: {
-                    labels: imtLabels,
-                    datasets: [{
-                        label: 'Indeks Massa Tubuh',
-                        data: imtData,
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            min: 0, // Nilai minimum untuk sumbu Y
-                            max: 40, // Nilai maksimum untuk sumbu Y
-                            ticks: {
-                                stepSize: 5 // Langkah-nilai untuk sumbu Y
-                            }
-                        }
-                    }
-                }
-            });
+            
 
             // Grafik untuk Lingkar Perut
             const lingkarPerutData = records.map(record => record.lingkar_perut);

@@ -51,11 +51,7 @@
                     <td class="border px-4 py-2">Tinggi Badan</td>
                     <td class="border px-4 py-2">{{ $record->tinggi_badan }}</td>
                 </tr>
-                <tr>
-                    <td class="border px-4 py-2">{{ $index + 1 }}</td>
-                    <td class="border px-4 py-2">Indeks Massa Tubuh</td>
-                    <td class="border px-4 py-2">{{ $record->indeks_massa_tubuh }}</td>
-                </tr>
+                
                 <tr>
                     <td class="border px-4 py-2">{{ $index + 1 }}</td>
                     <td class="border px-4 py-2">Lingkar Perut</td>

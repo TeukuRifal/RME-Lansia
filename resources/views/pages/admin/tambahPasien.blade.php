@@ -1,18 +1,12 @@
-
 @extends('layouts.admin')
 
 @section('content')
 <div class="container mx-auto p-4">
     <form action="{{ route('simpanPasien') }}" method="POST" class="bg-white p-5 rounded-lg shadow-md">
-        <div class="header flex justify-between flex-row p-2 ">
+        <div class="header flex justify-between flex-row p-2">
             <h2 class="text-2xl font-bold mb-2">Tambah Data Diri Pasien</h2>
-            {{-- <div class="border p-2 rounded-md">
-                <label for="record_date" class="block text-gray-700 font-bold">Tanggal Kegiatan</label>
-                <input type="date" id="record_date" name="record_date"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div> --}}
         </div>
-       
+
         <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
         @csrf
         @if(session('success'))
@@ -35,7 +29,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Data Pasien -->
             <div>
-                <label for="nama_lengkap" class="block text-gray-700 font-bold">Nama Lengkap </label>
+                <label for="nama_lengkap" class="block text-gray-700 font-bold">Nama Lengkap</label>
                 <input type="text" id="nama_lengkap" name="nama_lengkap"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
             </div>
@@ -50,11 +44,6 @@
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
             </div>
             <div>
-                <label for="umur" class="block text-gray-700 font-bold">Umur</label>
-                <input type="number" id="umur" name="umur"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
-            </div>
-            <div>
                 <label for="jenis_kelamin" class="block text-gray-700 font-bold">Jenis Kelamin</label>
                 <select id="jenis_kelamin" name="jenis_kelamin"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
@@ -65,13 +54,14 @@
             <div>
                 <label for="agama" class="block text-gray-700 font-bold">Agama</label>
                 <select id="agama" name="agama"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200 ">
+                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
+                    <option value="">Pilih Agama</option>
                     <option value="Islam">Islam</option>
-                    <option value="kristen">Kristen</option>
-                    <option value="katolik">Katolik</option>
-                    <option value="hindu">Hindu</option>
-                    <option value="buddha">Buddha</option>
-                    <option value="khonghucu">Khonghucu</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katolik">Katolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Khonghucu">Khonghucu</option>
                 </select>
             </div>
             <div>
@@ -98,6 +88,7 @@
                 <label for="status_kawin" class="block text-gray-700 font-bold">Status Kawin</label>
                 <select id="status_kawin" name="status_kawin"
                     class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
+                    <option value="">Pilih Status</option>
                     <option value="Belum Menikah">Belum Menikah</option>
                     <option value="Menikah">Menikah</option>
                     <option value="Cerai Hidup">Cerai Hidup</option>
@@ -112,9 +103,9 @@
             <div>
                 <label for="email" class="block text-gray-700 font-bold">Email</label>
                 <input type="email" id="email" name="email"
-                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
+                    class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
             </div>
-        
+        </div>
 
         <div class="mt-4">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-400">Simpan</button>

@@ -72,7 +72,7 @@
         <div id="perkembangan" class="mx-auto p-5  bg-white h-screen">
             <h2 class="mt-5 text-3xl font-bold text-center mb-14">Grafik Perkembangan</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 justify-items-center mx-auto">
-                @foreach (['Lingkar Perut', 'Gula Darah', 'IMT', 'Kolesterol'] as $grafik)
+                @foreach (['Lingkar Perut', 'Gula Darah', 'Kolesterol'] as $grafik)
                     <div class="chart-container w-full max-w-sm bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                         <div class="flex justify-between">
                             <div>

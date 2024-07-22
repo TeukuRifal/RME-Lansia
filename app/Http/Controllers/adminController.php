@@ -18,7 +18,7 @@ class AdminController extends Controller
     {
         // Statistik utama
         $totalPatients = Patient::count();
-        $totalLansia = Patient::where('umur', '>', 60)->count();
+      
         $totalAdmins = User::where('role', 'admin')->count();
         $totalSuperAdmins = User::where('role', 'superadmin')->count();
     
@@ -29,7 +29,7 @@ class AdminController extends Controller
         $genderCounts = $genderData->pluck('count');
         $genderLabels = $genderData->pluck('jenis_kelamin');
     
-        // Data untuk chart umur
+        // Data untuk chart 
         $ageData = Patient::selectRaw('FLOOR(DATEDIFF(CURRENT_DATE, tanggal_lahir) / 365) as age, count(*) as count')
             ->groupBy('age')
             ->get();
@@ -38,7 +38,7 @@ class AdminController extends Controller
         
         $schedules = HealthCheckSchedule::all();
     
-        return view('pages.admin.dashboard', compact('totalPatients', 'totalLansia', 'schedules', 'totalAdmins', 'totalSuperAdmins', 'genderCounts', 'genderLabels', 'ageCounts', 'ageLabels'));
+        return view('pages.admin.dashboard', compact('totalPatients', 'schedules', 'totalAdmins', 'totalSuperAdmins', 'genderCounts', 'genderLabels', 'ageCounts', 'ageLabels'));
     }    
     // Metode lain dari AdminController
 

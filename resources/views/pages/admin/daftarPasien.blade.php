@@ -25,7 +25,7 @@
                         <th class="py-3 px-4">Nama Lengkap</th>
                         <th class="py-3 px-4">NIK</th>
                         <th class="py-3 px-4">Tanggal Lahir</th>
-                        <th class="py-3 px-4">Umur</th>
+                    
                         <th class="py-3 px-4">Status</th>
                         <th class="py-3 px-4">Jenis Kelamin</th>
                         <th class="py-3 px-4">Agama</th>
@@ -41,7 +41,7 @@
                             <td class="py-3 px-4">{{ $patient->nama_lengkap }}</td>
                             <td class="py-3 px-4">{{ $patient->nik }}</td>
                             <td class="py-3 px-4">{{ $patient->tanggal_lahir }}</td>
-                            <td class="py-3 px-4">{{ $patient->umur }}</td>
+                            
                             <td class="py-3 px-4">{{ $patient->status_kawin }}</td>
                             <td class="py-3 px-4">{{ $patient->jenis_kelamin }}</td>
                             <td class="py-3 px-4">{{ $patient->agama }}</td>

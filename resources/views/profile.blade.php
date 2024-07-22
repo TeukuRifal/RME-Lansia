@@ -338,7 +338,7 @@
                         </div>
                     </div>
 
-                    <div class="chart-container w-full max-w-sm bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+                    {{-- <div class="chart-container w-full max-w-sm bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                         <div class="flex justify-between">
                             <div>
                                 <h5 class="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
@@ -357,7 +357,7 @@
                         <div>
                             <canvas id="chart-imt"></canvas>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="chart-container w-full max-w-sm bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                         <div class="flex justify-between">
@@ -428,16 +428,16 @@
                 }]
             };
 
-            const imtData = {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-                datasets: [{
-                    label: 'IMT',
-                    data: [20, 21, 22, 23, 24],
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    borderWidth: 1
-                }]
-            };
+            // const imtData = {
+            //     labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+            //     datasets: [{
+            //         label: 'IMT',
+            //         data: [20, 21, 22, 23, 24],
+            //         backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            //         borderColor: 'rgba(153, 102, 255, 1)',
+            //         borderWidth: 1
+            //     }]
+            // };
 
             const asamUratData = {
                 labels: ["Jan", "Feb", "Mar", "Apr", "May"],
@@ -480,11 +480,11 @@
                 options: chartOptions
             });
 
-            const imtChart = new Chart(document.getElementById('chart-imt'), {
-                type: 'bar',
-                data: imtData,
-                options: chartOptions
-            });
+            // const imtChart = new Chart(document.getElementById('chart-imt'), {
+            //     type: 'bar',
+            //     data: imtData,
+            //     options: chartOptions
+            // });
 
             const asamUratChart = new Chart(document.getElementById('chart-asam-urat'), {
                 type: 'line',

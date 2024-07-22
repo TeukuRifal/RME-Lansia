@@ -43,10 +43,7 @@
                         <label class="block text-gray-700">Tanggal Lahir</label>
                         <input type="text" class="w-full px-4 py-2 border rounded-lg" placeholder="Tanggal Lahir" value="{{ $pasien->tanggal_lahir }}" readonly>
                     </div>
-                    <div>
-                        <label class="block text-gray-700">Umur</label>
-                        <input type="text" class="w-full px-4 py-2 border rounded-lg" placeholder="Umur" value="{{ $pasien->umur }}" readonly>
-                    </div>
+                  
                     <div>
                         <label class="block text-gray-700">Jenis Kelamin</label>
                         <input type="text" class="w-full px-4 py-2 border rounded-lg" placeholder="Jenis Kelamin" value="{{ $pasien->jenis_kelamin }}" readonly>
@@ -105,7 +102,7 @@
                                 <th class="px-4 py-2 border">Tanggal Rekam Medis</th>
                                 <th class="px-4 py-2 border">Berat Badan (kg)</th>
                                 <th class="px-4 py-2 border">Tinggi Badan (cm)</th>
-                                <th class="px-4 py-2 border">IMT</th>
+                                {{-- <th class="px-4 py-2 border">IMT</th> --}}
                                 <th class="px-4 py-2 border">Lingkar Perut (cm)</th>
                                 <th class="px-4 py-2 border">Tekanan Darah (mmHg)</th>
                                 <th class="px-4 py-2 border">Gula Darah Sewaktu (mg/dL)</th>
@@ -118,7 +115,7 @@
                                     <td class="px-4 py-2 border">{{ $record->record_date->format('d F Y') }}</td>
                                     <td class="px-4 py-2 border">{{ $record->berat_badan }}</td>
                                     <td class="px-4 py-2 border">{{ $record->tinggi_badan }}</td>
-                                    <td class="px-4 py-2 border">{{ $record->indeks_massa_tubuh }}</td>
+                                   
                                     <td class="px-4 py-2 border">{{ $record->lingkar_perut }}</td>
                                     <td class="px-4 py-2 border">{{ $record->tekanan_darah }}</td>
                                     <td class="px-4 py-2 border">{{ $record->gula_darah_sewaktu }}</td>
@@ -171,7 +168,7 @@
                                     <td class="px-4 py-2 border">${record.record_date}</td>
                                     <td class="px-4 py-2 border">${record.berat_badan}</td>
                                     <td class="px-4 py-2 border">${record.tinggi_badan}</td>
-                                    <td class="px-4 py-2 border">${record.indeks_massa_tubuh}</td>
+                                    
                                     <td class="px-4 py-2 border">${record.lingkar_perut}</td>
                                     <td class="px-4 py-2 border">${record.tekanan_darah}</td>
                                     <td class="px-4 py-2 border">${record.gula_darah_sewaktu}</td>
@@ -200,7 +197,7 @@
                                     <td class="px-4 py-2 border">${record.record_date}</td>
                                     <td class="px-4 py-2 border">${record.berat_badan}</td>
                                     <td class="px-4 py-2 border">${record.tinggi_badan}</td>
-                                    <td class="px-4 py-2 border">${record.indeks_massa_tubuh}</td>
+                                    
                                     <td class="px-4 py-2 border">${record.lingkar_perut}</td>
                                     <td class="px-4 py-2 border">${record.tekanan_darah}</td>
                                     <td class="px-4 py-2 border">${record.gula_darah_sewaktu}</td>

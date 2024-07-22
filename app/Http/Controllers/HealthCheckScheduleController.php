@@ -31,6 +31,6 @@ class HealthCheckScheduleController extends Controller
 
         HealthCheckSchedule::create($request->all());
 
-        return redirect()->route('jadwal.index')->with('success', 'Jadwal cek kesehatan berhasil ditambahkan.');
+        return redirect()->route('listJadwal')->with('success', 'Jadwal cek kesehatan berhasil ditambahkan.');
     }
 }

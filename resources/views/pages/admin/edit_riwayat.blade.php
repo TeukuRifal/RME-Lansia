@@ -51,10 +51,7 @@
                 <label for="tinggi_badan" class="block text-gray-700 font-bold">Tinggi Badan</label>
                 <input type="number" id="tinggi_badan" name="tinggi_badan" value="{{ $riwayat->tinggi_badan ?? old('tinggi_badan') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
-            <div>
-                <label for="indeks_massa_tubuh" class="block text-gray-700 font-bold">Indeks Massa Tubuh</label>
-                <input type="number" id="indeks_massa_tubuh" name="indeks_massa_tubuh" value="{{ $riwayat->indeks_massa_tubuh ?? old('indeks_massa_tubuh') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
+           
             <div>
                 <label for="lingkar_perut" class="block text-gray-700 font-bold">Lingkar Perut</label>
                 <input type="number" id="lingkar_perut" name="lingkar_perut" value="{{ $riwayat->lingkar_perut ?? old('lingkar_perut') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">

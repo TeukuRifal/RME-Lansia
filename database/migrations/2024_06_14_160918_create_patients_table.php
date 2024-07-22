@@ -14,16 +14,16 @@ class CreatePatientsTable extends Migration
             $table->string('nama_lengkap');
             $table->string('nik')->unique();
             $table->date('tanggal_lahir');
-            $table->integer('umur');
+           
             $table->string('jenis_kelamin');
-            $table->string('agama');
-            $table->text('alamat');
-            $table->string('no_hp');
-            $table->string('pendidikan_terakhir');
-            $table->string('pekerjaan');
-            $table->string('status_kawin');
-            $table->string('gol_darah');
-            $table->string('email')->unique();
+            $table->string('agama') ->nullable();
+            $table->text('alamat') ->nullable();
+            $table->string('no_hp') ->nullable();
+            $table->string('pendidikan_terakhir') ->nullable();
+            $table->string('pekerjaan') ->nullable();
+            $table->string('status_kawin') ->nullable();
+            $table->string('gol_darah') ->nullable();
+            $table->string('email') ->nullable();
             $table->timestamps();
         });
     }

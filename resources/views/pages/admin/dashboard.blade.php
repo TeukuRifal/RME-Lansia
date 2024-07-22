@@ -15,7 +15,7 @@
             </div>
             <div class="bg-green-100 p-4 rounded-lg shadow-md">
                 <h2 class="text-lg font-bold">Jumlah Lansia</h2>
-                <p class="text-2xl">{{ $totalLansia }}</p>
+                <p class="text-2xl"></p>
             </div>
             <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
                 <h2 class="text-lg font-bold">Total Admin</h2>
@@ -99,51 +99,7 @@
             }
         });
 
-        // Data untuk chart umur
-        var ageLabels = {!! json_encode($ageLabels) !!};
-        var ageCounts = {!! json_encode($ageCounts) !!};
-
-        var ctxAge = document.getElementById('ageChart').getContext('2d');
-        var ageChart = new Chart(ctxAge, {
-            type: 'bar',
-            data: {
-                labels: ageLabels,
-                datasets: [{
-                    label: 'Jumlah Pasien',
-                    data: ageCounts,
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return Number.isInteger(value) ? value : null;
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Jumlah Pasien'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Usia (Tahun)'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
+        
 
     });
 </script>

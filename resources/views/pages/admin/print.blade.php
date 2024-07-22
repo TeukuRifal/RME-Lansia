@@ -48,7 +48,7 @@
                 <thead>
                     <tr class="table-header">
                         <th class="py-2 px-4 text-left">Nama Lengkap</th>
-                        <th class="py-2 px-4 text-left">Umur</th>
+                       
                         <th class="py-2 px-4 text-left">Jenis Kelamin</th>
                         <th class="py-2 px-4 text-left">Alamat</th>
                     </tr>
@@ -56,7 +56,7 @@
                 <tbody>
                     <tr class="table-row">
                         <td class="py-2 px-4">{{ $record->patient->nama_lengkap }}</td>
-                        <td class="py-2 px-4">{{ $record->patient->umur }}</td>
+                        
                         <td class="py-2 px-4">{{ $record->patient->jenis_kelamin }}</td>
                         <td class="py-2 px-4">{{ $record->patient->alamat }}</td>
 

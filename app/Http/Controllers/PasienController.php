@@ -33,7 +33,7 @@ class PasienController extends Controller
             'Gula Darah' => $patientRecords->pluck('gula_darah_sewaktu'),
             'Tekanan Darah Sistolik' => $patientRecords->pluck('tekanan_darah_sistolik'),
             'Tekanan Darah Diastolik' => $patientRecords->pluck('tekanan_darah_diastolik'),
-            'IMT' => $patientRecords->pluck('indeks_massa_tubuh'),
+            
             'Kolesterol' => $patientRecords->pluck('kolesterol_total')
         ];
     
@@ -59,51 +59,51 @@ class PasienController extends Controller
     }
 
     public function storePasien(Request $request)
-    {
-        $validatedData = $request->validate([
-            'nama_lengkap' => 'required|string',
-            'nik' => 'required|unique:patients|string',
-            'tanggal_lahir' => 'required|date',
-            'umur' => 'required|integer',
-            'jenis_kelamin' => 'required|string',
-            'agama' => 'required|string',
-            'alamat' => 'required|string',
-            'no_hp' => 'required|string',
-            'pendidikan_terakhir' => 'required|string',
-            'pekerjaan' => 'required|string',
-            'status_kawin' => 'required|string',
-            'gol_darah' => 'required|string',
-            'email' => 'required|email|unique:patients|unique:users,email',
-        ]);
+{
+    $validatedData = $request->validate([
+        'nama_lengkap' => 'required|string',
+        'nik' => 'required|unique:patients|string',
+        'tanggal_lahir' => 'required|date',
+        'jenis_kelamin' => 'required|string',
+        'email' => 'required|email|unique:patients|unique:users,email',
+    ]);
 
-        // Membuat user baru
-        $user = User::create([
-            'name' => $validatedData['nama_lengkap'],
-            'email' => $validatedData['email'],
-            'username' => $validatedData['nik'], // Set username sebagai NIK
-            'password' => bcrypt('password'), // Atur password default "default_password"
-        ]);
+    // Cek apakah user dengan NIK ini sudah ada
+    $existingUser = User::where('username', $validatedData['nik'])->first();
 
-        // Menambahkan data pasien
-        $patient = Patient::create([
-            'user_id' => $user->id,
-            'nama_lengkap' => $validatedData['nama_lengkap'],
-            'nik' => $validatedData['nik'],
-            'tanggal_lahir' => $validatedData['tanggal_lahir'],
-            'umur' => $validatedData['umur'],
-            'jenis_kelamin' => $validatedData['jenis_kelamin'],
-            'agama' => $validatedData['agama'],
-            'alamat' => $validatedData['alamat'],
-            'no_hp' => $validatedData['no_hp'],
-            'pendidikan_terakhir' => $validatedData['pendidikan_terakhir'],
-            'pekerjaan' => $validatedData['pekerjaan'],
-            'status_kawin' => $validatedData['status_kawin'],
-            'gol_darah' => $validatedData['gol_darah'],
-            'email' => $validatedData['email'],
-        ]);
-
-        return redirect()->back()->with('success', 'Data pasien berhasil ditambahkan');
+    if ($existingUser) {
+        return redirect()->back()->withErrors(['nik' => 'NIK sudah terdaftar.']);
     }
+
+    // Membuat user baru
+    $user = User::create([
+        'name' => $validatedData['nama_lengkap'],
+        'email' => $validatedData['email'],
+        'username' => $validatedData['nik'], // Set username sebagai NIK
+        'password' => bcrypt('password'), // Atur password default
+    ]);
+
+    // Menambahkan data pasien
+    Patient::create([
+        'user_id' => $user->id,
+        'nama_lengkap' => $validatedData['nama_lengkap'],
+        'nik' => $validatedData['nik'],
+        'tanggal_lahir' => $validatedData['tanggal_lahir'],
+        'jenis_kelamin' => $validatedData['jenis_kelamin'],
+        'agama' => $request->input('agama'),
+        'alamat' => $request->input('alamat'),
+        'no_hp' => $request->input('no_hp'),
+        'pendidikan_terakhir' => $request->input('pendidikan_terakhir'),
+        'pekerjaan' => $request->input('pekerjaan'),
+        'status_kawin' => $request->input('status_kawin'),
+        'gol_darah' => $request->input('gol_darah'),
+        'email' => $validatedData['email'],
+    ]);
+
+    return redirect()->back()->with('success', 'Data pasien berhasil ditambahkan');
+}
+
+
 
     public function daftarPasien()
     {
@@ -155,7 +155,7 @@ class PasienController extends Controller
             'nama_lengkap' => 'required|string',
             'nik' => 'required|string|unique:patients,nik,'.$id,
             'tanggal_lahir' => 'required|date',
-            'umur' => 'required|integer',
+          
             'jenis_kelamin' => 'required|string',
             'alamat' => 'required|string',
             'no_hp' => 'required|string',
@@ -163,7 +163,7 @@ class PasienController extends Controller
             'pekerjaan' => 'required|string',
             'status_kawin' => 'required|string',
             'gol_darah' => 'required|string',
-            'email' => 'required|string|email',
+            'email' => 'required|string',
         ]);
 
         // Mendapatkan pasien berdasarkan ID

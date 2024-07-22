@@ -71,10 +71,7 @@
                 <input type="number" name="tinggi_badan" id="tinggi_badan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
-            <div class="mb-4">
-                <label for="indeks_massa_tubuh" class="block text-gray-700 text-sm font-bold mb-2">Indeks Massa Tubuh <span class=" text-red-400">*</span> </label>
-                <input type="number" name="indeks_massa_tubuh" id="indeks_massa_tubuh" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
+          
 
             <div class="mb-4">
                 <label for="lingkar_perut" class="block text-gray-700 text-sm font-bold mb-2">Lingkar Perut (cm) <span class=" text-red-400">*</span> </label>

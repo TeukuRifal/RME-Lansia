@@ -34,7 +34,7 @@
                         <th class="py-3 px-4">Stress</th>
                         <th class="py-3 px-4">Berat Badan (kg)</th>
                         <th class="py-3 px-4">Tinggi Badan (cm)</th>
-                        <th class="py-3 px-4">IMT</th>
+                        {{-- <th class="py-3 px-4">IMT</th> --}}
                         <th class="py-3 px-4">Lingkar Perut (cm)</th>
                         <th class="py-3 px-4">Tekanan Darah</th>
                         <th class="py-3 px-4">Tekanan Darah Sistolik</th>
@@ -63,7 +63,7 @@
                             <td class="py-3 px-4">{{ $record->stress ? 'Ya' : 'Tidak' }}</td>
                             <td class="py-3 px-4">{{ $record->berat_badan ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tinggi_badan ?? '-' }}</td>
-                            <td class="py-3 px-4">{{ $record->indeks_massa_tubuh ?? '-' }}</td>
+                            
                             <td class="py-3 px-4">{{ $record->lingkar_perut ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tekanan_darah ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tekanan_darah_sistolik ?? '-' }}</td>

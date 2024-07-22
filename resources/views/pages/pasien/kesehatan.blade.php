@@ -12,7 +12,7 @@
                         'Nama Lengkap' => $patient->nama_lengkap,
                         'NIK' => $patient->nik,
                         'Tanggal Lahir' => $patient->tanggal_lahir,
-                        'Umur' => $patient->umur,
+                       
                         'Jenis Kelamin' => $patient->jenis_kelamin,
                         'Alamat' => $patient->alamat,
                         'No HP' => $patient->no_hp,
