@@ -4,24 +4,22 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-6">
-        <h2 class="text-2xl font-bold mb-6">Data Pasien</h2>
-
+        <h2 class="font-semibold">Data Pasien</h2>
+        <!-- Include the SweetAlert library -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- Tambah Akun Button -->
-        <div class="flex justify-between items-center mb-6 p-2">
+        <div class="flex justify-between items-center mb-6 py-2">
             <a href="{{ route('tambahPasien') }}"
-                class="flex items-center bg-blue-500 text-white py-2 px-4 rounded shadow hover:bg-blue-600 transition duration-200">
-                <img src="{{ asset('images/addPasien.png') }}" alt="tambah pasien" class="w-5 h-5 mr-2">
+                class="flex items-center border py-2 px-4 rounded shadow hover:bg-blue-600 transition duration-200">
+                <img src="{{ asset('images/addPasien.png') }}" alt="tambah pasien" class="w-5 h-5 mr-2 fill-black">
                 Tambah Akun
             </a>
         </div>
 
-        <!-- Include the SweetAlert library -->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
         <!-- Tabel Daftar Pasien -->
-        <div class="table-responsive shadow rounded-lg overflow-auto">
-            <table id="patientsTable" class="min-w-full bg-white shadow-md  overflow-hidden">
-                <thead class="bg-gray-800 text-white">
+        <div class="table-responsive shadow rounded-lg overflow-auto my-3 p-3">
+            <table id="patientsTable" class="min-w-full bg-white shadow-md overflow-hidden m-2 border border-gray-600">
+                <thead class="border">
                     <tr>
                         <th class="py-3 px-4">No</th>
                         <th class="py-3 px-4">Nama Lengkap</th>
@@ -49,9 +47,8 @@
                             <td class="py-3 px-4">{{ $patient->agama }}</td>
                             <td class="py-3 px-4">{{ $patient->alamat }}</td>
                             <td class="py-3 px-4">{{ $patient->no_hp }}</td>
-
                             <td class="py-3 px-4 flex gap-1">
-                                <a href="#" onclick="event.preventDefault(); viewPatientData({{ $patient->id }});"
+                                <a href="{{ route('healthHistory', $patient->id) }}"
                                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-200">
                                     <i class="fas fa-eye"></i> Lihat
                                 </a>
@@ -70,12 +67,11 @@
     <script>
         $(document).ready(function() {
             $('#patientsTable').DataTable({
-                // Opsi DataTables
-                paging: true, // Aktifkan pagination
-                searching: true, // Aktifkan fitur pencarian
-                ordering: true, // Aktifkan pengurutan kolom
-                info: true, // Tampilkan informasi jumlah data
-                lengthChange: true, // Izinkan perubahan jumlah data yang ditampilkan
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                lengthChange: true,
                 language: {
                     search: "Cari:",
                     paginate: {
@@ -88,32 +84,5 @@
                 }
             });
         });
-
-        function viewPatientData(patientId) {
-            $.ajax({
-                type: 'GET',
-                url: '/admin/fetchHealthRecord/' + patientId,
-                success: function(response) {
-                    if (response.url) {
-                        window.location.href = response.url;
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data tidak ditemukan!',
-                            footer: '<a href="{{ route('tambahPasien') }}">Tambah data ?</a>'
-                        });
-                    }
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Terjadi kesalahan saat memuat data.',
-                        footer: '<a href="{{ route('tambahPasien') }}">Coba lagi ?</a>'
-                    });
-                }
-            });
-        }
     </script>
 @endsection

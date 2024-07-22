@@ -35,6 +35,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/patient-records/{id}/print', [RiwayatKesehatanController::class, 'print'])->name('print');
 
+    Route::get('/listJadwal', [HealthCheckScheduleController::class, 'index'])->name('listJadwal');
+    Route::post('/tambah-jadwal', [HealthCheckScheduleController::class, 'store'])->name('simpanJadwal');
+    Route::get('/tambah-jadwal', [HealthCheckScheduleController::class, 'create'])->name('buatJadwal');
 
     // CRUD pasien
     Route::get('/admin/daftar-pasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');

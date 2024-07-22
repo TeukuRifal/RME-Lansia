@@ -1,8 +1,12 @@
 @extends('layouts.admin')
 
+@section('title', 'Rekam Medis')
+
 @section('content')
     <div class="container mx-auto px-4 py-6 mt-5">
-        <h2 class="text-2xl font-bold mb-6">Data Rekam Medis</h2>
+        <nav class="text-md mb-4">
+            <p class="text-blue-500">Rekam Medis</p>
+        </nav>
         <div class="flex justify-between items-center mb-6 p-2">
             <a href="{{ route('admin.patientRecords.create') }}"
                 class="flex items-center bg-blue-500 text-white py-2 px-4 rounded shadow hover:bg-blue-600 transition duration-200">
@@ -15,7 +19,7 @@
         <!-- Tabel Daftar Riwayat Pasien -->
         <div class="table-responsive shadow rounded-lg overflow-auto">
             <table id="patientRecordsTable" class="min-w-full bg-white shadow-md overflow-hidden">
-                <thead class="bg-gray-800 text-white align-middle justify-center">
+                <thead class=" align-middle justify-center border">
                     <tr>
                         <th class="py-3 px-4">No</th>
                         <th class="py-3 px-4">Nama Pasien</th>

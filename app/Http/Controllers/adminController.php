@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Patient;
 use App\Models\User;
-use App\Events\UserLoggedIn;
+use App\Models\Patient;
 use App\Models\ActivityLog;
-use Illuminate\Support\Facades\Auth;
+use App\Events\UserLoggedIn;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\HealthCheckSchedule;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller
 {
@@ -32,9 +35,10 @@ class AdminController extends Controller
             ->get();
         $ageCounts = $ageData->pluck('count');
         $ageLabels = $ageData->pluck('age');
+        
+        $schedules = HealthCheckSchedule::all();
     
-    
-        return view('pages.admin.dashboard', compact('totalPatients', 'totalLansia', 'totalAdmins', 'totalSuperAdmins', 'genderCounts', 'genderLabels', 'ageCounts', 'ageLabels'));
+        return view('pages.admin.dashboard', compact('totalPatients', 'totalLansia', 'schedules', 'totalAdmins', 'totalSuperAdmins', 'genderCounts', 'genderLabels', 'ageCounts', 'ageLabels'));
     }    
     // Metode lain dari AdminController
 
