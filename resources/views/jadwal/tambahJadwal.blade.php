@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container mx-auto mt-10">
@@ -7,7 +7,7 @@
             <form action="{{ route('simpanJadwal') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="nama_tempat" class="block text-sm font-medium text-gray-700">Nama Tempat</label>
+                    <label for="nama_tempat" class="block text-sm font-medium text-gray-700">Deskripsi</label>
                     <input type="text" name="nama_tempat" id="nama_tempat" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition" required>
                 </div>
                 <div class="mb-4">

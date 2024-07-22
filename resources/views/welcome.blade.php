@@ -114,8 +114,7 @@
                 </div>
             </div>
             <div class="flex-auto hidden md:flex justify-center items-center">
-                <img src="{{ asset('images/Logo_Remela_Lansia.png') }}" alt="Welcome Image"
-                    class="w-4/8 h-auto slide-in float">
+                <img src="{{ asset('images/LansiaLogoFix.png') }}" alt="Welcome Image" class="w-auto h-100 slide-in float">
             </div>
         </div>
 
@@ -166,7 +165,7 @@
         </div>
 
 
-        <!-- Section Jadwal -->
+        {{-- <!-- Section Jadwal -->
         <div id="profil" class="mx-auto p-5 rounded-xl bg-white">
             <h2 class="text-center text-3xl font-bold mb-6">Jadwal Pelayanan</h2>
             <div class="bg-lightblue p-6 mx-44 mt-16 rounded-xl shadow-lg">
@@ -207,7 +206,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
         <!-- Section Galeri -->
@@ -215,17 +214,17 @@
             <h2 class="text-3xl font-bold mb-8 text-center mt-10 bg">Galeri</h2>
             <div class=" shadow-sm grid grid-cols-1 md:grid-cols-3 m-auto w-3/4 h-auto gap-8 text-xl">
                 <div class="gallery-item">
-                    <img src="{{ asset('images/posbindu.jpg') }}" alt="Gallery Image 1"
+                    <img src="{{ asset('images/posbindu1.jpg') }}" alt="Gallery Image 1"
                         class="w-auto  rounded-lg shadow-lg">
                     <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan pertama </p>
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('images//posbindu.jpg') }}" alt="Gallery Image 2"
+                    <img src="{{ asset('images//posbindu2.jpg') }}" alt="Gallery Image 2"
                         class="w-auto  rounded-lg shadow-lg">
                     <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan Kedua </p>
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ asset('images//posbindu.jpg') }}" alt="Gallery Image 3"
+                    <img src="{{ asset('images//posbindu3.jpg') }}" alt="Gallery Image 3"
                         class="w-auto rounded-lg shadow-lg">
                     <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan Ketiga </p>
                 </div>

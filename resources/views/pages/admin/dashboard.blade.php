@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <div class="bg-white shadow-md rounded-lg p-6">
-        <h1 class="font-semibold my-3">Dashboard Admin</h1>
+        <h1 class="font-semibold text-2xl mb-6">Dashboard Admin</h1>
 
         <!-- Statistik Utama -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -15,7 +15,7 @@
             </div>
             <div class="bg-green-100 p-4 rounded-lg shadow-md">
                 <h2 class="text-lg font-bold">Jumlah Lansia</h2>
-                <p class="text-2xl"></p>
+                <p class="text-2xl">{{ $totalElderly }}</p>
             </div>
             <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
                 <h2 class="text-lg font-bold">Total Admin</h2>
@@ -28,7 +28,7 @@
         </div>
 
         <!-- Grafik dan Diagram -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h2 class="text-lg font-bold mb-2">Distribusi Jenis Kelamin</h2>
                 <canvas id="genderChart" width="400" height="300"></canvas>
@@ -37,27 +37,28 @@
                 <h2 class="text-lg font-bold mb-2">Distribusi Usia</h2>
                 <canvas id="ageChart" width="400" height="300"></canvas>
             </div>
+            
         </div>
 
         <!-- Jadwal Kegiatan -->
         <div class="bg-white rounded-lg shadow-md p-4 mb-6">
             <h2 class="text-lg font-bold mb-2">Jadwal Kegiatan</h2>
             <div class="bg-gray-100 p-6 rounded-xl shadow-lg">
-            @forelse ($schedules as $schedule)
-                <div class="bg-white p-4 rounded-lg mb-4 flex justify-between items-center shadow-sm">
-                    <div>
-                        <h3 class="text-xl font-semibold">{{ $schedule->nama_tempat }}</h3>
-                        <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}</p>
+                @forelse ($schedules as $schedule)
+                    <div class="bg-white p-4 rounded-lg mb-4 flex justify-between items-center shadow-sm">
+                        <div>
+                            <h3 class="text-xl font-semibold">{{ $schedule->nama_tempat }}</h3>
+                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($schedule->waktu_selesai)->format('H:i') }} WIB</p>
+                            <p class="text-sm text-gray-600">{{ $schedule->lokasi }}</p>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($schedule->waktu_selesai)->format('H:i') }} WIB</p>
-                        <p class="text-sm text-gray-600">{{ $schedule->lokasi }}</p>
-                    </div>
-                </div>
-            @empty
-                <p class="text-center text-gray-600">Tidak ada jadwal pelayanan tersedia saat ini.</p>
-            @endforelse
-        </div>
+                @empty
+                    <p class="text-center text-gray-600">Tidak ada jadwal pelayanan tersedia saat ini.</p>
+                @endforelse
+            </div>
             <a href="{{ route('buatJadwal') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Tambah Jadwal Baru</a>
         </div>
 
@@ -78,14 +79,14 @@
         var genderCounts = {!! json_encode($genderCounts) !!};
 
         var ctxGender = document.getElementById('genderChart').getContext('2d');
-        var genderChart = new Chart(ctxGender, {
+        new Chart(ctxGender, {
             type: 'pie',
             data: {
                 labels: genderLabels,
                 datasets: [{
                     data: genderCounts,
-                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
+                    backgroundColor: ['rgb(163, 216, 255)', 'rgb(255, 180, 194)'],
+                    borderColor: ['rgb(163, 216, 255)', 'rgb(163, 216, 255)'],
                     borderWidth: 1
                 }]
             },
@@ -99,8 +100,39 @@
             }
         });
 
-        
+        // Data untuk chart usia
+        var ageLabels = {!! json_encode($ageLabels) !!};
+        var ageCounts = {!! json_encode($ageCounts) !!};
 
+        var ctxAge = document.getElementById('ageChart').getContext('2d');
+        new Chart(ctxAge, {
+            type: 'bar',
+            data: {
+                labels: ageLabels,
+                datasets: [{
+                    label: 'Jumlah Pasien',
+                    data: ageCounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+       
     });
 </script>
 

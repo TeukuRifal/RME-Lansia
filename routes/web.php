@@ -31,6 +31,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin routes
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('patients', [PasienController::class, 'showImportForm'])->name('patients');
+    Route::post('import', [PasienController::class, 'import'])->name('import');
+    Route::get('export', [PasienController::class, 'export'])->name('export');
+
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/admin/patient-records/{id}/print', [RiwayatKesehatanController::class, 'print'])->name('print');

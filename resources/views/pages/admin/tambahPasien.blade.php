@@ -12,10 +12,11 @@
         @if(session('success'))
         <script>
             Swal.fire({
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
+                position: 'top-end',
                 icon: 'success',
-                confirmButtonText: 'OK'
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
             });
         </script>
         @endif

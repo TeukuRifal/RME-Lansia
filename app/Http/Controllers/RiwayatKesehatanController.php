@@ -250,8 +250,12 @@ class RiwayatKesehatanController extends Controller
     public function print($id)
 {
     $record = PatientRecord::findOrFail($id);
-    return view('pages.admin.print', compact('record'));
+    $patient = Patient::findOrFail($record->patient_id);
+    $records = PatientRecord::where('patient_id', $patient->Id)->get();
+
+    return view('pages.admin.print', compact('record', 'patient', 'records'));
 }
+
 
     public function getHealthRecordsByMonth($patientId, Request $request)
 {

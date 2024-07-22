@@ -42,18 +42,18 @@
 
             .btn-3d {
                 background: linear-gradient(145deg, #6ed3fc, #5ab0d3);
-                box-shadow: 5px 5px 10px #4aa3c3, -5px -5px 10px #7eddfd;
+                box-shadow: 5px 5px 10px rgba(74, 163, 195, 0.3), -5px -5px 10px rgba(126, 223, 253, 0.3);
                 transition: all 0.3s ease-in-out;
             }
 
             .btn-3d:hover {
-                box-shadow: 10px 10px 20px #4aa3c3, -10px -10px 20px #7eddfd;
+                box-shadow: 10px 10px 20px rgba(74, 163, 195, 0.3), -10px -10px 20px rgba(126, 223, 253, 0.3);
                 transform: translateY(-5px);
             }
         </style>
     </head>
 
-    <body class="font-sans">
+    <body class="font-sans bg-gradient-to-b from-lightblue to-[#edf5f8]">
         <div class="h-screen flex bg-gradient-to-b from-lightblue to-[#edf5f8]">
             <div class="w-1/2 flex justify-center items-center p-8 md:p-20 mx-10">
                 <div class="mx-auto slide-in-up">
@@ -65,29 +65,23 @@
                 </div>
             </div>
             <div class="flex-auto hidden md:flex justify-center items-center">
-                <img src="{{ asset('images/Logo_Remela_Lansia.png') }}" alt="Welcome Image" class="w-auto h-80 slide-in float">
+                <img src="{{ asset('images/LansiaLogoFix.png') }}" alt="Welcome Image" class="w-auto h-100 slide-in float">
             </div>
         </div>
 
-        <div id="perkembangan" class="mx-auto p-5  bg-white h-screen">
-            <h2 class="mt-5 text-3xl font-bold text-center mb-14">Grafik Perkembangan</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 justify-items-center mx-auto">
+        <div id="perkembangan" class="p-5 bg-white">
+            <h2 class="text-3xl font-bold text-center mb-14">Grafik Perkembangan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto">
                 @foreach (['Lingkar Perut', 'Gula Darah', 'Kolesterol'] as $grafik)
-                    <div class="chart-container w-full max-w-sm bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-                        <div class="flex justify-between">
-                            <div>
-                                <h5 class="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                    {{ $grafik }}</h5>
-                            </div>
-                            <div
-                                class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                    <div class="chart-container bg-white rounded-lg shadow-md p-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h5 class="text-2xl font-semibold">{{ $grafik }}</h5>
+                            {{-- <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500">
                                 Normal
-                                <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
+                                <svg class="w-4 h-4 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
                                 </svg>
-                            </div>
+                            </div> --}}
                         </div>
                         <div>
                             <canvas id="chart-{{ strtolower(str_replace(' ', '-', $grafik)) }}"></canvas>
@@ -96,130 +90,319 @@
                 @endforeach
 
                 <!-- Chart untuk Tekanan Darah -->
-                <div class="chart-container w-full max-w-sm bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-                    <div class="flex justify-between">
-                        <div>
-                            <h5 class="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                Tekanan Darah</h5>
-                        </div>
-                        <div
-                            class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                <div class="chart-container bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h5 class="text-2xl font-semibold">Tekanan Darah</h5>
+                        {{-- <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500">
                             Normal
-                            <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 10 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13V1m0 0L1 5m4-4 4 4" />
+                            <svg class="w-4 h-4 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
                             </svg>
-                        </div>
+                        </div> --}}
                     </div>
                     <div>
                         <canvas id="chart-tekanan-darah"></canvas>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="mt-10 bg-white p-5">
-            <h2 class="text-center text-3xl font-bold mb-6">Jadwal Pelayanan</h2>
-            <div class="p-6 rounded-xl shadow-lg bg-lightblue">
-                @foreach ($jadwal as $schedule)
-                    <div class="bg-white p-4 rounded-lg mb-4 flex justify-between items-center border border-gray-200 hover:shadow-md transition-shadow duration-300">
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-800">{{ $schedule->nama_tempat }}</h3>
-                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} -
-                                {{ \Carbon\Carbon::parse($schedule->waktu_selesai)->format('H:i') }} WIB</p>
-                            <p class="text-sm text-gray-600">{{ $schedule->lokasi }}</p>
-                        </div>
+                <!-- Chart untuk IMT -->
+                <div class="chart-container bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h5 class="text-2xl font-semibold">IMT (Indeks Massa Tubuh)</h5>
+                        {{-- <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500">
+                            Normal
+                            <svg class="w-4 h-4 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
+                            </svg>
+                        </div> --}}
                     </div>
-                @endforeach
+                    <div>
+                        <canvas id="chart-imt"></canvas>
+                    </div>
+                </div>
             </div>
+            <div class="kategori flex shadow-lg rounded-md p-2 m-2 justify-between">
+                <!-- Pemberitahuan Kategori IMT -->
+                <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h6 class="text-xl font-semibold mb-2">Kategori Indeks Massa Tubuh</h6>
+                    @forelse($imtCategories as $category)
+                        <p>{{ $category['date'] }}: {{ $category['category'] }}</p>
+                    @empty
+                        <p>Tidak ada data IMT.</p>
+                    @endforelse
+                </div>
+
+                <!-- Pemberitahuan Kategori Kolesterol -->
+                <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <h6 class="text-xl font-semibold mb-2">Kategori Kolesterol</h6>
+                    @forelse($kolesterolCategories as $category)
+                        <p>{{ $category['date'] }}: {{ $category['category'] }}</p>
+                    @empty
+                        <p>Tidak ada data kolesterol.</p>
+                    @endforelse
+                </div>
+
+                <!-- Pemberitahuan Kategori Tekanan Darah -->
+                <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <h6 class="text-xl font-semibold mb-2">Kategori Tekanan Darah</h6>
+                    @forelse($tekananDarahCategories as $category)
+                        <p>{{ $category['date'] }}: {{ $category['category'] }}</p>
+                    @empty
+                        <p>Tidak ada data tekanan darah.</p>
+                    @endforelse
+                </div>
+            </div>
+
+            <!-- Jadwal Pemeriksaan Selanjutnya -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">Jadwal Pemeriksaan Selanjutnya</h2>
+                @if ($schedules->isNotEmpty())
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Deskripsi</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Tanggal</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Waktu Mulai</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Waktu Selesai</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Lokasi</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach ($schedules as $schedule)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            {{ $schedule->nama_tempat }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->tanggal }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->waktu_mulai }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->waktu_selesai }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->lokasi }}</td>
+                                        
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <p class="text-gray-600">Belum ada jadwal pemeriksaan yang tersedia.</p>
+                @endif
+            </div>
+
+            
+
+
         </div>
-        
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const recordDates = @json($recordDates);
-                const dataPerGrafik = @json($dataPerGrafik);
+                var ctxLingkarPerut = document.getElementById('chart-lingkar-perut').getContext('2d');
+                var ctxGulaDarah = document.getElementById('chart-gula-darah').getContext('2d');
+                var ctxKolesterol = document.getElementById('chart-kolesterol').getContext('2d');
+                var ctxTekananDarah = document.getElementById('chart-tekanan-darah').getContext('2d');
+                var ctxIMT = document.getElementById('chart-imt').getContext('2d');
 
-                Object.keys(dataPerGrafik).forEach(key => {
-                    if (key !== 'Tekanan Darah Sistolik' && key !== 'Tekanan Darah Diastolik') {
-                        new Chart(document.getElementById('chart-' + key.toLowerCase().replace(' ', '-')), {
-                            type: 'line',
-                            data: {
-                                labels: recordDates,
-                                datasets: [{
-                                    label: key,
-                                    data: dataPerGrafik[key],
-                                    fill: 'start',
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1,
-                                    tension: 0.4
-                                }]
+                var dataLingkarPerut = @json($dataPerGrafik['Lingkar Perut']);
+                var dataGulaDarah = @json($dataPerGrafik['Gula Darah']);
+                var dataKolesterol = @json($dataPerGrafik['Kolesterol']);
+                var dataTekananDarahSistolik = @json($dataPerGrafik['Tekanan Darah Sistolik']);
+                var dataTekananDarahDiastolik = @json($dataPerGrafik['Tekanan Darah Diastolik']);
+                var labels = @json($recordDates);
+                var imtDates = @json($imtDates);
+                var imtValues = @json($imtValues);
+
+                // Grafik Lingkar Perut
+                new Chart(ctxLingkarPerut, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Lingkar Perut',
+                            data: dataLingkarPerut,
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
                             },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                        grid: {
-                                            display: true,
-                                            color: 'rgba(200, 200, 200, 0.3)'
-                                        }
-                                    },
-                                    x: {
-                                        grid: {
-                                            display: false
-                                        }
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Lingkar Perut: ' + context.raw + ' cm';
                                     }
                                 }
                             }
-                        });
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
                 });
 
-                // Untuk chart tekanan darah (sistolik dan diastolik)
-                new Chart(document.getElementById('chart-tekanan-darah'), {
+                // Grafik Gula Darah
+                new Chart(ctxGulaDarah, {
                     type: 'line',
                     data: {
-                        labels: recordDates,
+                        labels: labels,
                         datasets: [{
-                                label: 'Tekanan Darah Sistolik',
-                                data: dataPerGrafik['Tekanan Darah Sistolik'],
-                                fill: false,
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 1,
-                                tension: 0.4
+                            label: 'Gula Darah',
+                            data: dataGulaDarah,
+                            borderColor: 'rgb(153, 102, 255)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Gula Darah: ' + context.raw + ' mg/dL';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Grafik Kolesterol
+                new Chart(ctxKolesterol, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Kolesterol',
+                            data: dataKolesterol,
+                            borderColor: 'rgb(255, 159, 64)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Kolesterol: ' + context.raw + ' mg/dL';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Grafik Tekanan Darah
+                new Chart(ctxTekananDarah, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                                label: 'Sistolik',
+                                data: dataTekananDarahSistolik,
+                                borderColor: 'rgb(255, 99, 132)',
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderWidth: 1
                             },
                             {
-                                label: 'Tekanan Darah Diastolik',
-                                data: dataPerGrafik['Tekanan Darah Diastolik'],
-                                fill: false,
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1,
-                                tension: 0.4
+                                label: 'Diastolik',
+                                data: dataTekananDarahDiastolik,
+                                borderColor: 'rgb(54, 162, 235)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderWidth: 1
                             }
                         ]
                     },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.raw + ' mmHg';
+                                    }
+                                }
+                            }
+                        },
                         scales: {
                             y: {
-                                beginAtZero: true,
-                                grid: {
-                                    display: true,
-                                    color: 'rgba(200, 200, 200, 0.3)'
-                                }
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Grafik IMT
+                new Chart(ctxIMT, {
+                    type: 'line',
+                    data: {
+                        labels: imtDates,
+                        datasets: [{
+                            label: 'IMT',
+                            data: imtValues,
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
                             },
-                            x: {
-                                grid: {
-                                    display: false
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'IMT: ' + context.raw + ' kg/m²';
+                                    }
                                 }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
                             }
                         }
                     }

@@ -54,13 +54,13 @@
                             <td class="py-3 px-4">{{ $record->patient->nama_lengkap }}</td>
                             <td class="py-3 px-4">{{ $record->patient->nik }}</td>
                             <td class="py-3 px-4">{{ $record->record_date }}</td>
-                            <td class="py-3 px-4">{{ $record->riwayat_ptm_keluarga ? 'Ya' : 'Tidak' }}</td>
-                            <td class="py-3 px-4">{{ $record->riwayat_ptm_sendiri ? 'Ya' : 'Tidak' }}</td>
-                            <td class="py-3 px-4">{{ $record->merokok ? 'Ya' : 'Tidak' }}</td>
-                            <td class="py-3 px-4">{{ $record->kurang_aktivitas_fisik ? 'Ya' : 'Tidak' }}</td>
-                            <td class="py-3 px-4">{{ $record->kurang_sayur_buah ? 'Ya' : 'Tidak' }}</td>
-                            <td class="py-3 px-4">{{ $record->konsumsi_alkohol ? 'Ya' : 'Tidak' }}</td>
-                            <td class="py-3 px-4">{{ $record->stress ? 'Ya' : 'Tidak' }}</td>
+                            <td class="py-3 px-4">{{ $record->riwayat_ptm_keluarga ?? ' - ' }}</td>
+                            <td class="py-3 px-4">{{ $record->riwayat_ptm_sendiri ?? ' - ' }}</td>
+                            <td class="py-3 px-4">{{ $record->merokok ?? ' - ' }}</td>
+                            <td class="py-3 px-4">{{ $record->kurang_aktivitas_fisik ?? ' - ' }}</td>
+                            <td class="py-3 px-4">{{ $record->kurang_sayur_buah ?? ' - ' }}</td>
+                            <td class="py-3 px-4">{{ $record->konsumsi_alkohol ?? ' - ' }}</td>
+                            <td class="py-3 px-4">{{ $record->stress ?? ' - ' }}</td>
                             <td class="py-3 px-4">{{ $record->berat_badan ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tinggi_badan ?? '-' }}</td>
                             
