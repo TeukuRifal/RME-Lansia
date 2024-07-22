@@ -16,13 +16,11 @@
     <style>
         .sidebar {
             width: 240px;
-            /* Lebar sidebar saat belum dilipat */
             transition: width 0.3s ease;
         }
 
         .sidebar-collapsed {
             width: 64px;
-            /* Lebar sidebar saat dilipat */
         }
 
         .sidebar-logo {
@@ -137,53 +135,41 @@
                 </div>
             </div>
             <button id="toggleSidebar" class="text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
-                    </path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             </button>
         </div>
         <nav class="flex-grow sidebar-nav">
             <p class="font-bold size-5 m-2">Data</p>
             <a href="{{ route('admin.dashboard') }}">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 6h18M3 18h18">
-                    </path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 6h18M3 18h18"></path>
                 </svg>
                 <span>Dashboard</span>
             </a>
             <p class="font-bold size-5 m-2">Pasien</p>
             <a href="{{ route('daftarPasien') }}">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
                 </svg>
                 <span>Kelola Pasien</span>
             </a>
             <a href="{{ route('rekamMedis') }}">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m8 4H4m8-8H4m8 8h4m0 4h4m0-16h4"></path>
                 </svg>
                 <span>Rekam Medis</span>
             </a>
             <a href="#">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 8c-2.21 0-4 .9-4 2s1.79 2 4 2 4-.9 4-2-1.79-2-4-2z"></path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-2.21 0-4 .9-4 2s1.79 2 4 2 4-.9 4-2-1.79-2-4-2z"></path>
                 </svg>
                 <span>Log Aktivitas</span>
             </a>
             <a href="#">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v4m0 4v4m0 4v4">
-                    </path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v4m0 4v4m0 4v4"></path>
                 </svg>
                 <span>Profil Admin</span>
             </a>
@@ -191,8 +177,7 @@
         <div class="logout p-4">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit"
-                    class="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Logout</button>
+                <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Logout</button>
             </form>
         </div>
     </div>
