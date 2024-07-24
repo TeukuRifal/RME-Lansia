@@ -18,12 +18,12 @@
 
         <div class="bg-white rounded-lg shadow-md p-6">
             <div class="border-b border-gray-200 mb-6">
-                <ul class="flex justify-around">
-                    <li class="mr-2">
-                        <a href="#" class="inline-block py-2 px-4 text-gray-600 font-semibold hover:border-b-4 hover:border-blue-500" id="dataDiriTab" onclick="showDataDiri()">Data Diri</a>
+                <ul class="flex border-b">
+                    <li class="mr-1">
+                        <a href="#" class="py-2 px-4 block text-gray-600 font-semibold hover:text-blue-500" id="dataDiriTab" onclick="showDataDiri()">Data Diri</a>
                     </li>
-                    <li class="mr-2">
-                        <a href="#" class="inline-block py-2 px-4 text-gray-600 font-semibold hover:border-b-4 hover:border-blue-500" id="riwayatKesehatanTab" onclick="showRiwayatKesehatan()">Riwayat Kesehatan</a>
+                    <li class="mr-1">
+                        <a href="#" class="py-2 px-4 block text-gray-600 font-semibold hover:text-blue-500" id="riwayatKesehatanTab" onclick="showRiwayatKesehatan()">Riwayat Kesehatan</a>
                     </li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
                     ] as $label => $value)
                         <div>
                             <label class="block text-gray-700">{{ $label }}</label>
-                            <input type="text" class="w-full px-4 py-2 border rounded-lg" value="{{ $value }}" readonly>
+                            <input type="text" class="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-700" value="{{ $value }}" readonly>
                         </div>
                     @endforeach
                 </div>
@@ -56,49 +56,45 @@
                 <h2 class="text-lg font-semibold mb-2 mt-8">Data Riwayat Kesehatan</h2>
 
                 <div class="mb-4">
-                    <label for="filterTanggal" class="block mb-2 text-sm font-medium text-gray-700">Pilih Tanggal Pemeriksaan:</label>
-                    <select id="filterTanggal" class="form-select mt-1 block w-full" onchange="filterByDate()">
-                        <option value="">Semua Tanggal</option>
-                        @foreach ($dates as $date)
-                            <option value="{{ $date }}">{{ $date }}</option>
-                        @endforeach
-                    </select>
+                    <label for="searchInput" class="block mb-2 text-sm font-medium text-gray-700">Cari Data Riwayat Kesehatan:</label>
+                    <input type="text" id="searchInput" class="w-full px-4 py-2 border rounded-lg bg-gray-100" placeholder="Cari data riwayat kesehatan...">
                 </div>
 
-                <div class="overflow-x-auto">
-                    <table id="healthRecordsTable" class="table-auto w-full border-collapse border border-gray-300">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="px-4 py-2 border">Tanggal Rekam Medis</th>
-                                <th class="px-4 py-2 border">Berat Badan (kg)</th>
-                                <th class="px-4 py-2 border">Tinggi Badan (cm)</th>
-                                <th class="px-4 py-2 border">Lingkar Perut (cm)</th>
-                                <th class="px-4 py-2 border">Tekanan Darah (mmHg)</th>
-                                <th class="px-4 py-2 border">Gula Darah Sewaktu (mg/dL)</th>
-                                <th class="px-4 py-2 border">Kolesterol Total (mg/dL)</th>
-                                <th class="px-4 py-2 border">Aksi</th>
+                <div class="overflow-x-auto mt-6">
+                    <table id="healthRecordsTable" class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Rekam Medis</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Berat Badan (kg)</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tinggi Badan (cm)</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lingkar Perut (cm)</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tekanan Darah (mmHg)</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gula Darah Sewaktu (mg/dL)</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kolesterol Total (mg/dL)</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($healthRecords as $record)
                                 <tr>
-                                    <td class="px-4 py-2 border">{{ $record->record_date->format('d F Y') }}</td>
-                                    <td class="px-4 py-2 border">{{ $record->berat_badan }}</td>
-                                    <td class="px-4 py-2 border">{{ $record->tinggi_badan }}</td>
-                                    <td class="px-4 py-2 border">{{ $record->lingkar_perut }}</td>
-                                    <td class="px-4 py-2 border">{{ $record->tekanan_darah }}</td>
-                                    <td class="px-4 py-2 border">{{ $record->gula_darah_sewaktu }}</td>
-                                    <td class="px-4 py-2 border">{{ $record->kolesterol_total }}</td>
-                                    <td class="px-4 py-2 border text-center">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" onclick="editHealthRecord({{ $record->id }})">Edit</button>
-                                        <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" onclick="deleteHealthRecord({{ $record->id }})">Hapus</button>
-                                    </td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ $record->record_date->format('d F Y') }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ $record->berat_badan }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ $record->tinggi_badan }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ $record->lingkar_perut }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ $record->tekanan_darah }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ $record->gula_darah_sewaktu }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ $record->kolesterol_total }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <a href="mailto:support@example.com" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Hubungi Dukungan
+            </a>
         </div>
     </div>
 
@@ -117,53 +113,14 @@
             document.getElementById('riwayatKesehatanTab').classList.add('border-b-4', 'border-blue-500');
         }
 
-        function filterByDate() {
-            var selectedDate = document.getElementById('filterTanggal').value;
-            var url = selectedDate ? `/getHealthRecordsByDate/${selectedDate}` : '/getAllHealthRecords';
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    var tableBody = document.querySelector('#healthRecordsTable tbody');
-                    tableBody.innerHTML = '';
-                    data.forEach(record => {
-                        var row = `<tr>
-                            <td class="px-4 py-2 border">${record.record_date}</td>
-                            <td class="px-4 py-2 border">${record.berat_badan}</td>
-                            <td class="px-4 py-2 border">${record.tinggi_badan}</td>
-                            <td class="px-4 py-2 border">${record.lingkar_perut}</td>
-                            <td class="px-4 py-2 border">${record.tekanan_darah}</td>
-                            <td class="px-4 py-2 border">${record.gula_darah_sewaktu}</td>
-                            <td class="px-4 py-2 border">${record.kolesterol_total}</td>
-                            <td class="px-4 py-2 border text-center">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" onclick="editHealthRecord(${record.id})">Edit</button>
-                                <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" onclick="deleteHealthRecord(${record.id})">Hapus</button>
-                            </td>
-                        </tr>`;
-                        tableBody.innerHTML += row;
-                    });
-                });
-        }
-
-        function editHealthRecord(id) {
-            window.location.href = `/health-records/${id}/edit`;
-        }
-
-        function deleteHealthRecord(id) {
-            if (confirm('Yakin ingin menghapus rekam medis ini?')) {
-                fetch(`/health-records/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        alert('Rekam medis berhasil dihapus');
-                        location.reload();
-                    } else {
-                        alert('Gagal menghapus rekam medis');
-                    }
-                });
-            }
-        }
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#healthRecordsTable tbody tr');
+            rows.forEach(row => {
+                const cells = row.getElementsByTagName('td');
+                const text = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(' ');
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
     </script>
 @endsection

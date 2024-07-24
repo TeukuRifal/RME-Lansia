@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body class="bg-lightblue">
+<body class="">
 
 
     <div>

@@ -43,6 +43,8 @@ class RiwayatKesehatanController extends Controller
         }
     }
 
+    
+
     public function fetchHealthRecord($patient_id)
 {
     try {

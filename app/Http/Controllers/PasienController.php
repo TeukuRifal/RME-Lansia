@@ -25,7 +25,9 @@ class PasienController extends Controller
     $pasien = $user->patient;
 
     // Mendapatkan data riwayat pasien
-    $patientRecords = PatientRecord::where('patient_id', $pasien->id)->orderBy('record_date', 'asc')->get();
+    $patientRecords = PatientRecord::where('patient_id', $pasien->id)
+        ->orderBy('record_date', 'asc')
+        ->get();
 
     // Mengambil data untuk masing-masing grafik
     $dataPerGrafik = [
@@ -33,7 +35,8 @@ class PasienController extends Controller
         'Gula Darah' => $patientRecords->pluck('gula_darah_sewaktu'),
         'Tekanan Darah Sistolik' => $patientRecords->pluck('tekanan_darah_sistolik'),
         'Tekanan Darah Diastolik' => $patientRecords->pluck('tekanan_darah_diastolik'),
-        'Kolesterol' => $patientRecords->pluck('kolesterol_total')
+        'Kolesterol' => $patientRecords->pluck('kolesterol_total'),
+        'Asam Urat' => $patientRecords->pluck('asam_urat'),
     ];
 
     // Hitung IMT
@@ -50,7 +53,7 @@ class PasienController extends Controller
     $imtCategories = $imtData->map(function ($data) {
         if ($data['imt'] < 23) {
             return ['date' => $data['date'], 'category' => 'Kekurangan berat badan'];
-        } elseif ($data['imt'] >= 23 && $data['imt'] < 30) {
+        } elseif ($data['imt'] < 30) {
             return ['date' => $data['date'], 'category' => 'Berat badan normal'];
         } else {
             return ['date' => $data['date'], 'category' => 'Kelebihan berat badan/obesitas'];
@@ -73,30 +76,23 @@ class PasienController extends Controller
         $diastolik = $record->tekanan_darah_diastolik;
         if ($sistolik > 160 || $diastolik > 100) {
             return ['date' => $record->record_date->format('F Y'), 'category' => 'Hipertensi tingkat 2'];
-        } elseif ($sistolik >= 140 && $diastolik >= 90) {
+        } elseif ($sistolik >= 140 || $diastolik >= 90) {
             return ['date' => $record->record_date->format('F Y'), 'category' => 'Hipertensi tingkat 1'];
-        } elseif ($sistolik >= 120 && $diastolik >= 80) {
+        } elseif ($sistolik >= 120 || $diastolik >= 80) {
             return ['date' => $record->record_date->format('F Y'), 'category' => 'Pra-hipertensi'];
         } else {
             return ['date' => $record->record_date->format('F Y'), 'category' => 'Normal'];
         }
     });
-
-    // Ambil tanggal record unik
-    $recordDates = $patientRecords->pluck('record_date')->map(function ($date) {
-        return $date->format('F Y');
-    });
-
-    // Ambil data IMT
     $imtDates = $imtData->pluck('date');
     $imtValues = $imtData->pluck('imt');
 
+    // Ambil tanggal record unik
+    $recordDates = $patientRecords->pluck('record_date')->map(fn($date) => $date->format('F Y'));
+
     // Tanggal unik untuk grafik
-    $dates = $patientRecords->pluck('record_date')->unique(function ($item) {
-        return $item->format('Y-m');
-    })->map(function ($date) {
-        return $date->format('F Y');
-    });
+    $dates = $patientRecords->pluck('record_date')->unique(fn($item) => $item->format('Y-m'))
+        ->map(fn($date) => $date->format('F Y'));
 
     // Menghitung status kesehatan untuk data terbaru
     $latestRecord = $patientRecords->last();
@@ -107,10 +103,9 @@ class PasienController extends Controller
     $statusTekananDarah = $tekananDarahCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
 
     // Ambil jadwal pemeriksaan kesehatan
-   // Ambil jadwal pemeriksaan selanjutnya berdasarkan tanggal dan waktu
-   $schedules = HealthCheckSchedule::all();
+    $schedules = HealthCheckSchedule::all();
 
-    return view('pages.pasien.beranda', compact('pasien', 'dataPerGrafik', 'recordDates', 'imtDates', 'imtValues', 'schedules', 'dates', 'imtCategories', 'kolesterolCategories', 'tekananDarahCategories', 'statusKolesterol', 'statusIMT', 'statusLingkarPerut', 'statusTekananDarah'));
+    return view('pages.pasien.beranda', compact('pasien', 'dataPerGrafik', 'recordDates', 'imtDates', 'imtValues', 'imtData', 'imtCategories', 'kolesterolCategories', 'tekananDarahCategories', 'statusKolesterol', 'statusIMT', 'statusLingkarPerut', 'statusTekananDarah', 'schedules', 'dates'));
 }
 
 

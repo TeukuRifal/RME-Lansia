@@ -96,6 +96,8 @@ Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/beranda', [PasienController::class, 'index'])->name('beranda');
     Route::get('/profil', [PasienController::class, 'profil'])->name('profil');
     Route::get('/jadwal', [PasienController::class, 'jadwal'])->name('jadwal');
+    Route::get('/riwayat-bulan-ini', [RiwayatKesehatanController::class, 'showRiwayatBulanIni'])->name('riwayat.bulan.ini');
+
 
 
     

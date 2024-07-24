@@ -150,7 +150,8 @@
                                 <p>Meningkatkan Kesadaran Akan Kesehatan</p>
                                 <p>Menawarkan rekomendasi kesehatan yang dipersonalisasi berdasarkan data pengguna</p>
                                 <p>Mendorong Gaya Hidup Sehat</p>
-                                <p>Terus mengembangkan fitur dan teknologi baru yang mendukung kebutuhan kesehatan lansia.</p>
+                                <p>Terus mengembangkan fitur dan teknologi baru yang mendukung kebutuhan kesehatan lansia.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -216,22 +217,23 @@
                 <div class="gallery-item">
                     <img src="{{ asset('images/posbindu1.jpg') }}" alt="Gallery Image 1"
                         class="w-auto  rounded-lg shadow-lg">
-                    <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan pertama </p>
+                    <p class="h-32 shadow-md bg-white rounded-lg p-5">Foto Bersama Kader Posyandu Lansia & Posbindu Ptm </p>
                 </div>
                 <div class="gallery-item">
                     <img src="{{ asset('images//posbindu2.jpg') }}" alt="Gallery Image 2"
                         class="w-auto  rounded-lg shadow-lg">
-                    <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan Kedua </p>
+                    <p class="h-32 shadow-md bg-white rounded-lg p-5">Pemeriksaan Kesehatan Lansia </p>
                 </div>
                 <div class="gallery-item">
                     <img src="{{ asset('images//posbindu3.jpg') }}" alt="Gallery Image 3"
                         class="w-auto rounded-lg shadow-lg">
-                    <p class="h-32 shadow-md bg-white rounded-lg p-5">Pertemuan Ketiga </p>
+                    <p class="h-30 shadow-md bg-white rounded-lg p-5">Pengukuran Lingkar Pinggang Sebagai Bagian Dari
+                        Pengecekan Kesehatan</p>
                 </div>
             </div>
         </div>
 
-        <div class="container mx-auto p-4 bg-white rounded-lg shadow-lg mt-10">
+        {{-- <div class="container mx-auto p-4 bg-white rounded-lg shadow-lg mt-10">
             <h1 class="text-2xl font-bold mb-4 text-center">Map Location</h1>
             <div id="map" class="rounded-lg shadow-md" style="height: 400px; width: 100%;"></div>
         </div>
@@ -261,7 +263,7 @@
         </script>
 
         <!-- Memuat Google Maps API dengan callback ke initMap -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script> --}}
 
 
     </body>
