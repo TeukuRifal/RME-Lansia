@@ -44,7 +44,7 @@
                         <th class="py-3 px-4">Masalah Kesehatan</th>
                         <th class="py-3 px-4">Obat Fasilitas</th>
                         <th class="py-3 px-4">Tindak Lanjut</th>
-                        <th class="py-3 px-4">Aksi</th>
+                        {{-- <th class="py-3 px-4">Aksi</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -73,9 +73,9 @@
                             <td class="py-3 px-4">{{ $record->masalah_kesehatan ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->obat_fasilitas ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tindak_lanjut ?? '-' }}</td>
-                            <td class="py-3 px-4">
+                            {{-- <td class="py-3 px-4">
                                 <a href="{{ route('print', $record->id) }}" class="text-blue-500 hover:text-blue-700">Lihat</a>
-                            </td>
+                            </td> --}}
                             
                         </tr>
                     @endforeach

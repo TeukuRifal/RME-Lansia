@@ -38,7 +38,7 @@
 <body class="flex bg-gray-50 text-gray-800 font-sans">
 
     <!-- Sidebar -->
-    <div class="sidebar min-h-screen flex flex-col bg-white shadow-md border-r border-gray-200">
+    <div class="sidebar min-h-screen min-w-52 flex flex-col bg-white shadow-md border-r border-gray-200 ">
         <div class="p-4 border-b border-gray-200 flex items-center justify-between">
             <div class="text-center font-bold text-xl text-gray-800">Admin Panel</div>
             <button class="text-gray-600 hover:text-gray-800 focus:outline-none" onclick="toggleSidebar()">

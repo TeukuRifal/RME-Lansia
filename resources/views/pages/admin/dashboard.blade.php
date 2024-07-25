@@ -3,6 +3,7 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
+
 <div class="container mx-auto px-4 py-6">
     <div class="bg-white shadow-md rounded-lg p-6">
         <h1 class="font-semibold text-2xl mb-6">Dashboard Admin</h1>
@@ -40,26 +41,54 @@
             
         </div>
 
-        <!-- Jadwal Kegiatan -->
-        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-            <h2 class="text-lg font-bold mb-2">Jadwal Kegiatan</h2>
-            <div class="bg-gray-100 p-6 rounded-xl shadow-lg">
-                @forelse ($schedules as $schedule)
-                    <div class="bg-white p-4 rounded-lg mb-4 flex justify-between items-center shadow-sm">
-                        <div>
-                            <h3 class="text-xl font-semibold">{{ $schedule->nama_tempat }}</h3>
-                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->tanggal)->format('d F Y') }}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($schedule->waktu_selesai)->format('H:i') }} WIB</p>
-                            <p class="text-sm text-gray-600">{{ $schedule->lokasi }}</p>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-center text-gray-600">Tidak ada jadwal pelayanan tersedia saat ini.</p>
-                @endforelse
-            </div>
-            <a href="{{ route('buatJadwal') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Tambah Jadwal Baru</a>
+        <!-- Jadwal Pemeriksaan Selanjutnya -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 mt-5 border border-blue- ">
+            <h2 class="text-xl font-semibold mb-4">Jadwal Pemeriksaan Selanjutnya</h2>
+            @if ($schedules->isNotEmpty())
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-blue-50">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Deskripsi</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tanggal</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Waktu Mulai</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Waktu Selesai</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Lokasi</th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($schedules as $schedule)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{ $schedule->nama_tempat }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->tanggal }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->waktu_mulai }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->waktu_selesai }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->lokasi }}</td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <p class="text-gray-600">Belum ada jadwal pemeriksaan yang tersedia.</p>
+            @endif
         </div>
 
         <!-- Navigasi Cepat -->

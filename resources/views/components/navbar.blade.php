@@ -14,8 +14,9 @@
     <nav class="py-2 px-10 font-poppins top-0 shadow-sm m-2 bg-white rounded-md">
         <div class="flex items-center justify-between">
             <div class="navbar-logo justify-between flex items-center">
-                <a href="{{ route('beranda') }}" class="text-2xl font-inter-italic text-black font-bold flex items-center">
-                    <img src="{{ asset('images/logo_remela.png') }}" class=" w-16 h-auto mr-2 rounded-full"
+                <a href="{{ route('beranda') }}"
+                    class="text-2xl font-inter-italic text-black font-bold flex items-center">
+                    <img src="{{ asset('images/LansiaLogoFix.png') }}" class=" w-16 h-auto mr-2 rounded-full"
                         alt="logo">REMELA
                 </a>
             </div>
@@ -32,12 +33,12 @@
                     <a href="{{ route('jadwal') }}" class="p-2">Jadwal</a>
                     <a href="{{ route('profil') }}" class="p-2">Profil</a>
                     <div class="relative">
-                        <img src="https://cdn-icons-png.flaticon.com/128/2102/2102647.png" alt="profil" id="profileIcon"
+                        <img src="{{ asset('images/profilepasien.png') }}" alt="profil" id="profileIcon"
                             class="w-10 h-10 rounded-full cursor-pointer">
                         <div id="profileDropdown"
                             class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-20">
                             <div class="flex items-center px-4 py-2">
-                                <img src="https://cdn-icons-png.flaticon.com/128/2102/2102647.png" alt="profil"
+                                <img src="{{ asset('images/profilepasien.png') }}" alt="profil"
                                     class="w-10 h-10 rounded-full">
                                 <div class="ml-3 text-sm">
                                     <h2 class="">{{ Auth::user()->name }}</h2>

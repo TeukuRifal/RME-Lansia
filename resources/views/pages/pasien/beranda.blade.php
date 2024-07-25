@@ -23,8 +23,8 @@
         </style>
     </head>
 
-    <body class="font-sans bg-gradient-to-b from-lightblue to-[#edf5f8]">
-        <div class="h-screen flex bg-gradient-to-b from-lightblue to-[#edf5f8]">
+    <body class="font-sans bg-gradient-to-b  from-blue-400 to-[#edf5f8]">
+        <div class="h-screen flex bg-gradient-to-b  from-blue-400 to-[#edf5f8]">
             <div class="w-full md:w-1/2 flex justify-center items-center p-8 md:p-20 mx-10">
                 <div class="mx-auto slide-in-up">
                     <h1 class="text-4xl font-bold mb-4 text-center md:text-left">Halo, {{ $pasien->nama_lengkap }}</h1>
@@ -87,7 +87,7 @@
                 <div
                     class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
                     {{ $statusIMT == 'Berat badan normal' ? 'bg-green-200' : ($statusIMT == 'Kelebihan berat badan/obesitas' ? 'bg-red-200' : 'bg-yellow-200') }}">
-                    <h2 class="text-lg font-bold mb-2">IMT</h2>
+                    <h2 class="text-lg font-bold mb-2">Indeks Massa Tubuh (IMT)</h2>
                     <p class="text-xl">{{ $statusIMT }}</p>
                 </div>
 

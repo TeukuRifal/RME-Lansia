@@ -38,7 +38,7 @@
 
 
                 <div class="riwayat bg-white border rounded-lg overflow-hidden p-4 mb-4">
-                    <p class="font-bold text-2xl">Riwayat Kesehatan</p>
+                    <p class="font-bold text-2xl">Riwayat Kesehatan <span></span> </p>
                     <hr class="h-px bg-black border-0">
                     <br>
                     <div class="dropdown mb-4">

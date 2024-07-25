@@ -4,10 +4,10 @@
         <div class="w-full lg:w-1/3 p-5">
             <h2 class="text-2xl font-bold mb-4">posbindu</h2>
             <p class="mb-4">
-                posbindu tidak hanya berfungsi sebagai ajang kompetisi olahraga dan seni, tetapi juga sebagai platform
-                untuk pengembangan diri, kesehatan, dan kebersamaan para widyaiswara di seluruh Indonesia.
+                posbindu Menjadi solusi digital terdepan dalam pemantauan kesehatan lansia, yang mendukung
+                peningkatan kualitas hidup melalui inovasi dan teknologi yang mudah diakses.
             </p>
-            <p class="mb-2">posbindu@gmail.com</p>
+            <p class="mb-2">remelattg61@gmail.com</p>
             <p>Phone: +01 23456789</p>
         </div>
         <div class="w-full lg:w-1/4 p-5">
@@ -35,7 +35,7 @@
             <h3 class="text-xl font-semibold mb-4">Subscribe</h3>
             <div class="flex">
                 <input type="email" class="w-full p-2 rounded-l-lg bg-gray-200 text-gray-700"
-                    placeholder="remela@gmail.com">
+                    placeholder="remelattg61@gmail.com">
                 <button class="bg-white text-lightblue p-2 rounded-r-lg font-semibold">Send</button>
             </div>
         </div>
