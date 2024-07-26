@@ -38,7 +38,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/admin/patient-records/{id}/print', [RiwayatKesehatanController::class, 'print'])->name('print');
+    Route::get('/admin/patientRecords/print/{id}', [RiwayatKesehatanController::class, 'print'])->name('admin.patientRecords.print');
 
     Route::get('/listJadwal', [HealthCheckScheduleController::class, 'index'])->name('listJadwal');
     Route::post('/tambah-jadwal', [HealthCheckScheduleController::class, 'store'])->name('simpanJadwal');

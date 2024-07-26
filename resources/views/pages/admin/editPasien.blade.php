@@ -34,7 +34,7 @@
                             value="{{ old('tanggal_lahir', $pasien->tanggal_lahir) }}"
                             class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
                     </div>
-                    
+
                     <div>
                         <label for="jenis_kelamin" class="block text-gray-700 font-bold">Jenis Kelamin</label>
                         <select id="jenis_kelamin" name="jenis_kelamin"

@@ -7,6 +7,8 @@ use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Models\PatientRecord;
 use Illuminate\Routing\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RiwayatKesehatanController extends Controller
 {
@@ -43,26 +45,31 @@ class RiwayatKesehatanController extends Controller
         }
     }
 
-    
+
 
     public function fetchHealthRecord($patient_id)
-{
-    try {
-        $patient = Patient::findOrFail($patient_id);
-        return response()->json(['url' => route('healthHistory', $patient_id)]);
-    } catch (ModelNotFoundException $e) {
-        return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
+    {
+        try {
+            $patient = Patient::findOrFail($patient_id);
+            return response()->json(['url' => route('healthHistory', $patient_id)]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
+        }
     }
-}
 
 
-    public function rekamMedis()
+    public function rekamMedis(Request $request)
     {
         $records = PatientRecord::with('patient')->get();
-    return view('pages.admin.rekamMedis', compact('records'));
+
+        if ($request->get('export') == 'pdf') {
+            $pdf = Pdf::loadView('pdf.assets',  ['records' => $records]);
+            return $pdf->stream('RekamMedis.pdf');
+        }
+        return view('pages.admin.rekamMedis', compact('records'));
     }
 
-    
+
 
     public function create()
     {
@@ -70,72 +77,72 @@ class RiwayatKesehatanController extends Controller
     }
 
     public function fetchPatients(Request $request)
-{
-    $search = $request->input('search');
-    $patients = Patient::query()
-        ->where('nama_lengkap', 'LIKE', "%{$search}%")
-        ->orWhere('nik', 'LIKE', "%{$search}%")
-        ->orWhere('alamat', 'LIKE', "%{$search}%")
-        ->get();
+    {
+        $search = $request->input('search');
+        $patients = Patient::query()
+            ->where('nama_lengkap', 'LIKE', "%{$search}%")
+            ->orWhere('nik', 'LIKE', "%{$search}%")
+            ->orWhere('alamat', 'LIKE', "%{$search}%")
+            ->get();
 
-    return response()->json($patients);
-}
+        return response()->json($patients);
+    }
 
 
     public function store(Request $request)
-{
-    $request->validate([
-        'nik' => 'required|exists:patients,nik',
-        'record_date' => 'required|date',
-        'riwayat_ptm_keluarga' => 'nullable|string',
-        'riwayat_ptm_sendiri' => 'nullable|string',
-        'merokok' => 'nullable|string',
-        'kurang_aktivitas_fisik' => 'nullable|string',
-        'kurang_sayur_buah' => 'nullable|string',
-        'konsumsi_alkohol' => 'nullable|string',
-        'berat_badan' => 'nullable|numeric',
-        'tinggi_badan' => 'nullable|numeric',
-      
-        'lingkar_perut' => 'nullable|numeric',
-        'tekanan_darah' => 'nullable|string',
-        'tekanan_darah_sistolik'=> 'nullable|string',
-        'tekanan_darah_diastolik' => 'nullable|string',
-        'gula_darah_sewaktu' => 'nullable|numeric',
-        'kolesterol_total' => 'nullable|numeric',
-        'masalah_kesehatan' => 'nullable|string',
-        'obat_fasilitas' => 'nullable|string',
-        'tindak_lanjut' => 'nullable|string',
-    ]);
+    {
+        $request->validate([
+            'nik' => 'required|exists:patients,nik',
+            'record_date' => 'required|date',
+            'riwayat_ptm_keluarga' => 'nullable|string',
+            'riwayat_ptm_sendiri' => 'nullable|string',
+            'merokok' => 'nullable|string',
+            'kurang_aktivitas_fisik' => 'nullable|string',
+            'kurang_sayur_buah' => 'nullable|string',
+            'konsumsi_alkohol' => 'nullable|string',
+            'berat_badan' => 'nullable|numeric',
+            'tinggi_badan' => 'nullable|numeric',
 
-    $patient = Patient::where('nik', $request->nik)->first();
+            'lingkar_perut' => 'nullable|numeric',
+            'tekanan_darah' => 'nullable|string',
+            'tekanan_darah_sistolik' => 'nullable|string',
+            'tekanan_darah_diastolik' => 'nullable|string',
+            'gula_darah_sewaktu' => 'nullable|numeric',
+            'kolesterol_total' => 'nullable|numeric',
+            'masalah_kesehatan' => 'nullable|string',
+            'obat_fasilitas' => 'nullable|string',
+            'tindak_lanjut' => 'nullable|string',
+        ]);
 
-    PatientRecord::create([
-        'patient_id' => $patient->id,
-        'record_date' => $request->record_date,
-        'riwayat_ptm_keluarga' => $request->riwayat_ptm_keluarga,
-        'riwayat_ptm_sendiri' => $request->riwayat_ptm_sendiri,
-        'merokok' => $request->merokok,
-        'kurang_aktivitas_fisik' => $request->kurang_aktivitas_fisik,
-        'kurang_sayur_buah' => $request->kurang_sayur_buah,
-        'konsumsi_alkohol' => $request->konsumsi_alkohol,
-        'berat_badan' => $request->berat_badan,
-        'tinggi_badan' => $request->tinggi_badan,
-       
-        'lingkar_perut' => $request->lingkar_perut,
-        'tekanan_darah' => $request->tekanan_darah,
-        'tekanan_darah_sistolik' => $request->tekanan_darah_sistolik,
-        'tekanan_darah_diastolik' => $request->tekanan_darah_diastolik,
-        'gula_darah_sewaktu' => $request->gula_darah_sewaktu,
-        'kolesterol_total' => $request->kolesterol_total,
-        'masalah_kesehatan' => $request->masalah_kesehatan,
-        'obat_fasilitas' => $request->obat_fasilitas,
-        'tindak_lanjut' => $request->tindak_lanjut,
-    ]);
+        $patient = Patient::where('nik', $request->nik)->first();
 
-    return redirect()->route('rekamMedis')->with('success', 'Patient record added successfully.');
-}
+        PatientRecord::create([
+            'patient_id' => $patient->id,
+            'record_date' => $request->record_date,
+            'riwayat_ptm_keluarga' => $request->riwayat_ptm_keluarga,
+            'riwayat_ptm_sendiri' => $request->riwayat_ptm_sendiri,
+            'merokok' => $request->merokok,
+            'kurang_aktivitas_fisik' => $request->kurang_aktivitas_fisik,
+            'kurang_sayur_buah' => $request->kurang_sayur_buah,
+            'konsumsi_alkohol' => $request->konsumsi_alkohol,
+            'berat_badan' => $request->berat_badan,
+            'tinggi_badan' => $request->tinggi_badan,
 
-    
+            'lingkar_perut' => $request->lingkar_perut,
+            'tekanan_darah' => $request->tekanan_darah,
+            'tekanan_darah_sistolik' => $request->tekanan_darah_sistolik,
+            'tekanan_darah_diastolik' => $request->tekanan_darah_diastolik,
+            'gula_darah_sewaktu' => $request->gula_darah_sewaktu,
+            'kolesterol_total' => $request->kolesterol_total,
+            'masalah_kesehatan' => $request->masalah_kesehatan,
+            'obat_fasilitas' => $request->obat_fasilitas,
+            'tindak_lanjut' => $request->tindak_lanjut,
+        ]);
+
+        return redirect()->route('rekamMedis')->with('success', 'Patient record added successfully.');
+    }
+
+
 
     public function editRiwayat($record_id)
     {
@@ -155,10 +162,10 @@ class RiwayatKesehatanController extends Controller
             'konsumsi_alkohol' => 'nullable|string',
             'berat_badan' => 'nullable|numeric',
             'tinggi_badan' => 'nullable|numeric',
-           
+
             'lingkar_perut' => 'nullable|numeric',
             'tekanan_darah' => 'nullable|string',
-            'tekanan_darah_sistolik'=> 'nullable|string',
+            'tekanan_darah_sistolik' => 'nullable|string',
             'tekanan_darah_diastolik' => 'nullable|string',
             'gula_darah_sewaktu' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
@@ -192,10 +199,10 @@ class RiwayatKesehatanController extends Controller
             'konsumsi_alkohol' => 'nullable|string',
             'berat_badan' => 'nullable|numeric',
             'tinggi_badan' => 'nullable|numeric',
-            
+
             'lingkar_perut' => 'nullable|numeric',
             'tekanan_darah' => 'nullable|string',
-            'tekanan_darah_sistolik'=> 'nullable|string',
+            'tekanan_darah_sistolik' => 'nullable|string',
             'tekanan_darah_diastolik' => 'nullable|string',
             'gula_darah_sewaktu' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
@@ -215,7 +222,7 @@ class RiwayatKesehatanController extends Controller
         $patientRecord->konsumsi_alkohol = $request->konsumsi_alkohol;
         $patientRecord->berat_badan = $request->berat_badan;
         $patientRecord->tinggi_badan = $request->tinggi_badan;
-      
+
         $patientRecord->lingkar_perut = $request->lingkar_perut;
         $patientRecord->tekanan_darah = $request->tekanan_darah;
         $patientRecord->tekanan_darah_sistolik = $request->tekanan_darah_sistolik;
@@ -237,7 +244,7 @@ class RiwayatKesehatanController extends Controller
         $patient_id = $request->input('patient_id');
 
         $patient = Patient::findOrFail($patient_id);
-        
+
         if ($month) {
             $records = PatientRecord::where('patient_id', $patient_id)
                 ->whereMonth('record_date', $month)
@@ -250,34 +257,38 @@ class RiwayatKesehatanController extends Controller
     }
 
     public function print($id)
-{
-    $record = PatientRecord::findOrFail($id);
-    $patient = Patient::findOrFail($record->patient_id);
-    $records = PatientRecord::where('patient_id', $patient->Id)->get();
+    {
+        $record = PatientRecord::with('patient')->find($id);
 
-    return view('pages.admin.print', compact('record', 'patient', 'records'));
-}
+        if (!$record) {
+            abort(404, 'Record not found');
+        }
+
+        $pdf = Pdf::loadView('pages.admin.print', compact('record'));
+        return $pdf->stream('RekamMedis_' . $record->patient->nama_lengkap . '.pdf');
+    }
+
 
 
     public function getHealthRecordsByMonth($patientId, Request $request)
-{
-    $bulan = $request->input('month');
-    $year = $request->input('year');
+    {
+        $bulan = $request->input('month');
+        $year = $request->input('year');
 
-    if ($bulan) {
-        $healthRecords = PatientRecord::where('patient_id', $patientId)
-            ->whereMonth('record_date', Carbon::createFromFormat('F Y', $bulan)->month)
-            ->whereYear('record_date', $year)
-            ->orderByDesc('record_date')
-            ->get();
-    } else {
-        $healthRecords = PatientRecord::where('patient_id', $patientId)->orderByDesc('record_date')->get();
+        if ($bulan) {
+            $healthRecords = PatientRecord::where('patient_id', $patientId)
+                ->whereMonth('record_date', Carbon::createFromFormat('F Y', $bulan)->month)
+                ->whereYear('record_date', $year)
+                ->orderByDesc('record_date')
+                ->get();
+        } else {
+            $healthRecords = PatientRecord::where('patient_id', $patientId)->orderByDesc('record_date')->get();
+        }
+
+        $recordsHtml = view('partials.health_records', compact('healthRecords'))->render();
+
+        return response()->json(compact('healthRecords', 'recordsHtml'));
     }
-
-    $recordsHtml = view('partials.health_records', compact('healthRecords'))->render();
-
-    return response()->json(compact('healthRecords', 'recordsHtml'));
-}
 
     public function deletePasien($id)
     {
@@ -292,5 +303,4 @@ class RiwayatKesehatanController extends Controller
             return response()->json(['error' => 'Pasien tidak ditemukan'], 404);
         }
     }
-    
 }

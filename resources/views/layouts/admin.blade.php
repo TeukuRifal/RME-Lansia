@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap JS (optional, untuk komponen interaktif) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
@@ -42,7 +51,8 @@
         <div class="p-4 border-b border-gray-200 flex items-center justify-between">
             <div class="text-center font-bold text-xl text-gray-800">Admin Panel</div>
             <button class="text-gray-600 hover:text-gray-800 focus:outline-none" onclick="toggleSidebar()">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -50,7 +60,8 @@
         <div class="flex flex-col flex-grow overflow-y-auto">
             <div class="p-4">
                 <div class="flex items-center space-x-3 mb-4">
-                    <img src="{{ asset('images/profilehitam.png') }}" alt="profil" class="w-12 h-12 rounded-full border-2 border-blue-400">
+                    <img src="{{ asset('images/profilehitam.png') }}" alt="profil"
+                        class="w-12 h-12 rounded-full border-2 border-blue-400">
                     <div>
                         <h2 class="text-lg font-semibold text-gray-900">{{ Auth::user()->name }}</h2>
                         <p class="text-sm text-gray-600">{{ Auth::user()->email }}</p>
