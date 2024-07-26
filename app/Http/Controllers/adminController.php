@@ -12,6 +12,7 @@ use App\Models\HealthCheckSchedule;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class AdminController extends Controller
 {
     public function index()
@@ -53,13 +54,13 @@ class AdminController extends Controller
         return view('pages.admin.riwayatKesehatan', compact('patients'));
     }
 
-    public function filterRiwayat(Request $request)
-    {
-        $month = $request->input('month');
-        $patients = Patient::with(['patientRecords' => function ($query) use ($month) {
-            $query->whereMonth('record_date', $month);
-        }])->get();
+    // public function filterRiwayat(Request $request)
+    // {
+    //     $month = $request->input('month');
+    //     $patients = Patient::with(['patientRecords' => function ($query) use ($month) {
+    //         $query->whereMonth('record_date', $month);
+    //     }])->get();
         
-        return view('pages.admin.riwayatKesehatan', compact('patients', 'month'));
-    }
+    //     return view('pages.admin.riwayatKesehatan', compact('patients', 'month'));
+    // }
 }

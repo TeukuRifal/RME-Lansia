@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RiwayatKesehatanController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\HealthCheckScheduleController;
 
 
@@ -31,6 +32,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin routes
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/export-patients', [ExportController::class, 'export']);
 
     Route::get('patients', [PasienController::class, 'showImportForm'])->name('patients');
     Route::post('import', [PasienController::class, 'import'])->name('import');

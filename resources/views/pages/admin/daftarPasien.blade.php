@@ -13,6 +13,7 @@
                 <img src="{{ asset('images/addPasien.png') }}" alt="tambah pasien" class="w-5 h-5 mr-2">
                 Tambah Akun
             </a>
+            <a href="{{ url('/export-patients') }}" class="btn btn-success">Export Ke Excel</a>
         </div>
 
         <!-- Tabel Daftar Pasien -->
