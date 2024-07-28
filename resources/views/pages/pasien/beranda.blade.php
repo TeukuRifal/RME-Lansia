@@ -23,8 +23,10 @@
         </style>
     </head>
 
+    {{-- bg-gradient-to-b  from-blue-400 to-[#edf5f8] --}}
+
     <body class="font-sans bg-gradient-to-b  from-blue-400 to-[#edf5f8]">
-        <div class="h-screen flex bg-gradient-to-b  from-blue-400 to-[#edf5f8]">
+        <div class="h-screen flex">
             <div class="w-full md:w-1/2 flex justify-center items-center p-8 md:p-20 mx-10">
                 <div class="mx-auto slide-in-up">
                     <h1 class="text-4xl font-bold mb-4 text-center md:text-left">Halo, {{ $pasien->nama_lengkap }}</h1>

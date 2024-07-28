@@ -5,7 +5,7 @@
         <h1 class="text-4xl font-bold text-center mb-8">Profil</h1>
         <p class="text-center text-xl mb-6">Data Diri & Riwayat Kesehatan</p>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="bg-blue-200 rounded-lg shadow-md p-6 mb-8">
             <div class="flex items-center">
                 <div class="bg-gray-300 rounded-full w-24 h-24 flex items-center justify-center">
                     <img src="https://via.placeholder.com/100" alt="User Image" class="rounded-full">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="border-b border-gray-200 mb-6">
+            <div class="border-b border-gray-200 mb-6 justify-between flex">
                 <ul class="flex border-b">
                     <li class="mr-1">
                         <a href="#" class="py-2 px-4 block text-gray-600 font-semibold hover:text-blue-500" id="dataDiriTab" onclick="showDataDiri()">Data Diri</a>
