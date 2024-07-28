@@ -60,13 +60,18 @@
         <div class="flex flex-col flex-grow overflow-y-auto">
             <div class="p-4">
                 <div class="flex items-center space-x-3 mb-4">
-                    <img src="{{ asset('images/profilehitam.png') }}" alt="profil"
-                        class="w-12 h-12 rounded-full border-2 border-blue-400">
+                    @if (Auth::user()->foto)
+                        <img src="{{ Storage::url(Auth::user()->foto) }}" alt="Foto Admin"
+                            class="w-10 h-10 rounded-full border-2 border-blue-400 ">
+                    @else
+                        <img src="{{ asset('images/profilehitam.png') }}" alt="Foto Default" class="w-10 h-10 rounded-full border-2 border-blue-400">
+                    @endif
                     <div>
                         <h2 class="text-lg font-semibold text-gray-900">{{ Auth::user()->name }}</h2>
                         <p class="text-sm text-gray-600">{{ Auth::user()->email }}</p>
                     </div>
                 </div>
+
                 <nav class="space-y-4">
                     <div>
                         <p class="font-bold text-sm text-gray-600 mb-2">Data</p>

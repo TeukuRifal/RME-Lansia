@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Rumah Sakit</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Navbar</title>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,11 +18,12 @@
 <body class="flex flex-col min-h-screen p-2">
 
     <!-- Navbar -->
-    <nav class="py-4 px-6  shadow-md">
+    <nav class="py-4 px-6 shadow-md">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ route('beranda') }}" class="text-2xl font-bold flex items-center">
-                    <img src="{{ asset('images/LansiaLogoFix.png') }}" class=" w-16 h-auto mr-3 font-roboto rounded-full" alt="logo">
+                    <img src="{{ asset('images/LansiaLogoFix.png') }}" class="w-16 h-auto mr-3 font-roboto rounded-full"
+                        alt="logo">
                     REMELA
                 </a>
             </div>
@@ -46,13 +46,20 @@
 
                 @auth
                     <a href="{{ route('beranda') }}" class="hover:text-gray-300">Dashboard</a>
-                    <a href="{{ route('jadwal') }}" class="hover:text-gray-300">Jadwal Dokter</a>
+                    <a href="{{ route('jadwal') }}" class="hover:text-gray-300">Jadwal </a>
                     <a href="{{ route('profil') }}" class="hover:text-gray-300">Profil</a>
-                    {{-- <a href="{{ route('pasien') }}" class="hover:text-gray-300">Data Pasien</a> --}}
                     <form action="{{ route('logout') }}" method="POST" class="inline-block">
                         @csrf
                         <button type="submit" class="hover:text-gray-300">Keluar</button>
                     </form>
+                    <!-- User photo -->
+                    @if ($pasien->foto)
+                        <img src="{{ Storage::url($pasien->foto) }}" alt="Foto Pasien" class="w-10 h-10 rounded-full">
+                    @else
+                        <img src="{{ asset('images/default.png') }}" alt="Foto Default" class="w-10 h-10 rounded-full">
+                    @endif
+
+
                 @endauth
             </div>
         </div>
@@ -67,7 +74,6 @@
                 <a href="{{ route('beranda') }}" class="block hover:text-gray-300">Dashboard</a>
                 <a href="{{ route('jadwal') }}" class="block hover:text-gray-300">Jadwal Dokter</a>
                 <a href="{{ route('profil') }}" class="block hover:text-gray-300">Profil</a>
-                {{-- <a href="{{ route('pasien') }}" class="block hover:text-gray-300">Data Pasien</a> --}}
                 <form action="{{ route('logout') }}" method="POST" class="block">
                     @csrf
                     <button type="submit" class="w-full text-left hover:text-gray-300">Keluar</button>

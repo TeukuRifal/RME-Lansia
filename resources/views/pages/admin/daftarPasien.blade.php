@@ -22,6 +22,7 @@
                 <thead class="bg-blue-500 text-white">
                     <tr>
                         <th class="py-3 px-4 text-left">No</th>
+                        <th class="py-3 px-6 text-left">Foto</th>
                         <th class="py-3 px-4 text-left">Nama Lengkap</th>
                         <th class="py-3 px-4 text-left">NIK</th>
                         <th class="py-3 px-4 text-left">Tanggal Lahir</th>
@@ -37,6 +38,15 @@
                     @foreach ($patients as $patient)
                         <tr class="border-b hover:bg-blue-50 transition duration-200">
                             <td class="py-3 px-4">{{ $loop->iteration }}</td>
+                            <td class="py-3 px-6 text-left">
+                                @if ($patient->foto)
+                                    <img src="{{ Storage::url($patient->foto) }}" alt="Foto Pasien"
+                                        class="w-10 h-10 rounded-full">
+                                @else
+                                    <img src="{{ asset('images/default.png') }}" alt="Foto Default"
+                                        class="w-10 h-10 rounded-full">
+                                @endif
+                            </td>
                             <td class="py-3 px-4">{{ $patient->nama_lengkap }}</td>
                             <td class="py-3 px-4">{{ $patient->nik }}</td>
                             <td class="py-3 px-4">{{ $patient->tanggal_lahir }}</td>

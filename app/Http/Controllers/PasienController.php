@@ -8,17 +8,17 @@ use App\Models\Patient;
 use App\Models\HealthCheckSchedule;
 use Illuminate\Http\Request;
 use App\Models\PatientRecord;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PasienController extends Controller
 {
-    /**
-     * Menampilkan dashboard kesehatan pasien.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index()
+   /**
+ * Menampilkan dashboard kesehatan pasien.
+ *
+ * @return \Illuminate\View\View
+ */
+public function index()
 {
     // Mendapatkan data pasien berdasarkan user yang sedang login
     $user = Auth::user();
@@ -84,6 +84,7 @@ class PasienController extends Controller
             return ['date' => $record->record_date->format('F Y'), 'category' => 'Normal'];
         }
     });
+
     $imtDates = $imtData->pluck('date');
     $imtValues = $imtData->pluck('imt');
 
@@ -97,19 +98,40 @@ class PasienController extends Controller
     // Menghitung status kesehatan untuk data terbaru
     $latestRecord = $patientRecords->last();
 
-    $statusKolesterol = $kolesterolCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
-    $statusIMT = $imtCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
-    $statusLingkarPerut = $latestRecord ? ($latestRecord->lingkar_perut > 90 ? 'Tinggi' : 'Normal') : 'Data tidak tersedia';
-    $statusTekananDarah = $tekananDarahCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
+    if ($latestRecord) {
+        $statusKolesterol = $kolesterolCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
+        $statusIMT = $imtCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
+        $statusLingkarPerut = $latestRecord->lingkar_perut > 90 ? 'Tinggi' : 'Normal';
+        $statusTekananDarah = $tekananDarahCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
+    } else {
+        $statusKolesterol = 'Data tidak tersedia';
+        $statusIMT = 'Data tidak tersedia';
+        $statusLingkarPerut = 'Data tidak tersedia';
+        $statusTekananDarah = 'Data tidak tersedia';
+    }
 
     // Ambil jadwal pemeriksaan kesehatan
     $schedules = HealthCheckSchedule::all();
 
-    return view('pages.pasien.beranda', compact('pasien', 'dataPerGrafik', 'recordDates', 'imtDates', 'imtValues', 'imtData', 'imtCategories', 'kolesterolCategories', 'tekananDarahCategories', 'statusKolesterol', 'statusIMT', 'statusLingkarPerut', 'statusTekananDarah', 'schedules', 'dates'));
+    return view('pages.pasien.beranda', compact(
+        'pasien',
+        'dataPerGrafik',
+        'recordDates',
+        'imtDates',
+        'imtValues',
+        'imtData',
+        'imtCategories',
+        'kolesterolCategories',
+        'tekananDarahCategories',
+        'statusKolesterol',
+        'statusIMT',
+        'statusLingkarPerut',
+        'statusTekananDarah',
+        'schedules',
+        'dates'
+    ));
 }
 
-
-    
 
     public function tambahPasien()
     {
@@ -117,52 +139,55 @@ class PasienController extends Controller
     }
 
     public function storePasien(Request $request)
-{
-    $validatedData = $request->validate([
-        'nama_lengkap' => 'required|string',
-        'nik' => 'required|unique:patients|string',
-        'tanggal_lahir' => 'required|date',
-        'jenis_kelamin' => 'required|string',
-        'email' => 'required|email|unique:patients|unique:users,email',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'nama_lengkap' => 'required|string',
+            'nik' => 'required|unique:patients|string',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string',
+            'email' => 'required|email|unique:patients|unique:users,email',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    // Cek apakah user dengan NIK ini sudah ada
-    $existingUser = User::where('username', $validatedData['nik'])->first();
+        $existingUser = User::where('username', $validatedData['nik'])->first();
 
-    if ($existingUser) {
-        return redirect()->back()->withErrors(['nik' => 'NIK sudah terdaftar.']);
+        if ($existingUser) {
+            return redirect()->back()->withErrors(['nik' => 'NIK sudah terdaftar.']);
+        }
+
+        $user = User::create([
+            'name' => $validatedData['nama_lengkap'],
+            'email' => $validatedData['email'],
+            'username' => $validatedData['nik'],
+            'password' => bcrypt('password'),
+        ]);
+
+        $fotoPath = null;
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = strtolower(str_replace(' ', '_', $validatedData['nama_lengkap'])) . '.' . $file->getClientOriginalExtension();
+            $fotoPath = $file->storeAs('public/foto_pasien', $filename);
+        }
+
+        Patient::create([
+            'user_id' => $user->id,
+            'nama_lengkap' => $validatedData['nama_lengkap'],
+            'nik' => $validatedData['nik'],
+            'tanggal_lahir' => $validatedData['tanggal_lahir'],
+            'jenis_kelamin' => $validatedData['jenis_kelamin'],
+            'agama' => $request->input('agama'),
+            'alamat' => $request->input('alamat'),
+            'no_hp' => $request->input('no_hp'),
+            'pendidikan_terakhir' => $request->input('pendidikan_terakhir'),
+            'pekerjaan' => $request->input('pekerjaan'),
+            'status_kawin' => $request->input('status_kawin'),
+            'gol_darah' => $request->input('gol_darah'),
+            'email' => $validatedData['email'],
+            'foto' => $fotoPath,
+        ]);
+
+        return redirect()->back()->with('success', 'Data pasien berhasil ditambahkan');
     }
-
-    // Membuat user baru
-    $user = User::create([
-        'name' => $validatedData['nama_lengkap'],
-        'email' => $validatedData['email'],
-        'username' => $validatedData['nik'], // Set username sebagai NIK
-        'password' => bcrypt('password'), // Atur password default
-    ]);
-
-    // Menambahkan data pasien
-    Patient::create([
-        'user_id' => $user->id,
-        'nama_lengkap' => $validatedData['nama_lengkap'],
-        'nik' => $validatedData['nik'],
-        'tanggal_lahir' => $validatedData['tanggal_lahir'],
-        'jenis_kelamin' => $validatedData['jenis_kelamin'],
-        'agama' => $request->input('agama'),
-        'alamat' => $request->input('alamat'),
-        'no_hp' => $request->input('no_hp'),
-        'pendidikan_terakhir' => $request->input('pendidikan_terakhir'),
-        'pekerjaan' => $request->input('pekerjaan'),
-        'status_kawin' => $request->input('status_kawin'),
-        'gol_darah' => $request->input('gol_darah'),
-        'email' => $validatedData['email'],
-    ]);
-
-    return redirect()->back()->with('success', 'Data pasien berhasil ditambahkan');
-}
-
-
-
     public function daftarPasien()
     {
         $patients = Patient::all();
@@ -183,63 +208,84 @@ class PasienController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validasi input jika diperlukan
         $request->validate([
-            // Atur validasi sesuai kebutuhan
+            'nama_lengkap' => 'required|string',
+            'nik' => 'required|string|unique:patients,nik,' . $id,
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string',
+            'alamat' => 'nullable|string',
+            'no_hp' => 'nullable|string',
+            'pendidikan_terakhir' => 'nullable|string',
+            'pekerjaan' => 'nullable|string',
+            'status_kawin' => 'nullable|string',
+            'gol_darah' => 'nullable|string',
+            'email' => 'nullable|email',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Temukan rekam medis yang akan diperbarui berdasarkan $id
-        $patientRecord = PatientRecord::findOrFail($id);
+        $patient = Patient::findOrFail($id);
 
-        // Update data rekam medis dengan data dari request
-        $patientRecord->fill([
-            'nama_lengkap' => $request->nama_lengkap,
-            'nik' => $request->nik,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            // Tambahkan kolom lain sesuai kebutuhan
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = strtolower(str_replace(' ', '_', $request->nama_lengkap)) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/foto_pasien', $filename);
+            // Simpan path ke database
+            $data['foto'] = $filename;
+        }
+
+        $patient->update($request->except('foto'));
+
+        $user = $patient->user;
+        $user->update([
+            'name' => $request->nama_lengkap,
+            'username' => $request->nik,
+            'email' => $request->email,
         ]);
 
-        // Simpan perubahan
-        $patientRecord->save();
-
-        // Redirect atau kirim respons sesuai kebutuhan aplikasi Anda
-        return redirect()->back()->with('success', 'Data rekam medis berhasil diperbarui.');
+        return redirect()->route('admin.daftarPasien')->with('success', 'Data pasien berhasil diupdate');
     }
+
 
     public function updatePasien(Request $request, $id)
     {
-        // Validasi data
         $validatedData = $request->validate([
             'nama_lengkap' => 'required|string',
-            'nik' => 'required|string|unique:patients,nik,'.$id,
+            'nik' => 'required|string|unique:patients,nik,' . $id,
             'tanggal_lahir' => 'required|date',
-          
             'jenis_kelamin' => 'required|string',
-            'alamat' => 'required|string',
-            'no_hp' => 'required|string',
-            'pendidikan_terakhir' => 'required|string',
-            'pekerjaan' => 'required|string',
-            'status_kawin' => 'required|string',
-            'gol_darah' => 'required|string',
-            'email' => 'required|string',
+            'alamat' => 'nullable|string',
+            'no_hp' => 'nullable|string',
+            'pendidikan_terakhir' => 'nullable|string',
+            'pekerjaan' => 'nullable|string',
+            'status_kawin' => 'nullable|string',
+            'gol_darah' => 'nullable|string',
+            'email' => 'nullable|email',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Mendapatkan pasien berdasarkan ID
         $patient = Patient::findOrFail($id);
 
-        // Update pasien
+        if ($request->hasFile('foto')) {
+            if ($patient->foto) {
+                Storage::delete($patient->foto);
+            }
+            $file = $request->file('foto');
+            $filename = strtolower(str_replace(' ', '_', $validatedData['nama_lengkap'])) . '.' . $file->getClientOriginalExtension();
+            $fotoPath = $file->storeAs('public/foto_pasien', $filename);
+            $validatedData['foto'] = $fotoPath;
+        }
+
         $patient->update($validatedData);
 
-        // Update user terkait
         $patient->user->update([
             'name' => $validatedData['nama_lengkap'],
             'username' => $validatedData['nik'],
             'email' => $validatedData['email'],
         ]);
 
-        return redirect()->route('daftarPasien')
-                         ->with('success', 'Data pasien berhasil diperbarui.');
+        return redirect()->route('daftarPasien')->with('success', 'Data pasien berhasil diperbarui.');
     }
+
 
     public function deletePasien($id)
     {
@@ -247,6 +293,10 @@ class PasienController extends Controller
         if ($patient) {
             // Hapus juga user terkait dengan pasien
             $patient->user()->delete(); // Hapus user terlebih dahulu karena menggunakan relasi
+            // Hapus foto pasien jika ada
+            if ($patient->foto) {
+                Storage::delete($patient->foto);
+            }
             $patient->delete(); // Hapus data pasien
 
             return response()->json(['success' => 'Pasien berhasil dihapus']);
@@ -261,40 +311,40 @@ class PasienController extends Controller
      * @return \Illuminate\View\View
      */
     public function profil()
-{
-    // Mendapatkan data user yang sedang login
-    $user = Auth::user();
+    {
+        // Mendapatkan data user yang sedang login
+        $user = Auth::user();
 
-    // Mendapatkan data pasien terkait dengan user
-    $pasien = $user->patient;
+        // Mendapatkan data pasien terkait dengan user
+        $pasien = $user->patient;
 
-    // Ambil semua record kesehatan pasien, diurutkan berdasarkan tanggal terbaru
-    $healthRecords = PatientRecord::where('patient_id', $pasien->id)
-        ->orderBy('record_date', 'desc')
-        ->get();
+        // Ambil semua record kesehatan pasien, diurutkan berdasarkan tanggal terbaru
+        $healthRecords = PatientRecord::where('patient_id', $pasien->id)
+            ->orderBy('record_date', 'desc')
+            ->get();
 
-    // Ambil daftar bulan dan tahun unik dari data yang ada
-    $months = $healthRecords->pluck('record_date')
-        ->map(fn($date) => $date->format('F'))
-        ->unique()
-        ->sort()
-        ->values();
+        // Ambil daftar bulan dan tahun unik dari data yang ada
+        $months = $healthRecords->pluck('record_date')
+            ->map(fn ($date) => $date->format('F'))
+            ->unique()
+            ->sort()
+            ->values();
 
-    $years = $healthRecords->pluck('record_date')
-        ->map(fn($date) => $date->format('Y'))
-        ->unique()
-        ->sort()
-        ->values();
+        $years = $healthRecords->pluck('record_date')
+            ->map(fn ($date) => $date->format('Y'))
+            ->unique()
+            ->sort()
+            ->values();
 
-    // Ambil daftar tanggal unik dalam format tertentu dari data yang ada
-    $dates = $healthRecords->pluck('record_date')
-        ->map(fn($date) => $date->format('F Y'))
-        ->unique()
-        ->sort()
-        ->values();
+        // Ambil daftar tanggal unik dalam format tertentu dari data yang ada
+        $dates = $healthRecords->pluck('record_date')
+            ->map(fn ($date) => $date->format('F Y'))
+            ->unique()
+            ->sort()
+            ->values();
 
-    return view('pages.pasien.profil', compact('pasien', 'user', 'healthRecords', 'months', 'years', 'dates'));
-}
+        return view('pages.pasien.profil', compact('pasien', 'user', 'healthRecords', 'months', 'years', 'dates'));
+    }
 
 
     public function getHealthRecordsByDate(Request $request)
@@ -310,15 +360,9 @@ class PasienController extends Controller
         // Mengembalikan data dalam format JSON
         return response()->json($healthRecords);
     }
-    
-
-    
-
     public function jadwal()
     {
         $schedules = HealthCheckSchedule::all();
         return view('pages.pasien.jadwal', compact('schedules')); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
-
-    
 }

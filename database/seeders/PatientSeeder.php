@@ -16,7 +16,6 @@ class PatientSeeder extends Seeder
                 'nama_lengkap' => 'Farhan Alghifari',
                 'nik' => '1234567890123456',
                 'tanggal_lahir' => '1970-01-01',
-               
                 'jenis_kelamin' => 'Laki-laki',
                 'agama' => 'Islam',
                 'alamat' => 'Jl. Contoh No. 1',
@@ -36,14 +35,26 @@ class PatientSeeder extends Seeder
                 'name' => $data['nama_lengkap'],
                 'username' => $data['nik'],
                 'email' => $data['email'],
-                'password' => bcrypt('password'),
+                'password' => bcrypt('password'), // Ganti dengan password aman
                 'role' => 'patient',
             ]);
 
             // Buat data pasien dan hubungkan dengan pengguna
-            $patient = new Patient($data);
-            $patient->user_id = $user->id;  // Menghubungkan user dengan pasien
-            $patient->save();
+            $patient = Patient::create([
+                'user_id' => $user->id,
+                'nama_lengkap' => $data['nama_lengkap'],
+                'nik' => $data['nik'],
+                'tanggal_lahir' => $data['tanggal_lahir'],
+                'jenis_kelamin' => $data['jenis_kelamin'],
+                'agama' => $data['agama'],
+                'alamat' => $data['alamat'],
+                'no_hp' => $data['no_hp'],
+                'pendidikan_terakhir' => $data['pendidikan_terakhir'],
+                'pekerjaan' => $data['pekerjaan'],
+                'status_kawin' => $data['status_kawin'],
+                'gol_darah' => $data['gol_darah'],
+                'email' => $data['email'],
+            ]);
 
             // Buat data catatan pasien
             $patientRecords = [
@@ -57,9 +68,7 @@ class PatientSeeder extends Seeder
                     'konsumsi_alkohol' => 'Tidak',
                     'berat_badan' => 70,
                     'tinggi_badan' => 170,
-                   
                     'lingkar_perut' => 90,
-                    'tekanan_darah' => '120/80',
                     'tekanan_darah_sistolik' => 120,
                     'tekanan_darah_diastolik' => 80,
                     'gula_darah_sewaktu' => 'Normal',
@@ -72,9 +81,7 @@ class PatientSeeder extends Seeder
             ];
 
             foreach ($patientRecords as $recordData) {
-                $patientRecord = new PatientRecord($recordData);
-                $patientRecord->patient_id = $patient->id;  // Menghubungkan catatan pasien dengan pasien
-                $patientRecord->save();
+                $patient->records()->create($recordData);
             }
         }
     }

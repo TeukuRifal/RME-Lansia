@@ -17,6 +17,7 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $pasien = Patient::all();
         // Statistik utama
         $totalPatients = Patient::count();
         $totalAdmins = User::where('role', 'admin')->count();

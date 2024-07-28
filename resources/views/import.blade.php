@@ -43,7 +43,7 @@
                             <th class="py-2 px-4">No HP</th>
                             <th class="py-2 px-4">Pendidikan Terakhir</th>
                             <th class="py-2 px-4">Pekerjaan</th>
-                            <th class="py-2 px-4">Status Kawin</th>
+                            <th class="py-2 px-4">Status</th>
                             <th class="py-2 px-4">Gol Darah</th>
                             <th class="py-2 px-4">Email</th>
                         </tr>
