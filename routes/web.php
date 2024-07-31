@@ -2,27 +2,29 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RiwayatKesehatanController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\HealthCheckScheduleController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/landingpage', function () {
+    return view('welcome');
+});
 
-Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
-Route::get('/profile', [HomeController::class, 'index1'])->name('profile');
 
-Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
 
 
 Route::delete('/admin/hapus-pasien/{id}', [PasienController::class, 'deletePasien'])->name('deletePasien');
 
-// Auth routes for admin and patient
+// Auth routes for admin and pasien
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -30,37 +32,45 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin routes
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    
 
-    //CRUD pasien
+    Route::get('/export-patients', [ExportController::class, 'export']);
+
+    Route::get('patients', [PasienController::class, 'showImportForm'])->name('patients');
+    Route::post('import', [PasienController::class, 'import'])->name('import');
+    Route::get('export', [PasienController::class, 'export'])->name('export');
+
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('/admin/patientRecords/print/{id}', [RiwayatKesehatanController::class, 'print'])->name('admin.patientRecords.print');
+
+    Route::get('/listJadwal', [HealthCheckScheduleController::class, 'index'])->name('listJadwal');
+    Route::post('/tambah-jadwal', [HealthCheckScheduleController::class, 'store'])->name('simpanJadwal');
+    Route::get('/tambah-jadwal', [HealthCheckScheduleController::class, 'create'])->name('buatJadwal');
+
+    // CRUD pasien
+    Route::get('/admin/daftar-pasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
     Route::get('/admin/tambah-pasien', [PasienController::class, 'tambahPasien'])->name('tambahPasien');
     Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
-    Route::get('/admin/daftar-pasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
-    
     Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
     Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
 
-    
-    Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan'])->name('pengaturan');
-    Route::post('/admin/update-pengaturan', [AdminController::class, 'updateSettings'])->name('updatePengaturan');
-
-    //rekam medis
+    // Rekam Medis
     Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');
     Route::get('/admin/rekam-medik/buat', [RiwayatKesehatanController::class, 'create'])->name('admin.patientRecords.create');
-    Route::post('/admin/patient-records', [RiwayatKesehatanController::class, 'store'])->name('simpanData');
+    Route::post('/admin/pasien-records', [RiwayatKesehatanController::class, 'store'])->name('simpanData');
     Route::get('/admin/fetchPatients', [RiwayatKesehatanController::class, 'fetchPatients'])->name('admin.fetchPatients');
-
-    Route::get('/admin/patient-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
-    Route::post('/admin/patient-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
-    
+    Route::get('/admin/pasien-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
+    Route::post('/admin/pasien-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
     Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
 
-    //riwayat kesehatan
-    Route::get('riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
-    Route::get('riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
-    Route::put('riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
+    // Riwayat Kesehatan
+    Route::get('/riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
+    Route::get('/riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
+    Route::put('/riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
 
+    // Fetch Health Record
+    Route::get('/admin/fetchHealthRecord/{patient_id}', [RiwayatKesehatanController::class, 'fetchHealthRecord'])
+        ->name('fetchHealthRecord');
 });
 
 
@@ -76,6 +86,7 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::put('/superadmin/superadmins/{id}', [SuperAdminController::class, 'update'])->name('superadmin.superadmins.update');
     Route::delete('/superadmin/superadmins/{id}', [SuperAdminController::class, 'destroy'])->name('superadmin.superadmins.destroy');
     Route::get('/superadmin/logs', [SuperAdminController::class, 'logs'])->name('superadmin.logs');
+
 });
 
 
@@ -83,10 +94,15 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
 Route::get('/superadmin/login', [AuthController::class, 'showSuperAdminLoginForm'])->name('superadmin.login');
 Route::post('/superadmin/login', [AuthController::class, 'superAdminLogin'])->name('superadmin.login.post');
 
-// Patient routes
+// pasien routes
 Route::middleware(['auth', 'role:patient'])->group(function () {
-    Route::get('/pasien/dashboard', [PasienController::class, 'index'])->name('pasien.dashboard');
-    Route::get('/pasien/profil', [PasienController::class, 'profil'])->name('profil');
+    Route::get('/beranda', [PasienController::class, 'index'])->name('beranda');
+    Route::get('/profil', [PasienController::class, 'profil'])->name('profil');
+    Route::get('/jadwal', [PasienController::class, 'jadwal'])->name('jadwal');
+    Route::get('/riwayat-bulan-ini', [RiwayatKesehatanController::class, 'showRiwayatBulanIni'])->name('riwayat.bulan.ini');
+
+
+
     
     
 });

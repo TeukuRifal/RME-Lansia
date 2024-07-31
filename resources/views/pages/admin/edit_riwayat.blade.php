@@ -51,18 +51,24 @@
                 <label for="tinggi_badan" class="block text-gray-700 font-bold">Tinggi Badan</label>
                 <input type="number" id="tinggi_badan" name="tinggi_badan" value="{{ $riwayat->tinggi_badan ?? old('tinggi_badan') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
-            <div>
-                <label for="indeks_massa_tubuh" class="block text-gray-700 font-bold">Indeks Massa Tubuh</label>
-                <input type="number" id="indeks_massa_tubuh" name="indeks_massa_tubuh" value="{{ $riwayat->indeks_massa_tubuh ?? old('indeks_massa_tubuh') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
-            </div>
+           
             <div>
                 <label for="lingkar_perut" class="block text-gray-700 font-bold">Lingkar Perut</label>
                 <input type="number" id="lingkar_perut" name="lingkar_perut" value="{{ $riwayat->lingkar_perut ?? old('lingkar_perut') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
             <div>
                 <label for="tekanan_darah" class="block text-gray-700 font-bold">Tekanan Darah</label>
-                <input type="text" id="tekanan_darah" name="tekanan_darah" value="{{ $riwayat->tekanan_darah ?? old('tekanan_darah') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
+                <input type="text" id="tekanan_darah" name="tekanan_darah" value="{{ $riwayat->tekanan_darah_sistolik ?? old('tekanan_darah_sistolik') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
             </div>
+            <div>
+                <label for="tekanan_darah_sistolik" class="block text-gray-700 font-bold">Tekanan Darah Sistolik</label>
+                <input type="text" id="tekanan_darah_sistolik" name="tekanan_darah_sistolik" value="{{ $riwayat->tekanan_darah ?? old('tekanan_darah') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
+            </div>
+            <div>
+                <label for="tekanan_darah_sistolik" class="block text-gray-700 font-bold">Tekanan Darah Sistolik</label>
+                <input type="text" id="tekanan_darah_sistolik" name="tekanan_darah_sistolik" value="{{ $riwayat->tekanan_darah ?? old('tekanan_darah') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
+            </div>
+
             <div>
                 <label for="gula_darah_sewaktu" class="block text-gray-700 font-bold">Gula Darah Sewaktu</label>
                 <input type="number" id="gula_darah_sewaktu" name="gula_darah_sewaktu" value="{{ $riwayat->gula_darah_sewaktu ?? old('gula_darah_sewaktu') }}" class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">

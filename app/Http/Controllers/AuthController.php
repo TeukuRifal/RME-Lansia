@@ -34,7 +34,7 @@ class AuthController extends Controller
 
             if ($patient && Hash::check($credentials['password'], $patient->password)) {
                 Auth::login($patient);
-                return redirect()->route('pasien.dashboard');
+                return redirect()->route('beranda');
             }
         }
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return view('welcome');
     }
 
     //Auth Super admin

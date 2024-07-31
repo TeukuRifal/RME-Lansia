@@ -20,9 +20,11 @@ class CreatePatientRecordsTable extends Migration
             $table->string('konsumsi_alkohol') ->nullable();
             $table->integer('berat_badan')->nullable();
             $table->integer('tinggi_badan')->nullable();
-            $table->float('indeks_massa_tubuh')->nullable();
+           
             $table->integer('lingkar_perut')->nullable();
             $table->string('tekanan_darah')->nullable();
+            $table->string('tekanan_darah_sistolik')->nullable();
+            $table->string('tekanan_darah_diastolik')->nullable();
             $table->string('gula_darah_sewaktu')->nullable();
             $table->string('kolesterol_total')->nullable();
             $table->string('masalah_kesehatan')->nullable();

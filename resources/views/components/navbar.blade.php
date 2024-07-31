@@ -4,58 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wave Animation with Tailwind CSS</title>
+    <title>Navbar Rumah Sakit</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap"
+        rel="stylesheet">
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen p-2">
 
     <!-- Navbar -->
-    <nav class="py-2 px-10 font-poppins top-0 shadow-sm m-2 bg-white rounded-md">
+    <nav class="py-4 px-6  shadow-md">
         <div class="flex items-center justify-between">
-            <div class="navbar-logo justify-between flex items-center">
-                <a href="/" class="text-2xl font-inter-italic text-black font-bold flex items-center">
-                    <img src="{{ asset('images/logolansia.png') }}" class=" w-20 h-auto mr-2 rounded-full" alt="logo">REMELA
+            <div class="flex items-center">
+                <a href="{{ route('beranda') }}" class="text-2xl font-bold flex items-center">
+                    <img src="{{ asset('images/LansiaLogoFix.png') }}" class=" w-16 h-auto mr-3 font-roboto rounded-full" alt="logo">
+                    REMELA
                 </a>
             </div>
 
-            @guest
-            <div class="hidden md:flex items-center space-x-8 font-semibold text-xl">
-                <a href="{{ route('beranda') }}" class="p-2">Beranda</a>
-                <a href="{{ route('jadwal') }}" class="p-2">Jadwal</a>
-                <a href="{{ route('profile') }}" class="p-2">Profil</a>
-                <a href="{{ route('login') }}" class="p-2 hover:bg-lightblue hover:text-white rounded-md">Login</a>
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" class="focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
             </div>
+
+            <div class="hidden md:flex items-center space-x-6 text-lg">
+                @guest
+                    <a href="{{ route('login') }}" class="hover:text-gray-300">Masuk</a>
+                @endguest
+
+                @auth
+                    <a href="{{ route('beranda') }}" class="hover:text-gray-300">Dashboard</a>
+                    <a href="{{ route('jadwal') }}" class="hover:text-gray-300">Jadwal Dokter</a>
+                    <a href="{{ route('profil') }}" class="hover:text-gray-300">Profil</a>
+                    {{-- <a href="{{ route('pasien') }}" class="hover:text-gray-300">Data Pasien</a> --}}
+                    <form action="{{ route('logout') }}" method="POST" class="inline-block">
+                        @csrf
+                        <button type="submit" class="hover:text-gray-300">Keluar</button>
+                    </form>
+                @endauth
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden space-y-2 mt-2 text-lg">
+            @guest
+                <a href="{{ route('login') }}" class="block hover:text-gray-300">Masuk</a>
             @endguest
 
             @auth
-            <div class="hidden md:flex items-center space-x-8 font-semibold text-2xl">
-                <a href="{{ route('pasien.dashboard') }}" class="p-2">Kesehatan</a>
-                <div class="relative">
-                    <img src="https://cdn-icons-png.flaticon.com/128/2102/2102647.png" alt="Profile" id="profileIcon"
-                        class="w-10 h-10 rounded-full cursor-pointer">
-                    <div id="profileDropdown"
-                        class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-20">
-                        <div class="flex items-center px-4 py-2">
-                            <img src="https://cdn-icons-png.flaticon.com/128/2102/2102647.png" alt="Profile"
-                                class="w-10 h-10 rounded-full">
-                            <div class="ml-3 text-sm">
-                                <h2 class="">{{ Auth::user()->name }}</h2>
-                            </div>
-                        </div>
-                        <div class="border-t mt-2"></div>
-                        <a href="{{ route('profil') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profil</a>
-                        <form action="{{ route('logout') }}" method="POST"
-                            class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                            @csrf
-                            <button type="submit" class="w-full text-left">Keluar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                <a href="{{ route('beranda') }}" class="block hover:text-gray-300">Dashboard</a>
+                <a href="{{ route('jadwal') }}" class="block hover:text-gray-300">Jadwal Dokter</a>
+                <a href="{{ route('profil') }}" class="block hover:text-gray-300">Profil</a>
+                {{-- <a href="{{ route('pasien') }}" class="block hover:text-gray-300">Data Pasien</a> --}}
+                <form action="{{ route('logout') }}" method="POST" class="block">
+                    @csrf
+                    <button type="submit" class="w-full text-left hover:text-gray-300">Keluar</button>
+                </form>
             @endauth
         </div>
     </nav>
+
+    <script>
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 

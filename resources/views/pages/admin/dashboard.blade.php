@@ -3,9 +3,10 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
+
     <div class="container mx-auto px-4 py-6">
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h1 class="text-2xl font-bold mb-4">Dashboard Admin</h1>
+            <h1 class="font-semibold text-2xl mb-6">Dashboard Admin</h1>
 
             <!-- Statistik Utama -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -15,7 +16,7 @@
                 </div>
                 <div class="bg-green-100 p-4 rounded-lg shadow-md">
                     <h2 class="text-lg font-bold">Jumlah Lansia</h2>
-                    <p class="text-2xl">{{ $totalLansia }}</p>
+                    <p class="text-2xl">{{ $totalElderly }}</p>
                 </div>
                 <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
                     <h2 class="text-lg font-bold">Total Admin</h2>
@@ -28,7 +29,7 @@
             </div>
 
             <!-- Grafik dan Diagram -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <div class="bg-white rounded-lg shadow-md p-4">
                     <h2 class="text-lg font-bold mb-2">Distribusi Jenis Kelamin</h2>
                     <canvas id="genderChart" width="400" height="300"></canvas>
@@ -37,6 +38,57 @@
                     <h2 class="text-lg font-bold mb-2">Distribusi Usia</h2>
                     <canvas id="ageChart" width="400" height="300"></canvas>
                 </div>
+
+            </div>
+
+            <!-- Jadwal Pemeriksaan Selanjutnya -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6 mt-5 border border-blue- ">
+                <h2 class="text-xl font-semibold mb-4">Jadwal Pemeriksaan Selanjutnya</h2>
+                @if ($schedules->isNotEmpty())
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-blue-50">
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Deskripsi</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Tanggal</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Waktu Mulai</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Waktu Selesai</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Lokasi</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach ($schedules as $schedule)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            {{ $schedule->nama_tempat }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->tanggal }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->waktu_mulai }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->waktu_selesai }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $schedule->lokasi }}</td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <p class="text-gray-600">Belum ada jadwal pemeriksaan yang tersedia.</p>
+                @endif
             </div>
 
             <!-- Navigasi Cepat -->
@@ -60,14 +112,14 @@
             var genderCounts = {!! json_encode($genderCounts) !!};
 
             var ctxGender = document.getElementById('genderChart').getContext('2d');
-            var genderChart = new Chart(ctxGender, {
+            new Chart(ctxGender, {
                 type: 'pie',
                 data: {
                     labels: genderLabels,
                     datasets: [{
                         data: genderCounts,
-                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
+                        backgroundColor: ['rgb(163, 216, 255)', 'rgb(255, 180, 194)'],
+                        borderColor: ['rgb(163, 216, 255)', 'rgb(163, 216, 255)'],
                         borderWidth: 1
                     }]
                 },
@@ -81,51 +133,38 @@
                 }
             });
 
-            // Data untuk chart umur
+            // Data untuk chart usia
             var ageLabels = {!! json_encode($ageLabels) !!};
             var ageCounts = {!! json_encode($ageCounts) !!};
 
             var ctxAge = document.getElementById('ageChart').getContext('2d');
-            var ageChart = new Chart(ctxAge, {
+            new Chart(ctxAge, {
                 type: 'bar',
                 data: {
                     labels: ageLabels,
                     datasets: [{
                         label: 'Jumlah Pasien',
                         data: ageCounts,
-                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                        borderColor: 'rgba(255, 206, 86, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return Number.isInteger(value) ? value : null;
-                                }
-                            },
-                            title: {
-                                display: true,
-                                text: 'Jumlah Pasien'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Usia (Tahun)'
-                            }
-                        }
-                    },
+                    responsive: true,
                     plugins: {
                         legend: {
-                            display: false
+                            position: 'top',
+                        },
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true
                         }
                     }
                 }
             });
+
 
         });
     </script>
