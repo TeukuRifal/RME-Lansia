@@ -54,7 +54,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
     Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
     Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
-    Route::get('/daftarPasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
+    // Route::get('/daftarPasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
     Route::get('/daftarPasien/search', [PasienController::class, 'searchPasien'])->name('searchPasien');
 
     Route::get('/profile/posbindu', [ProfileController::class, 'show'])->name('profile.posbindu');
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
 
     // Riwayat Kesehatan
-    Route::get('/riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
+    // Route::get('/riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
     Route::get('/riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
     Route::put('/riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
 

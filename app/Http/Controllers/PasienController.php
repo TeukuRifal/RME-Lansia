@@ -358,7 +358,7 @@ public function showHealthHistory($id)
     $patient = Patient::findOrFail($id);
     $healthHistory = $patient->healthHistory;
 
-    return view('admin.health_history', compact('patient', 'healthHistory'));
+    return view('pages.admin.riwayat_kesehatan', compact('patient', 'healthHistory'));
 }
 
 
