@@ -320,5 +320,50 @@ class PasienController extends Controller
         return view('pages.pasien.jadwal', compact('schedules')); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
 
+    public function showRiwayatBulanIni()
+    {
+        // Mendapatkan data user yang sedang login
+        $user = Auth::user();
+
+        // Mendapatkan data pasien terkait dengan user
+        $pasien = $user->patient;
+
+        // Mendapatkan data rekam medis pasien berdasarkan bulan ini
+        $healthRecords = PatientRecord::where('patient_id', $pasien->id)
+            ->whereMonth('record_date', Carbon::now()->month)
+            ->get();
+
+        return view('pages.pasien.riwayat_bulan_ini', compact('pasien', 'healthRecords'));
+    }
+
+    
+
+    public function searchPasien(Request $request)
+{
+    $searchTerm = $request->input('search');
+
+    // Cari pasien berdasarkan nama, NIK, atau email
+    $patients = Patient::where('nama_lengkap', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('nik', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('email', 'LIKE', "%{$searchTerm}%")
+                        ->get();
+
+    // Kembalikan hasil pencarian sebagai JSON
+    return response()->json($patients);
+}
+
+public function showHealthHistory($id)
+{
+    // Ambil data riwayat kesehatan pasien berdasarkan ID
+    $patient = Patient::findOrFail($id);
+    $healthHistory = $patient->healthHistory;
+
+    return view('admin.health_history', compact('patient', 'healthHistory'));
+}
+
+
+
+
+
     
 }

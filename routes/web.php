@@ -10,6 +10,7 @@ use App\Http\Controllers\PasienController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RiwayatKesehatanController;
 use App\Http\Controllers\HealthCheckScheduleController;
+use App\Http\Controllers\ProfileController; // Add this line to import the ProfileController class
 
 
 Route::get('/', function () {
@@ -53,6 +54,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
     Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
     Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
+    Route::get('/daftarPasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
+    Route::get('/daftarPasien/search', [PasienController::class, 'searchPasien'])->name('searchPasien');
+
+    Route::get('/profile/posbindu', [ProfileController::class, 'show'])->name('profile.posbindu');
+
+    // Rute untuk halaman detail riwayat kesehatan pasien
+    Route::get('/riwayatKesehatan/{id}', [PasienController::class, 'showHealthHistory'])->name('healthHistory');
 
     // Rekam Medis
     Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');

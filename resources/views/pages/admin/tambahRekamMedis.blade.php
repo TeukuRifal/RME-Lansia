@@ -65,7 +65,7 @@
 
 
 <!-- Patient Modal -->
-<div id="patient-modal" class="fixed hidden inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+<div id="patient-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" hidden>
     <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl overflow-hidden">
         <div class="flex justify-between items-center border-b border-gray-200 px-6 py-4">
             <h2 class="text-xl font-semibold">Cari Pasien</h2>
