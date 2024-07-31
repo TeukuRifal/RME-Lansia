@@ -74,7 +74,7 @@
         </div>
 
         <div class="mt-4">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-400">Simpan</button>
+            <button type="submit" class="bg-lightblue text-black font-semibold px-4 py-2 rounded shadow hover:bg-blue-400">Simpan</button>
         </div>
     </form>
 </div>

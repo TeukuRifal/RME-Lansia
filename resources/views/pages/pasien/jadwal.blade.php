@@ -2,8 +2,8 @@
 
 @section('content')
     <!-- Jadwal Pemeriksaan Selanjutnya -->
-    <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mb-6">
-        <h2 class="text-2xl font-semibold mb-4">Jadwal Pemeriksaan Selanjutnya</h2>
+    <div class="container mx-auto p-6 bg-lightblue shadow-md rounded-lg mb-6 mt-10">
+        <h2 class="text-3xl font-bold mb-4">Jadwal Pemeriksaan Selanjutnya</h2>
         @if ($schedules->isNotEmpty())
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -30,7 +30,7 @@
                 </table>
             </div>
         @else
-            <p class="text-gray-600">Belum ada jadwal pemeriksaan yang tersedia.</p>
+            <p class="text-gray-600 text-xl">Belum ada jadwal pemeriksaan yang tersedia.</p>
         @endif
     </div>
 
@@ -54,7 +54,7 @@
     </div>
 
     <!-- Peta Lokasi -->
-    <div id="map" class="container mx-auto mt-10" style="height: 400px; width: 100%;"></div>
+    <div id="map" class="container mx-auto mt-10 mb-10" style="height: 400px; width: 100%;"></div>
 
     <script>
         function initMap() {

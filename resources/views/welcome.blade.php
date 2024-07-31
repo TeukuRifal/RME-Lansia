@@ -25,10 +25,6 @@
         animation: wave 10s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
     }
 
-    .wave {
-        height: 100px;
-    }
-
     @keyframes fadeIn {
         from {
             opacity: 0;
@@ -93,69 +89,73 @@
         animation: float 3s ease-in-out infinite;
     }
 </style>
-<div class="h-screen flex flex-col md:flex-row">
-    <div class="flex-auto flex justify-center items-center p-8 md:p-20">
+<div class="flex flex-col md:flex-row">
+    <div class="flex-auto flex justify-center mt-20 p-8 md:p-20">
         <div class="mx-auto slide-in-up text-center md:text-left">
-            <h1 class="text-4xl font-bold mb-4">Selamat Datang di REMELA</h1>
-            <h3 class="text-3xl font-bold mb-4">Website Rekam Medik Elektronik Lansia</h3>
-            <p class="text-xl mb-8">Silahkan masuk untuk mengakses halaman kesehatan Anda!</p>
-            <a href="{{ route('login') }}" class="bg-lightblue shadow-lg text-white py-2 px-4 rounded">Masuk</a>
+            <h1 class="text-5xl font-bold mb-4">Selamat Datang di REMELA</h1>
+            <h3 class="text-4xl font-bold mb-4">Website Rekam Medik Elektronik Lansia</h3>
+            <p class="text-2xl font-semibold mb-8">Silahkan masuk untuk mengakses halaman kesehatan Anda!</p>
+            <a href="{{ route('login') }}" class="bg-cyan-100 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-300 text-black text-2xl font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Masuk
+            </a>
         </div>
     </div>
     <div class="flex-auto hidden md:flex justify-center items-center">
-        <img src="{{ asset('images/LansiaLogoFix.png') }}" alt="Welcome Image" class="w-2/3 h-auto slide-in float">
+        <img src="{{ asset('images/LansiaLogoFix.png') }}" alt="Welcome Image" class="w-full h-auto slide-in float">
     </div>
 </div>
 
- <!-- Section Wave -->
- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+<!-- Section Wave -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#ffffff" fill-opacity="1"
         d="M0,32L48,53.3C96,75,192,117,288,149.3C384,181,480,203,576,186.7C672,171,768,117,864,101.3C960,85,1056,107,1152,101.3C1248,96,1344,64,1392,48L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
     </path>
 </svg>
 
 <!-- Section Profil -->
-<div id="profil" class="mx-auto p-5 bg-white">
-    <h2 class="mt-5 text-3xl font-bold mb-8 text-center font-roboto">Profil Posbindu</h2>
-    <div class="flex flex-col lg:flex-row">
-        <div class="lg:w-1/2 p-5">
+<div id="profil" class="mx-auto p-2 px-10 bg-white">
+    <h2 class="text-5xl mb-2 font-bold text-center font-roboto">Profil Posbindu</h2>
+    <div class="flex flex-col lg:flex-row items-center">
+        <div class="lg:w-1/2 p-8">
             <img src="{{ asset('images/posbindu2.jpg') }}" alt="Posbindu Image" class="w-full h-auto rounded-lg">
         </div>
         <div class="lg:w-1/2 p-5">
             <div class="grid grid-cols-1 gap-6 mt-5 text-lg">
-                <div class="flex items-center">
+                <div class="flex items-start">
                     <img src="{{ asset('images/visi.png') }}" alt="Visi Image" class="w-16 h-auto">
                     <div class="ml-4">
-                        <h3 class="text-2xl font-semibold mb-2">Visi</h3>
-                        <p class="text-justify">Menjadi solusi digital terdepan dalam pemantauan kesehatan lansia, yang mendukung peningkatan kualitas hidup melalui inovasi dan teknologi yang mudah diakses.</p>
+                        <h3 class="text-3xl font-bold mb-2">Visi</h3>
+                        <p class="text-justify text-xl">Menjadi solusi digital terdepan dalam pemantauan kesehatan lansia, yang mendukung peningkatan kualitas hidup melalui inovasi dan teknologi yang mudah diakses.</p>
                     </div>
                 </div>
-                <div class="flex items-center mt-4">
+                <div class="flex items-start mt-4">
                     <img src="{{ asset('images/misi.png') }}" alt="Misi Image" class="w-16 h-auto">
                     <div class="ml-4 text-justify">
-                        <h3 class="text-2xl font-semibold mb-2">Misi</h3>
-                        <ul class="list-disc ml-5">
+                        <h3 class="text-3xl font-bold mb-2">Misi</h3>
+                        <ul class="list-disc ml-5 text-xl">
                             <li>Mempermudah Akses Informasi Kesehatan</li>
                             <li>Meningkatkan Kesadaran Akan Kesehatan</li>
                             <li>Menawarkan rekomendasi kesehatan yang dipersonalisasi berdasarkan data pengguna</li>
-                            <li>Mendorong Gaya Hidup Sehat</li>
                             <li>Terus mengembangkan fitur dan teknologi baru yang mendukung kebutuhan kesehatan lansia.</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="mt-8">
-                <button type="button"
-                    class="text-black font-semibold bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 rounded-lg text-sm px-5 py-2.5">Baca
-                    Selengkapnya</button>
-            </div>
         </div>
+    </div>
+    <div class="flex justify-center items-center mt-5 mb-3">
+        <a href="{{ route('profile.posbindu') }}" 
+   class="text-black font-bold bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 rounded-lg text-2xl px-8 py-4 inline-block">
+   Baca Selengkapnya
+</a>
+
+
     </div>
 </div>
 
 <!-- Section Galeri -->
-<div id="galeri" class="mx-auto p-5 bg-white">
-    <h2 class="text-3xl font-bold mb-8 text-center mt-10">Galeri</h2>
+<div id="galeri" class="mx-auto p-5 px-16 bg-white ">
+    <h2 class="text-5xl font-bold mb-8 text-center mt-10">Galeri</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xl">
         <div class="gallery-item">
             <img src="{{ asset('images/posbindu1.jpg') }}" alt="Gallery Image 1"

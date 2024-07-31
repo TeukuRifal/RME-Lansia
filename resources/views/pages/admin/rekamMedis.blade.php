@@ -5,78 +5,74 @@
 @section('content')
     <div class="container mx-auto px-4 py-6 mt-5">
         <nav class="text-md mb-4">
-            <p class="text-primary">Rekam Medis</p>
+            <p class="text-primary font-semibold">Rekam Medis</p>
         </nav>
-        <div class="d-flex align-items-center mb-4">
-            <a href="{{ route('admin.patientRecords.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
+        <div class="flex items-center mb-4">
+            <a href="{{ route('admin.patientRecords.create') }}" class="bg-lightblue text-black font-semibold py-2 px-4 rounded shadow-sm flex items-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 <i class="bi bi-person-plus-fill me-2"></i>
                 Tambah Data
             </a>
         </div>
 
-        <div class="table-responsive shadow rounded-lg overflow-auto">
-            <table id="patientRecordsTable" class="table table-striped table-hover">
-                <thead class="bg-light">
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+            <table id="patientRecordsTable" class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-lightblue text-gray-900 font-bold text-base">
                     <tr>
-                        <th>No</th>
-                        <th>Nama Pasien</th>
-                        <th>ID Pasien (NIK)</th>
-                        <th>Tanggal Rekam</th>
-                        <th>Riwayat PTM Keluarga</th>
-                        <th>Riwayat PTM Sendiri</th>
-                        <th>Merokok</th>
-                        <th>Kurang Aktivitas Fisik</th>
-                        <th>Kurang Sayur/Buah</th>
-                        <th>Konsumsi Alkohol</th>
-                        <th>Stress</th>
-                        <th>Berat Badan (kg)</th>
-                        <th>indeks Massa Tubuh</th>
-                        <th>Tinggi Badan (cm)</th>
-                        <th>Lingkar Perut (cm)</th>
-                        <th>Tekanan Darah Sistolik</th>
-                        <th>Tekanan Darah Diastolik</th>
-                        <th>Gula Darah Sewaktu</th>
-                        <th>Kolesterol Total</th>
-                        <th>Masalah Kesehatan</th>
-                        <th>Obat Fasilitas</th>
-                        <th>Tindak Lanjut</th>
-                        <th>Aksi</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">No</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Nama Pasien</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">ID Pasien (NIK)</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tanggal Rekam</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Riwayat PTM Keluarga</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Riwayat PTM Sendiri</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Merokok</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Kurang Aktivitas Fisik</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Kurang Sayur/Buah</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Konsumsi Alkohol</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Stress</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Berat Badan (kg)</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tinggi Badan (cm)</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Lingkar Perut (cm)</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tekanan Darah</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tekanan Darah Sistolik</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tekanan Darah Diastolik</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Gula Darah Sewaktu</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Kolesterol Total</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Masalah Kesehatan</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Obat Fasilitas</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tindak Lanjut</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                
+                <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($records as $record)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $record->patient->nama_lengkap }}</td>
-                            <td>{{ $record->patient->nik }}</td>
-                            <td>{{ $record->record_date }}</td>
-                            <td>{{ $record->riwayat_ptm_keluarga ?? '-' }}</td>
-                            <td>{{ $record->riwayat_ptm_sendiri ?? '-' }}</td>
-                            <td>{{ $record->merokok ?? '-' }}</td>
-                            <td>{{ $record->kurang_aktivitas_fisik ?? '-' }}</td>
-                            <td>{{ $record->kurang_sayur_buah ?? '-' }}</td>
-                            <td>{{ $record->konsumsi_alkohol ?? '-' }}</td>
-                            <td>{{ $record->stress ?? '-' }}</td>
-                            <td>{{ $record->berat_badan ?? '-' }}</td>
-                            <td>
-                                @php
-                                    $tinggi_badan_m = $record->tinggi_badan / 100;
-                                    $imt = $record->berat_badan / ($tinggi_badan_m * $tinggi_badan_m);
-                                @endphp
-                                {{ number_format($imt, 2) }}
-                            </td>
-                            <td>{{ $record->tinggi_badan ?? '-' }}</td>
-                            <td>{{ $record->lingkar_perut ?? '-' }}</td>
-                            <td>{{ $record->tekanan_darah_sistolik ?? '-' }}</td>
-                            <td>{{ $record->tekanan_darah_diastolik ?? '-' }}</td>
-                            <td>{{ $record->gula_darah_sewaktu ?? '-' }}</td>
-                            <td>{{ $record->kolesterol_total ?? '-' }}</td>
-                            <td>{{ $record->masalah_kesehatan ?? '-' }}</td>
-                            <td>{{ $record->obat_fasilitas ?? '-' }}</td>
-                            <td>{{ $record->tindak_lanjut ?? '-' }}</td>
-                            <td>
-                                <a href="{{ route('admin.patientRecords.print', $record->id) }}" class="text-primary"><i
-                                        class="bi bi-file-earmark-text-fill"></i> Cetak</a>
+                        <tr class="hover:bg-gray-100">
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $loop->iteration }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $record->patient->nama_lengkap }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->patient->nik }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->record_date }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->riwayat_ptm_keluarga ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->riwayat_ptm_sendiri ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->merokok ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->kurang_aktivitas_fisik ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->kurang_sayur_buah ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->konsumsi_alkohol ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->stress ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->berat_badan ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tinggi_badan ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->lingkar_perut ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tekanan_darah ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tekanan_darah_sistolik ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tekanan_darah_diastolik ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->gula_darah_sewaktu ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->kolesterol_total ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->masalah_kesehatan ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->obat_fasilitas ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tindak_lanjut ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <a href="{{ route('admin.patientRecords.print', $record->id) }}" class="text-blue-500 hover:text-blue-600">
+                                    <i class="bi bi-file-earmark-text-fill"></i> Cetak
+                                </a>
                             </td>
                         </tr>
                     @endforeach
