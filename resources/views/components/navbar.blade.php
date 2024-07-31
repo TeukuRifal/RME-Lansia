@@ -27,7 +27,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
     <!-- Navbar -->
-    <nav class="border-gray-200 bg-lightblue dark:bg-gray-800 dark:border-gray-700 px-6 custom-shadow">
+    <nav class="border-gray-200 bg-lightblue  dark:border-gray-700 px-6 shadow-md">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ route('beranda') }}" class="text-3xl font-bold flex items-center">
