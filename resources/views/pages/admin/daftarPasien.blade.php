@@ -17,7 +17,7 @@
         </div>
 
         <!-- Tabel Daftar Pasien -->
-        <div class="bg-white shadow-md rounded-lg overflow-hidden p-2 border">
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto p-2 border">
             <table id="patientsTable" class="min-w-full bg-white p-2">
                 <thead class="bg-blue-500 text-white">
                     <tr>

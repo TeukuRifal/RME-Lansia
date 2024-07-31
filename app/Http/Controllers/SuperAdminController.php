@@ -11,11 +11,14 @@ class SuperAdminController extends Controller
 {
     public function index()
     {
+        // Ambil data yang dibutuhkan untuk dashboard
+        // Misalnya statistik pengguna, data kesehatan, dll.
         return view('pages.superadmin.dashboard');
     }
 
     public function indexSuperadmins()
     {
+        // Ambil semua pengguna dengan peran admin, superadmin, dan pasien
         $superadmins = User::whereIn('role', ['admin', 'superadmin', 'patient'])->get();
         return view('pages.superadmin.admins.index', compact('superadmins'));
     }
@@ -43,11 +46,7 @@ class SuperAdminController extends Controller
             'role' => $role,
         ]);
 
-        if ($role === 'superadmin') {
-            return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin created successfully.');
-        } else {
-            return redirect()->route('superadmin.superadmins.index')->with('success', 'Admin created successfully.');
-        }
+        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($role) . ' created successfully.');
     }
 
     public function edit($id)
@@ -76,11 +75,7 @@ class SuperAdminController extends Controller
             'password' => $superadmin->password,
         ]);
 
-        if ($superadmin->role === 'superadmin') {
-            return redirect()->route('superadmin.superadmins.index')->with('success', 'Superadmin updated successfully.');
-        } else {
-            return redirect()->route('superadmin.superadmins.index')->with('success', 'Admin updated successfully.');
-        }
+        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($superadmin->role) . ' updated successfully.');
     }
 
     public function destroy($id)
@@ -94,5 +89,23 @@ class SuperAdminController extends Controller
     {
         $logs = Activity::all();
         return view('pages.superadmin.logs', compact('logs'));
+    }
+
+    public function reports()
+    {
+        // Ambil data untuk laporan dan analisis
+        return view('pages.superadmin.reports');
+    }
+
+    public function settings()
+    {
+        // Ambil data pengaturan aplikasi
+        return view('pages.superadmin.settings');
+    }
+
+    public function content()
+    {
+        // Ambil data konten yang dikelola
+        return view('pages.superadmin.content');
     }
 }

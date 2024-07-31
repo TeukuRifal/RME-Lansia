@@ -362,7 +362,9 @@ public function index()
     }
     public function jadwal()
     {
+        $user = Auth::user();
+        $pasien = $user->patient;
         $schedules = HealthCheckSchedule::all();
-        return view('pages.pasien.jadwal', compact('schedules')); // Pastikan Anda memiliki beranda.blade.php di resources/views
+        return view('pages.pasien.jadwal', compact('schedules','user', 'pasien')); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
 }

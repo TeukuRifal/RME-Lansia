@@ -45,16 +45,16 @@
                 @endguest
 
                 @auth
-                    <a href="{{ route('beranda') }}" class="hover:text-gray-300">Dashboard</a>
-                    <a href="{{ route('jadwal') }}" class="hover:text-gray-300">Jadwal </a>
-                    <a href="{{ route('profil') }}" class="hover:text-gray-300">Profil</a>
+                    <a href="{{ route('beranda') }}" class="hover:text-gray-300 text-2xl">Dashboard</a>
+                    <a href="{{ route('jadwal') }}" class="hover:text-gray-300 text-2xl">Jadwal </a>
+                    <a href="{{ route('profil') }}" class="hover:text-gray-300 text-2xl">Profil</a>
                     <form action="{{ route('logout') }}" method="POST" class="inline-block">
                         @csrf
-                        <button type="submit" class="hover:text-gray-300">Keluar</button>
+                        <button type="submit" class="hover:text-gray-300 text-2xl">Keluar</button>
                     </form>
                     <!-- User photo -->
                     @if ($pasien->foto)
-                        <img src="{{ Storage::url($pasien->foto) }}" alt="Foto Pasien" class="w-10 h-10 rounded-full">
+                        <img src="{{ Storage::url($pasien->foto) }}" alt="Foto Pasien" class="w-10 h-10 rounded-full border-2 border-green-400">
                     @else
                         <img src="{{ asset('images/default.png') }}" alt="Foto Default" class="w-10 h-10 rounded-full">
                     @endif

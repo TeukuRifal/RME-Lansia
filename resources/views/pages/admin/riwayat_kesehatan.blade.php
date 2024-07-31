@@ -92,6 +92,10 @@
                                     (cm):</label>
                                 <span id="tinggiBadan" class="text-gray-900">-</span>
                             </div>
+                            <div>
+                                <label for="indeksMassaTubuh" class="block text-sm font-bold text-gray-700">Indeks Masa
+                                    Tubuh:</label>
+                                <span id="indeksMassaTubuh" class="text-gray-900">-</span>
                             
                             <div>
                                 <label for="lingkarPerut" class="block text-sm font-bold text-gray-700">Lingkar Perut
@@ -180,7 +184,7 @@
                 $('#konsumsiAlkohol').text(selectedRecord.konsumsi_alkohol || '-');
                 $('#beratBadan').text(selectedRecord.berat_badan || '-');
                 $('#tinggiBadan').text(selectedRecord.tinggi_badan || '-');
-                
+                $('#indeksMassaTubuh').text(selectedRecord.indeks_massa_tubuh || '-');
                 $('#lingkarPerut').text(selectedRecord.lingkar_perut || '-');
                 $('#tekananDarah').text(selectedRecord.tekanan_darah || '-');
                 $('#gulaDarahSewaktu').text(selectedRecord.gula_darah_sewaktu || '-');

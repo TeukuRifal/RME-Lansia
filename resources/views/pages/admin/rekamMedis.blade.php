@@ -30,9 +30,9 @@
                         <th>Konsumsi Alkohol</th>
                         <th>Stress</th>
                         <th>Berat Badan (kg)</th>
+                        <th>indeks Massa Tubuh</th>
                         <th>Tinggi Badan (cm)</th>
                         <th>Lingkar Perut (cm)</th>
-                        <th>Tekanan Darah</th>
                         <th>Tekanan Darah Sistolik</th>
                         <th>Tekanan Darah Diastolik</th>
                         <th>Gula Darah Sewaktu</th>
@@ -58,9 +58,15 @@
                             <td>{{ $record->konsumsi_alkohol ?? '-' }}</td>
                             <td>{{ $record->stress ?? '-' }}</td>
                             <td>{{ $record->berat_badan ?? '-' }}</td>
+                            <td>
+                                @php
+                                    $tinggi_badan_m = $record->tinggi_badan / 100;
+                                    $imt = $record->berat_badan / ($tinggi_badan_m * $tinggi_badan_m);
+                                @endphp
+                                {{ number_format($imt, 2) }}
+                            </td>
                             <td>{{ $record->tinggi_badan ?? '-' }}</td>
                             <td>{{ $record->lingkar_perut ?? '-' }}</td>
-                            <td>{{ $record->tekanan_darah ?? '-' }}</td>
                             <td>{{ $record->tekanan_darah_sistolik ?? '-' }}</td>
                             <td>{{ $record->tekanan_darah_diastolik ?? '-' }}</td>
                             <td>{{ $record->gula_darah_sewaktu ?? '-' }}</td>

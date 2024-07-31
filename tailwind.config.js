@@ -14,6 +14,8 @@ export default {
         'sans': ['Poppins', 'sans-serif'],
         'roboto': ['roboto', 'sans-serif'],
         'teko': ['Teko', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+
       },
     },
   },
