@@ -27,7 +27,7 @@
                             <label for="nik" class="block text-sm font-bold text-gray-700">Nik:</label>
                             <span id="nik" class="text-gray-900"> {{ $patient->nik }}</span>
                         </div>
-                        
+
                         <div class="p-2">
                             <label for="gender" class="block text-sm font-bold text-gray-700">Jenis Kelamin:</label>
                             <span id="gender" class="text-gray-900"> {{ $patient->jenis_kelamin }}</span>
@@ -43,7 +43,8 @@
                     <br>
                     <div class="dropdown mb-4">
                         <label for="tanggalRekamMedik">Pilih Tanggal Rekam Medik:</label>
-                        <select id="tanggalRekamMedik" class="form-select block w-52 mt-2 p-2 border rounded-lg hover:bg-blue-50"
+                        <select id="tanggalRekamMedik"
+                            class="form-select block w-52 mt-2 p-2 border rounded-lg hover:bg-blue-50"
                             onchange="selectRecordDate(this.value)">
                             @foreach ($recordDates as $index => $date)
                                 <option class="p-2" value="{{ $index }}">{{ $date }}</option>
@@ -92,11 +93,7 @@
                                     (cm):</label>
                                 <span id="tinggiBadan" class="text-gray-900">-</span>
                             </div>
-                            <div>
-                                <label for="indeksMassaTubuh" class="block text-sm font-bold text-gray-700">Indeks Masa
-                                    Tubuh:</label>
-                                <span id="indeksMassaTubuh" class="text-gray-900">-</span>
-                            
+
                             <div>
                                 <label for="lingkarPerut" class="block text-sm font-bold text-gray-700">Lingkar Perut
                                     (cm):</label>
@@ -184,7 +181,7 @@
                 $('#konsumsiAlkohol').text(selectedRecord.konsumsi_alkohol || '-');
                 $('#beratBadan').text(selectedRecord.berat_badan || '-');
                 $('#tinggiBadan').text(selectedRecord.tinggi_badan || '-');
-                $('#indeksMassaTubuh').text(selectedRecord.indeks_massa_tubuh || '-');
+
                 $('#lingkarPerut').text(selectedRecord.lingkar_perut || '-');
                 $('#tekananDarah').text(selectedRecord.tekanan_darah || '-');
                 $('#gulaDarahSewaktu').text(selectedRecord.gula_darah_sewaktu || '-');
@@ -225,9 +222,9 @@
 
             // Grafik untuk 
             const imtLabels = records.map(record => formatDate(record.record_date));
-           
 
-            
+
+
 
             // Grafik untuk Lingkar Perut
             const lingkarPerutData = records.map(record => record.lingkar_perut);
