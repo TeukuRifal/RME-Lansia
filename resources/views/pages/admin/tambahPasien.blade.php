@@ -4,7 +4,7 @@
 <div class="container mx-auto p-4">
     <form action="{{ route('simpanPasien') }}" method="POST" enctype="multipart/form-data" class="bg-white p-5 rounded-lg shadow-md">
         <div class="header flex justify-between flex-row p-2">
-            <h2 class="text-2xl font-bold mb-2">Tambah Data Diri Pasien</h2>
+            <h2 class="text-2xl font-bold mb-2">Tambah Data Diri Klien</h2>
         </div>
 
         <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">

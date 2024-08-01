@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rekam Medis Pasien</title>
+    <title>Rekam Medis Klien</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -20,9 +20,9 @@
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No
                         </th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama
-                            Pasien</th>
+                            Klien</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID
-                            Pasien (NIK)</th>
+                            Klien (NIK)</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Tanggal Rekam</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

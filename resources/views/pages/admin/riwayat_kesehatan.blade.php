@@ -6,8 +6,8 @@
     <div class="container mx-auto px-4 py-6">
         <div class="flex justify-between items-center mb-6">
             <nav class="text-md mb-4">
-                <a href="{{ route('daftarPasien') }}" class="text-blue-500">Pasien</a> >
-                <span class="text-gray-500">Detail Riwayat Pasien</span>
+                <a href="{{ route('daftarPasien') }}" class="text-blue-500">Klien</a> >
+                <span class="text-gray-500">Detail Riwayat Klien</span>
             </nav>
             <a href="{{ route('daftarPasien') }}"
                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-200 mb-4">Kembali</a>
@@ -16,7 +16,7 @@
         <div class="grid grid-cols-2 gap-6">
             <div class="pasien">
                 <div class="data bg-white rounded-lg overflow-hidden p-2 border mb-4 ">
-                    <p class="font-semibold text-xl">Info Pasien</p>
+                    <p class="font-semibold text-xl">Info Klien</p>
                     <hr>
                     <div class="data py-3">
                         <div class="p-2">

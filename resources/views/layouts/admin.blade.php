@@ -237,10 +237,10 @@
                         </a>
                     </div>
                     <div>
-                        <p class="font-bold text-sm text-gray-600 mb-4 item-text">Pasien</p>
+                        <p class="font-bold text-sm text-gray-600 mb-4 item-text">Klien</p>
                         <a href="{{ route('daftarPasien') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
                             <img src="{{ asset('images/pasien.png') }}" alt="pasien">
-                            <span class="item-text  font-semibold">Pasien</span>
+                            <span class="item-text  font-semibold">Klien</span>
                         </a>
                         <a href="{{ route('rekamMedis') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
                             <img src="{{ asset('images/rekammedis.png') }}" alt="rekam medis">

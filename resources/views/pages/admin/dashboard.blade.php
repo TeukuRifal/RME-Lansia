@@ -25,7 +25,7 @@
         <!-- Statistik Utama -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             <div class="bg-blue-100 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-bold">Total Pasien</h2>
+                <h2 class="text-lg font-bold">Total Klien</h2>
                 <p class="text-2xl">{{ $totalPatients }}</p>
             </div>
             <div class="bg-green-100 p-4 rounded-lg shadow-md">
@@ -89,8 +89,8 @@
 
         <!-- Navigasi Cepat -->
         <div class="flex justify-end mt-4">
-            <a href="{{ route('tambahPasien') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mr-2">Tambah Pasien Baru</a>
-            <a href="{{ route('daftarPasien') }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Kelola Data Pasien</a>
+            <a href="{{ route('tambahPasien') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mr-2">Tambah Klien Baru</a>
+            <a href="{{ route('daftarPasien') }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Kelola Data Klien</a>
         </div>
     </div>
 </div>

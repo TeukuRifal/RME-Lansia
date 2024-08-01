@@ -27,7 +27,7 @@
             <li class="py-2 px-4 hover:bg-gray-100 rounded">
                 <a href="{{ route('daftarPasien') }}"
                     class="block transition duration-300 ease-in-out hover:text-cyan-400">
-                    Daftar Pasien
+                    Daftar Klien
                 </a>
             </li>
             <li class="py-2 px-4 hover:bg-gray-100 rounded">

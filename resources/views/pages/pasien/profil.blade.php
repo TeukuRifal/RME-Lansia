@@ -5,7 +5,7 @@
         <h1 class="text-4xl font-bold text-center mb-8">Profil</h1>
         <p class="text-center text-xl mb-6">Data Diri & Riwayat Kesehatan</p>
 
-        <div class="bg-lightblue rounded-lg shadow-md p-5 mb-8">
+        <div class="bg-lightblue rounded-lg shadow-md p-3 mb-8">
             <div class="flex items-center">
                 <div class="bg-gray-300 rounded-full w-16 h-16 flex items-center justify-center">
                     @if ($pasien->foto)

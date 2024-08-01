@@ -6,24 +6,24 @@
         <h2 class="text-3xl font-bold mb-4">Jadwal Pemeriksaan Selanjutnya</h2>
         @if ($schedules->isNotEmpty())
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-100">
+                <table class="min-w-full divide-y divide-gray-200 border border-gray-300">
+                    <thead class="bg-gray-100 border-b border-gray-300">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Nama Tempat</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Tanggal</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Waktu Mulai</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Waktu Selesai</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Lokasi</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Tempat</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu Mulai</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu Selesai</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lokasi</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($schedules as $schedule)
                             <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $schedule->nama_tempat }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $schedule->tanggal }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $schedule->waktu_mulai }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $schedule->waktu_selesai }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $schedule->lokasi }}</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 border-b border-gray-200">{{ $schedule->nama_tempat }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-500 border-b border-gray-200">{{ $schedule->tanggal }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-500 border-b border-gray-200">{{ $schedule->waktu_mulai }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-500 border-b border-gray-200">{{ $schedule->waktu_selesai }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-500 border-b border-gray-200">{{ $schedule->lokasi }}</td>
                             </tr>
                         @endforeach
                     </tbody>

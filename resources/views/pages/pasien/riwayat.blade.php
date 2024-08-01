@@ -7,18 +7,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Pasien</title>
+    <title>Informasi Klien</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
 
 <div class="container mx-auto p-4 border my-4 bg-white shadow-md rounded-lg">
-    <h1 class="text-3xl font-bold mb-6 text-center">Informasi Pasien</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center">Informasi Klien</h1>
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Info Pasien -->
         <div>
-            <h2 class="text-2xl font-semibold mb-2">Info Pasien</h2>
+            <h2 class="text-2xl font-semibold mb-2">Info Klien</h2>
             <p><strong>Nama Lengkap:</strong> Beliana</p>
             <p><strong>Tanggal Lahir:</strong> 18 Feb 2016 (7 Tahun)</p>
             <p><strong>MRN:</strong> BRNF000150</p>

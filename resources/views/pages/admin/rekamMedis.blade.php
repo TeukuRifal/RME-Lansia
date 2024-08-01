@@ -19,8 +19,8 @@
                 <thead class="bg-lightblue text-gray-900 font-bold text-base">
                     <tr>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">No</th>
-                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Nama Pasien</th>
-                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">ID Pasien (NIK)</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Nama Klien</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">ID Klien (NIK)</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tanggal Rekam</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Riwayat PTM Keluarga</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Riwayat PTM Sendiri</th>

@@ -57,14 +57,14 @@
         </div>
 
         <div class="p-6">
-            <div class="section-title text-xl font-semibold mb-4">Data Pasien</div>
+            <div class="section-title text-xl font-semibold mb-4">Data Klien</div>
             <table class="w-full mb-6">
                 <tr>
                     <th class="px-4 py-2">Nama Pasien</th>
                     <td class="px-4 py-2">{{ $record->patient->nama_lengkap }}</td>
                 </tr>
                 <tr>
-                    <th class="px-4 py-2">ID Pasien (NIK)</th>
+                    <th class="px-4 py-2">ID Klien (NIK)</th>
                     <td class="px-4 py-2">{{ $record->patient->nik }}</td>
                 </tr>
                 <tr>
