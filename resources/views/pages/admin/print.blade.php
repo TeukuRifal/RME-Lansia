@@ -19,10 +19,11 @@
         }
 
         .header {
-            background-color: #00695c;
+            background-color: #004d40;
             color: #ffffff;
             padding: 20px;
             border-radius: 8px 8px 0 0;
+            text-align: center;
         }
 
         .section-title {
@@ -32,176 +33,206 @@
             border-radius: 8px;
         }
 
-        th {
-            width: 40%;
-            text-align: left;
-            background-color: #e0f2f1;
-        }
-
-        td {
-            width: 60%;
-        }
-
         table {
-            border-collapse: separate;
-            border-spacing: 0 10px;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e0f2f1;
+            color: #004d40;
+        }
+
+        .status-card {
+            padding: 15px;
+            border-radius: 8px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .status-card-green {
+            background-color: #4caf50;
+        }
+
+        .status-card-red {
+            background-color: #f44336;
+        }
+
+        .status-card-yellow {
+            background-color: #ffeb3b;
+            color: #000;
+        }
+
+        .status-card-blue {
+            background-color: #2196f3;
+        }
+
+        .status-card-gray {
+            background-color: #9e9e9e;
+        }
+
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
 
 <body class="p-8">
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-        <div class="header text-center">
+        <div class="header">
             <h1 class="text-3xl font-bold">Rekam Medis Elektronik Lansia</h1>
             <p class="text-sm">WWW.RemelaSehat.com, remelattg61@gmail.com</p>
         </div>
 
         <div class="p-6">
             <div class="section-title text-xl font-semibold mb-4">Data Klien</div>
-            <table class="w-full mb-6">
+            <table>
                 <tr>
-                    <th class="px-4 py-2">Nama Pasien</th>
-                    <td class="px-4 py-2">{{ $record->patient->nama_lengkap }}</td>
+                    <th>Nama Pasien</th>
+                    <td>{{ $record->patient->nama_lengkap }}</td>
                 </tr>
                 <tr>
-                    <th class="px-4 py-2">ID Klien (NIK)</th>
-                    <td class="px-4 py-2">{{ $record->patient->nik }}</td>
+                    <th>ID Klien (NIK)</th>
+                    <td>{{ $record->patient->nik }}</td>
                 </tr>
                 <tr>
-                    <th class="px-4 py-2">Tanggal Lahir</th>
-                    <td class="px-4 py-2">{{ $record->patient->tanggal_lahir }}</td>
+                    <th>Tanggal Lahir</th>
+                    <td>{{ $record->patient->tanggal_lahir }}</td>
                 </tr>
                 <tr>
-                    <th class="px-4 py-2">Alamat</th>
-                    <td class="px-4 py-2">{{ $record->patient->alamat }}</td>
+                    <th>Alamat</th>
+                    <td>{{ $record->patient->alamat }}</td>
                 </tr>
             </table>
 
             <div class="status-kesehatan mb-6">
                 <div class="section-title text-xl font-semibold mb-4">Status Kesehatan Bulan Ini</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
-                        {{ $statusKolesterol == 'Normal' ? 'bg-green-200' : ($statusKolesterol == 'Tinggi' ? 'bg-red-200' : 'bg-blue-200') }}">
-                        <h2 class="text-lg font-bold mb-2">Kolesterol</h2>
-                        <p class="text-xl">{{ $statusKolesterol }}</p>
+                    <div class="status-card
+                        {{ $statusKolesterol == 'Normal' ? 'status-card-green' : ($statusKolesterol == 'Tinggi' ? 'status-card-red' : 'status-card-blue') }}">
+                        Kolesterol: {{ $statusKolesterol }}
                     </div>
 
-                    <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
-                        {{ $statusIMT == 'Berat badan normal' ? 'bg-green-200' : ($statusIMT == 'Kelebihan berat badan' ? 'bg-red-200' : 'bg-yellow-200') }}">
-                        <h2 class="text-lg font-bold mb-2">Indeks Massa Tubuh (IMT)</h2>
-                        <p class="text-xl">{{ $statusIMT }}</p>
+                    <div class="status-card
+                        {{ $statusIMT == 'Berat badan normal' ? 'status-card-green' : ($statusIMT == 'Kelebihan berat badan' ? 'status-card-red' : 'status-card-yellow') }}">
+                        IMT: {{ $statusIMT }}
                     </div>
 
-                    <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
-                        {{ $statusLingkarPerut == 'Normal' ? 'bg-green-100' : ($statusLingkarPerut == 'Tinggi' ? 'bg-red-100' : 'bg-white') }}">
-                        <h2 class="text-lg font-bold mb-2">Lingkar Perut</h2>
-                        <p class="text-xl">{{ $statusLingkarPerut }}</p>
+                    <div class="status-card
+                        {{ $statusLingkarPerut == 'Normal' ? 'status-card-green' : ($statusLingkarPerut == 'Tinggi' ? 'status-card-red' : 'status-card-gray') }}">
+                        Lingkar Perut: {{ $statusLingkarPerut }}
                     </div>
 
-                    <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
+                    <div class="status-card
                         {{ $statusTekananDarah == 'Normal'
-                            ? 'bg-green-200'
+                            ? 'status-card-green'
                             : ($statusTekananDarah == 'Pra-hipertensi'
-                                ? 'bg-yellow-200'
+                                ? 'status-card-yellow'
                                 : ($statusTekananDarah == 'Hipertensi tingkat 1'
-                                    ? 'bg-orange-200'
+                                    ? 'status-card-orange'
                                     : ($statusTekananDarah == 'Hipertensi tingkat 2'
-                                        ? 'bg-red-200'
+                                        ? 'status-card-red'
                                         : ($statusTekananDarah == 'Hipertensi Sistolik Terisolasi'
-                                            ? 'bg-blue-200'
-                                            : 'bg-gray-200')))) }}">
-                        <h2 class="text-lg font-bold mb-2">Tekanan Darah</h2>
-                        <p class="text-xl">{{ $statusTekananDarah }}</p>
+                                            ? 'status-card-blue'
+                                            : 'status-card-gray')))) }}">
+                        Tekanan Darah: {{ $statusTekananDarah }}
                     </div>
                 </div>
             </div>
 
             <div class="section-title text-xl font-semibold mb-4">Rekam Medis</div>
-            <table class="w-full mb-6">
+            <table>
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">Tanggal</th>
-                        <th class="px-4 py-2">IMT</th>
-                        <th class="px-4 py-2">Kolesterol</th>
-                        <th class="px-4 py-2">Tekanan Darah</th>
-                        <th class="px-4 py-2">Lingkar Perut</th>
+                        <th>Tanggal</th>
+                        <th>IMT</th>
+                        <th>Kolesterol</th>
+                        <th>Tekanan Darah</th>
+                        <th>Lingkar Perut</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($patientRecords as $rec)
                     <tr>
-                        <td class="px-4 py-2">{{ $rec->record_date->format('d M Y') }}</td>
-                        <td class="px-4 py-2">
-                            {{ number_format($rec->berat_badan / (($rec->tinggi_badan / 100) * ($rec->tinggi_badan / 100)), 2) }}
-                        </td>
-                        <td class="px-4 py-2">{{ $rec->kolesterol_total }} mg/dL</td>
-                        <td class="px-4 py-2">{{ $rec->tekanan_darah_sistolik }}/{{ $rec->tekanan_darah_diastolik }}</td>
-                        <td class="px-4 py-2">{{ $rec->lingkar_perut }} cm</td>
+                        <td>{{ $rec->record_date->format('d M Y') }}</td>
+                        <td>{{ number_format($rec->berat_badan / (($rec->tinggi_badan / 100) * ($rec->tinggi_badan / 100)), 2) }}</td>
+                        <td>{{ $rec->kolesterol_total }} mg/dL</td>
+                        <td>{{ $rec->tekanan_darah_sistolik }}/{{ $rec->tekanan_darah_diastolik }}</td>
+                        <td>{{ $rec->lingkar_perut }} cm</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
 
             <div class="section-title text-xl font-semibold mb-4">Informasi Rekam Medis</div>
-            <table class="w-full">
+            <table>
                 <tbody>
                     <tr>
-                        <th class="px-4 py-2 text-left">Tanggal Rekam</th>
-                        <td class="px-4 py-2">{{ $record->record_date }}</td>
+                        <th>Tanggal Rekam</th>
+                        <td>{{ $record->record_date }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Riwayat PTM Keluarga</th>
-                        <td class="px-4 py-2">{{ $record->riwayat_ptm_keluarga ?? '-' }}</td>
+                        <th>Riwayat PTM Keluarga</th>
+                        <td>{{ $record->riwayat_ptm_keluarga ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Riwayat PTM Sendiri</th>
-                        <td class="px-4 py-2">{{ $record->riwayat_ptm_sendiri ?? '-' }}</td>
+                        <th>Riwayat PTM Sendiri</th>
+                        <td>{{ $record->riwayat_ptm_sendiri ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Merokok</th>
-                        <td class="px-4 py-2">{{ $record->merokok ?? '-' }}</td>
+                        <th>Merokok</th>
+                        <td>{{ $record->merokok ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Kurang Aktivitas Fisik</th>
-                        <td class="px-4 py-2">{{ $record->kurang_aktivitas_fisik ?? '-' }}</td>
+                        <th>Kurang Aktivitas Fisik</th>
+                        <td>{{ $record->kurang_aktivitas_fisik ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Berat Badan</th>
-                        <td class="px-4 py-2">{{ $record->berat_badan ?? '-' }} kg</td>
+                        <th>Berat Badan</th>
+                        <td>{{ $record->berat_badan ?? '-' }} kg</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Tinggi Badan</th>
-                        <td class="px-4 py-2">{{ $record->tinggi_badan ?? '-' }} cm</td>
+                        <th>Indeks Massa Tubuh</th>
+                        <td>{{ number_format($record->berat_badan / (($record->tinggi_badan / 100) * ($record->tinggi_badan / 100)), 2) }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Tinggi Badan</th>
+                        <td>{{ $record->tinggi_badan ?? '-' }} cm</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Tekanan Darah</th>
-                        <td class="px-4 py-2">{{ $record->tekanan_darah_sistolik ?? '-' }}/{{ $record->tekanan_darah_diastolik ?? '-' }} mmHg</td>
+                        <th>Tekanan Darah</th>
+                        <td>{{ $record->tekanan_darah_sistolik ?? '-' }}/{{ $record->tekanan_darah_diastolik ?? '-' }} mmHg</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Gula Darah Sewaktu</th>
-                        <td class="px-4 py-2">{{ $record->gula_darah_sewaktu ?? '-' }} mg/dL</td>
+                        <th>Gula Darah Sewaktu</th>
+                        <td>{{ $record->gula_darah_sewaktu ?? '-' }} mg/dL</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Masalah Kesehatan</th>
-                        <td class="px-4 py-2">{{ $record->masalah_kesehatan ?? '-' }}</td>
+                        <th>Masalah Kesehatan</th>
+                        <td>{{ $record->masalah_kesehatan ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Obat Fasilitas</th>
-                        <td class="px-4 py-2">{{ $record->obat_fasilitas ?? '-' }}</td>
+                        <th>Obat</th>
+                        <td>{{ $record->obat_fasilitas ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <th class="px-4 py-2 text-left">Tindak Lanjut</th>
-                        <td class="px-4 py-2">{{ $record->tindak_lanjut ?? '-' }}</td>
+                        <th>Tindak Lanjut</th>
+                        <td>{{ $record->tindak_lanjut ?? '-' }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
-    {{-- <div class="text-center mt-8">
-        <button onclick="window.print()" class="bg-blue-500 text-white px-4 py-2 rounded shadow-md">Cetak</button>
-        <a href="{{ url()->previous() }}" class="ml-4 bg-gray-500 text-white px-4 py-2 rounded shadow-md">Kembali</a>
-    </div> --}}
 </body>
 
 </html>

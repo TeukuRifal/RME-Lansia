@@ -79,7 +79,7 @@
                 </tr>
                 <tr>
                     <td class="border px-4 py-2">{{ $index + 1 }}</td>
-                    <td class="border px-4 py-2">Obat Fasilitas</td>
+                    <td class="border px-4 py-2">Obat </td>
                     <td class="border px-4 py-2">{{ $record->obat_fasilitas }}</td>
                 </tr>
                 <tr>

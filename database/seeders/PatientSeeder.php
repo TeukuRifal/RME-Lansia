@@ -35,7 +35,7 @@ class PatientSeeder extends Seeder
                 'name' => $data['nama_lengkap'],
                 'username' => $data['nik'],
                 'email' => $data['email'],
-                'password' => bcrypt('password'), // Ganti dengan password aman
+                'password' => bcrypt('password123'), // Ganti dengan password aman
                 'role' => 'patient',
             ]);
 

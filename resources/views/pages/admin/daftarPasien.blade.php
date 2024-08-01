@@ -4,16 +4,18 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-6">
-        <h2 class="text-2xl font-semibold text-blue-800 mb-4">Data Pasien</h2>
+        <h2 class="text-2xl font-semibold text-blue-800 mb-4">Data Klien</h2>
 
         <!-- Tambah Akun Button -->
         <div class="flex justify-between items-center mb-6 py-2">
             <a href="{{ route('tambahPasien') }}" 
-                class="flex items-center bg-lightblue text-black font-semibold py-2 px-4 rounded shadow hover:bg-blue-600 transition duration-200">
+                class="flex items-center bg-lightblue text-black font-semibold py-2 px-4 rounded shadow hover:scale-110 transition duration-200">
                 <img src="{{ asset('images/addPasien.png') }}" alt="tambah pasien" class="w-5 h-5 mr-2">
                 Tambah Akun
             </a>
+            <a href="{{ url('/export-patients') }}" class="btn btn-success">Export Ke Excel</a>
         </div>
+        
 
         <!-- Tabel Daftar Pasien dengan Scroll Horizontal -->
         <div class="bg-white shadow-md rounded-lg overflow-hidden border p-4">

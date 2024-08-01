@@ -100,6 +100,12 @@
                                 <span id="lingkarPerut" class="text-gray-900">-</span>
                             </div>
                             <div>
+                                <label for="asamUrat" class="block text-sm font-bold text-gray-700">Asam Urat
+                                    (mg):</label>
+                                <span id="lingkarPerut" class="text-gray-900">-</span>
+                            </div>
+
+                            <div>
                                 <label for="tekananDarah" class="block text-sm font-bold text-gray-700">Tekanan
                                     Darah:</label>
                                 <span id="tekananDarah" class="text-gray-900">-</span>
@@ -181,8 +187,8 @@
                 $('#konsumsiAlkohol').text(selectedRecord.konsumsi_alkohol || '-');
                 $('#beratBadan').text(selectedRecord.berat_badan || '-');
                 $('#tinggiBadan').text(selectedRecord.tinggi_badan || '-');
-
                 $('#lingkarPerut').text(selectedRecord.lingkar_perut || '-');
+                $('#asamUrat').text(selectedRecord.asam_urat || '-');
                 $('#tekananDarah').text(selectedRecord.tekanan_darah || '-');
                 $('#gulaDarahSewaktu').text(selectedRecord.gula_darah_sewaktu || '-');
                 $('#kolesterolTotal').text(selectedRecord.kolesterol_total || '-');
@@ -208,6 +214,7 @@
             $('#tinggiBadan').text('-');
             $('#indeksMassaTubuh').text('-');
             $('#lingkarPerut').text('-');
+            $('#asamUrat').text('-');
             $('#tekananDarah').text('-');
             $('#gulaDarahSewaktu').text('-');
             $('#kolesterolTotal').text('-');

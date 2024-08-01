@@ -160,7 +160,7 @@ class PasienController extends Controller
             'name' => $validatedData['nama_lengkap'],
             'email' => $validatedData['email'],
             'username' => $validatedData['nik'],
-            'password' => bcrypt('password'),
+            'password' => bcrypt('password123'),
         ]);
 
         $fotoPath = null;

@@ -8,7 +8,7 @@
             <p class="text-primary font-semibold">Rekam Medis</p>
         </nav>
         <div class="flex items-center mb-4">
-            <a href="{{ route('admin.patientRecords.create') }}" class="bg-lightblue text-black font-semibold py-2 px-4 rounded shadow-sm flex items-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <a href="{{ route('admin.patientRecords.create') }}" class="bg-lightblue text-black font-semibold py-2 px-4 rounded shadow-sm flex items-center hover:scale-110 transition duration-200">
                 <i class="bi bi-person-plus-fill me-2"></i>
                 Tambah Data
             </a>
@@ -28,17 +28,16 @@
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Kurang Aktivitas Fisik</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Kurang Sayur/Buah</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Konsumsi Alkohol</th>
-                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Stress</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Asam Urat</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Berat Badan (kg)</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tinggi Badan (cm)</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Lingkar Perut (cm)</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tekanan Darah</th>
-                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tekanan Darah Sistolik</th>
-                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tekanan Darah Diastolik</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Indeks Massa Tubuh</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Gula Darah Sewaktu</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Kolesterol Total</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Masalah Kesehatan</th>
-                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Obat Fasilitas</th>
+                        <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Obat</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Tindak Lanjut</th>
                         <th class="px-4 py-3 text-left text-sm font-bold uppercase tracking-wider">Aksi</th>
                     </tr>
@@ -57,13 +56,18 @@
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->kurang_aktivitas_fisik ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->kurang_sayur_buah ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->konsumsi_alkohol ?? '-' }}</td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->stress ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->asam_urat ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->berat_badan ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tinggi_badan ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->lingkar_perut ?? '-' }}</td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tekanan_darah ?? '-' }}</td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tekanan_darah_sistolik ?? '-' }}</td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tekanan_darah_diastolik ?? '-' }}</td>
+                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->tekanan_darah_sistolik ?? '-' }} / {{ $record->tekanan_darah_diastolik ?? '-' }}</td>
+                            <td>
+                                @php
+                                    $tinggi_badan_m = $record->tinggi_badan / 100;
+                                    $imt = $record->berat_badan / ($tinggi_badan_m * $tinggi_badan_m);
+                                @endphp
+                                {{ number_format($imt, 2) }}
+                            </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->gula_darah_sewaktu ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->kolesterol_total ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{{ $record->masalah_kesehatan ?? '-' }}</td>

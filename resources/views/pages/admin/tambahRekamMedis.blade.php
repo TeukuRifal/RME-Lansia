@@ -23,7 +23,7 @@
                 <input type="date" name="record_date" id="record_date" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             </div>
             <div class="flex items-center space-x-2">
-                <label for="nik" class="block text-gray-700 text-sm font-medium mb-2">NIK Klien</label>
+                <label for="nik" class="block text-gray-700 text-sm font-medium mb-2">NIK Pasien</label>
                 <input type="text" name="nik" id="nik" class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" required readonly>
                 <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" data-modal-target="patient-modal">Cari </button>
             </div>
@@ -40,13 +40,13 @@
                 'berat_badan' => 'Berat Badan (kg)',
                 'tinggi_badan' => 'Tinggi Badan (cm)',
                 'lingkar_perut' => 'Lingkar Perut (cm)',
-                
+                'asam_urat' => 'asam urat',
                 'tekanan_darah_sistolik' => 'Tekanan Darah Sistolik',
                 'tekanan_darah_diastolik' => 'Tekanan Darah Diastolik',
                 'gula_darah_sewaktu' => 'Gula Darah Sewaktu (mg/dL)',
                 'kolesterol_total' => 'Kolesterol Total (mg/dL)',
                 'masalah_kesehatan' => 'Masalah Kesehatan',
-                'obat_fasilitas' => 'Obat Fasilitas',
+                'obat_fasilitas' => 'Obat ',
                 'tindak_lanjut' => 'Tindak Lanjut'
             ] as $name => $label)
                 <div class="mb-4 ">
@@ -65,10 +65,10 @@
 
 
 <!-- Patient Modal -->
-<div id="patient-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" hidden>
+<div id="patient-modal" class="fixed hidden inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl overflow-hidden">
         <div class="flex justify-between items-center border-b border-gray-200 px-6 py-4">
-            <h2 class="text-xl font-semibold">Cari Klien</h2>
+            <h2 class="text-xl font-semibold">Cari Pasien</h2>
             <button class="text-gray-600 hover:text-gray-800" onclick="closeModal('patient-modal')">&times;</button>
         </div>
         <div class="p-6 overflow-y-auto max-h-[70vh] min-h-[70vh]"> <!-- Make content scrollable -->
