@@ -128,6 +128,7 @@ class PasienController extends Controller
             'statusLingkarPerut',
             'statusTekananDarah',
             'schedules',
+            'latestRecord',
             'dates'
         ));
     }
@@ -188,6 +189,7 @@ class PasienController extends Controller
 
         return redirect()->back()->with('success', 'Data pasien berhasil ditambahkan');
     }
+
     public function daftarPasien()
     {
         $patients = Patient::all();

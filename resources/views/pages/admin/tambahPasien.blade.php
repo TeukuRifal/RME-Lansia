@@ -9,6 +9,7 @@
 
         <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
         @csrf
+
         @if(session('success'))
         <script>
             Swal.fire({
@@ -20,6 +21,7 @@
             });
         </script>
         @endif
+
         @if ($errors->any())
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             <strong class="font-bold">Ada kesalahan!</strong>
@@ -38,9 +40,9 @@
                 'no_hp' => 'No HP',
                 'pendidikan_terakhir' => 'Pendidikan Terakhir',
                 'pekerjaan' => 'Pekerjaan',
-                'status_kawin' => 'Status Kawin',
+                'status_kawin' => 'Status Pernikahan',
                 'gol_darah' => 'Golongan Darah',
-                'email' => 'Email'
+                'email' => 'Email (opsional)'
             ] as $field => $label)
                 <div>
                     <label for="{{ $field }}" class="block text-gray-700 font-bold">{{ $label }}</label>

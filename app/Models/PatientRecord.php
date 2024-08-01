@@ -12,7 +12,7 @@ class PatientRecord extends Model
     protected $fillable = [
         'patient_id', 'record_date', 'riwayat_ptm_keluarga', 'riwayat_ptm_sendiri',
         'merokok', 'kurang_aktivitas_fisik', 'kurang_sayur_buah', 'konsumsi_alkohol',
-        'stress', 'berat_badan', 'tinggi_badan', 'lingkar_perut',
+        'stress', 'berat_badan', 'tinggi_badan', 'lingkar_perut', 'asam_urat',
         'tekanan_darah', 'tekanan_darah_sistolik','tekanan_darah_diastolik','gula_darah_sewaktu', 'kolesterol_total', 'masalah_kesehatan',
         'obat_fasilitas', 'tindak_lanjut',
     ];

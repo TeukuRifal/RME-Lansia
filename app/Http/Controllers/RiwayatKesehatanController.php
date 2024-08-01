@@ -102,7 +102,7 @@ class RiwayatKesehatanController extends Controller
             'konsumsi_alkohol' => 'nullable|string',
             'berat_badan' => 'nullable|numeric',
             'tinggi_badan' => 'nullable|numeric',
-
+            'asam_urat' => 'nullable|string',
             'lingkar_perut' => 'nullable|numeric',
             'tekanan_darah' => 'nullable|string',
             'tekanan_darah_sistolik' => 'nullable|string',
@@ -127,7 +127,7 @@ class RiwayatKesehatanController extends Controller
             'konsumsi_alkohol' => $request->konsumsi_alkohol,
             'berat_badan' => $request->berat_badan,
             'tinggi_badan' => $request->tinggi_badan,
-
+            'asam_urat' => $request->asam_urat,
             'lingkar_perut' => $request->lingkar_perut,
             'tekanan_darah' => $request->tekanan_darah,
             'tekanan_darah_sistolik' => $request->tekanan_darah_sistolik,
@@ -162,7 +162,7 @@ class RiwayatKesehatanController extends Controller
             'konsumsi_alkohol' => 'nullable|string',
             'berat_badan' => 'nullable|numeric',
             'tinggi_badan' => 'nullable|numeric',
-
+            'asam_urat' => 'nullable|string',
             'lingkar_perut' => 'nullable|numeric',
             'tekanan_darah' => 'nullable|string',
             'tekanan_darah_sistolik' => 'nullable|string',
@@ -199,7 +199,7 @@ class RiwayatKesehatanController extends Controller
             'konsumsi_alkohol' => 'nullable|string',
             'berat_badan' => 'nullable|numeric',
             'tinggi_badan' => 'nullable|numeric',
-
+            'asam_urat' => 'nullable|string',
             'lingkar_perut' => 'nullable|numeric',
             'tekanan_darah' => 'nullable|string',
             'tekanan_darah_sistolik' => 'nullable|string',
@@ -222,7 +222,7 @@ class RiwayatKesehatanController extends Controller
         $patientRecord->konsumsi_alkohol = $request->konsumsi_alkohol;
         $patientRecord->berat_badan = $request->berat_badan;
         $patientRecord->tinggi_badan = $request->tinggi_badan;
-
+        $patientRecord->asam_urat = $request->asam_urat;
         $patientRecord->lingkar_perut = $request->lingkar_perut;
         $patientRecord->tekanan_darah = $request->tekanan_darah;
         $patientRecord->tekanan_darah_sistolik = $request->tekanan_darah_sistolik;

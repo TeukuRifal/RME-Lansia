@@ -82,6 +82,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::get('/export-patients', [ExportController::class, 'export']);
+Route::get('/print-pasien/{id}', [ExportController::class, 'print'])->name('print.pasien');
 
 
 // Super admin routes
