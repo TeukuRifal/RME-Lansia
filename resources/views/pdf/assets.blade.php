@@ -51,6 +51,9 @@
                             Tekanan Darah Sistolik</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Tekanan Darah Diastolik</th>
+                        <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            indeks Massa Tubuh</th>
+                            
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gula
                             Darah Sewaktu</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -83,6 +86,7 @@
                             <td class="py-3 px-4">{{ $record->tekanan_darah ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tekanan_darah_sistolik ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tekanan_darah_diastolik ?? '-' }}</td>
+                            
                             <td class="py-3 px-4">{{ $record->gula_darah_sewaktu ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->kolesterol_total ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->masalah_kesehatan ?? '-' }}</td>

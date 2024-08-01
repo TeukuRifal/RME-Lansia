@@ -170,7 +170,7 @@
         <div class="gallery-item">
             <img src="{{ asset('images/posbindu3.jpg') }}" alt="Gallery Image 3"
                 class="w-full rounded-lg shadow-lg">
-            <p class="h-32 shadow-md bg-white rounded-lg p-5 text-center">Pengukuran Lingkar Pinggang Sebagai Bagian Dari Pengecekan Kesehatan</p>
+            <p class="h-32 shadow-md bg-white rounded-lg p-5 text-center">Mahasiswa KKN mengunjungi Posbindu</p>
         </div>
     </div>
 </div>

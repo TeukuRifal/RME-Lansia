@@ -66,13 +66,13 @@
         </div>
     </div>
 
-    <div id="perkembangan" class="p-10 px-16 bg-white shadow-md rounded-lg justify-center items-center">
-        <h2 class="text-4xl font-bold text-center mb-10">Grafik Perkembangan</h2>
+    <div id="perkembangan" class=" container p-5 bg-white shadow-md rounded-lg mx-5 my-10">
+        <h2 class="text-3xl font-bold text-center mb-10">Grafik Perkembangan</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach (['Lingkar Perut', 'Gula Darah', 'Kolesterol'] as $grafik)
                 <div class="chart-container bg-white rounded-lg shadow-lg p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h5 class="text-2xl font-semibold">{{ $grafik }}</h5>
+                        <h5 class="text-xl font-semibold">{{ $grafik }}</h5>
                     </div>
                     <div>
                         <canvas id="chart-{{ strtolower(str_replace(' ', '-', $grafik)) }}"></canvas>
@@ -80,186 +80,447 @@
                 </div>
             @endforeach
 
-            <div class="chart-container bg-white rounded-lg shadow-lg p-6 mb-4">
+            <div class="chart-container bg-white rounded-lg shadow-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h5 class="text-2xl font-semibold">Tekanan Darah</h5>
+                    <h5 class="text-xl font-semibold">Tekanan Darah</h5>
                 </div>
                 <div>
                     <canvas id="chart-tekanan-darah"></canvas>
                 </div>
             </div>
 
-            <div class="chart-container bg-white rounded-lg shadow-lg p-6 mb-4">
+            <div class="chart-container bg-white rounded-lg shadow-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h5 class="text-2xl font-semibold">IMT (Indeks Massa Tubuh)</h5>
+                    <h5 class="text-xl font-semibold">IMT (Indeks Massa Tubuh)</h5>
                 </div>
                 <div>
                     <canvas id="chart-imt"></canvas>
                 </div>
             </div>
+
+            <div class="chart-container bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h5 class="text-xl font-semibold">Asam Urat</h5>
+                </div>
+                <div>
+                    <canvas id="chart-asam-urat"></canvas>
+                </div>
+            </div>
+            
         </div>
     </div>
 
     <div class="container mx-auto p-4 border my-4 bg-white shadow-md rounded-lg">
-        <h1 class="text-4xl font-bold mb-6 text-center">Informasi Status Kesehatan Bulan Ini</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center">Informasi Status Kesehatan Bulan Ini</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center {{ $statusKolesterol == 'Normal' ? 'bg-green-200' : ($statusKolesterol == 'Tinggi' ? 'bg-red-200' : 'bg-blue-200') }}">
+            <div
+                class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
+                {{ $statusKolesterol == 'Normal' ? 'bg-green-200' : ($statusKolesterol == 'Tinggi' ? 'bg-red-200' : 'bg-blue-200') }}">
                 <h2 class="text-lg font-bold mb-2">Kolesterol</h2>
                 <p class="text-xl">{{ $statusKolesterol }}</p>
             </div>
 
-            <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center {{ $statusIMT == 'Berat badan normal' ? 'bg-green-200' : ($statusIMT == 'Kelebihan berat badan/obesitas' ? 'bg-red-200' : 'bg-yellow-200') }}">
+            <div
+                class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
+                {{ $statusIMT == 'Berat badan normal' ? 'bg-green-200' : ($statusIMT == 'Kelebihan berat badan/obesitas' ? 'bg-red-200' : 'bg-yellow-200') }}">
                 <h2 class="text-lg font-bold mb-2">Indeks Massa Tubuh (IMT)</h2>
                 <p class="text-xl">{{ $statusIMT }}</p>
             </div>
 
-            <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center {{ $statusLingkarPerut == 'Normal' ? 'bg-green-100' : ($statusLingkarPerut == 'Tinggi' ? 'bg-red-100' : 'bg-white') }}">
+            <div
+                class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
+                {{ $statusLingkarPerut == 'Normal' ? 'bg-green-100' : ($statusLingkarPerut == 'Tinggi' ? 'bg-red-100' : 'bg-white') }}">
                 <h2 class="text-lg font-bold mb-2">Lingkar Perut</h2>
                 <p class="text-xl">{{ $statusLingkarPerut }}</p>
             </div>
 
-            <div class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center {{ $statusTekananDarah == 'Normal' ? 'bg-green-200' : ($statusTekananDarah == 'Pra-hipertensi' ? 'bg-yellow-200' : ($statusTekananDarah == 'Hipertensi tingkat 1' ? 'bg-orange-200' : ($statusTekananDarah == 'Hipertensi tingkat 2' ? 'bg-red-200' : ($statusTekananDarah == 'Hipertensi Sistolik Terisolasi' ? 'bg-blue-200' : 'bg-gray-200')))) }}">
+            <div
+                class="p-4 rounded-lg shadow-md flex flex-col items-center justify-center
+                {{ $statusTekananDarah == 'Normal'
+                    ? 'bg-green-200'
+                    : ($statusTekananDarah == 'Pra-hipertensi'
+                        ? 'bg-yellow-200'
+                        : ($statusTekananDarah == 'Hipertensi tingkat 1'
+                            ? 'bg-orange-200'
+                            : ($statusTekananDarah == 'Hipertensi tingkat 2'
+                                ? 'bg-red-200'
+                                : ($statusTekananDarah == 'Hipertensi Sistolik Terisolasi'
+                                    ? 'bg-blue-200'
+                                    : 'bg-gray-200')))) }}">
                 <h2 class="text-lg font-bold mb-2">Tekanan Darah</h2>
                 <p class="text-xl">{{ $statusTekananDarah }}</p>
             </div>
         </div>
-
         <!-- Jadwal Pemeriksaan Selanjutnya -->
-        <div class="p-6 mt-10 bg-white shadow-md rounded-lg">
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 mt-5 ">
             <h2 class="text-xl font-semibold mb-4">Jadwal Pemeriksaan Selanjutnya</h2>
             @if ($schedules->isNotEmpty())
-                <div class="table-container ">
-                    <table class="table ">
-                        <thead class="bg-blue-600 text-gray-800">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-blue-50">
                             <tr>
-                                <th class="p-4">Deskripsi</th>
-                                <th class="p-4">Tanggal</th>
-                                <th class="p-4">Waktu</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Deskripsi</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tanggal</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Waktu Mulai</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Waktu Selesai</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Lokasi</th>
+
                             </tr>
                         </thead>
-                        
-                        <tbody>
+                        <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($schedules as $schedule)
-                                <tr class="hover:bg-gray-100">
-                                    <td>{{ $schedule->description }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($schedule->time)->format('H:i') }}</td>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{ $schedule->nama_tempat }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->tanggal }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->waktu_mulai }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->waktu_selesai }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $schedule->lokasi }}</td>
+
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             @else
-                <p class="text-gray-500">Tidak ada jadwal pemeriksaan selanjutnya.</p>
+                <p class="text-gray-600">Belum ada jadwal pemeriksaan yang tersedia.</p>
             @endif
         </div>
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Penting untuk Diingat</h2>
+            <ul class="list-disc pl-6 text-gray-600">
+                <li>Perhatikan kondisi kesehatan Anda secara berkala dan lakukan pemeriksaan rutin sesuai jadwal yang
+                    telah ditentukan.</li>
+                <li>Jaga pola makan yang seimbang dan hindari konsumsi makanan yang dapat memperburuk kondisi
+                    kesehatan.</li>
+                <li>Jika Anda memiliki pertanyaan atau kekhawatiran mengenai kesehatan Anda, segera konsultasikan
+                    dengan tenaga medis.</li>
+            </ul>
+        </div>
     </div>
-
+    
+    
+    </div>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var ctx1 = document.getElementById('chart-lingkar-perut').getContext('2d');
-            var ctx2 = document.getElementById('chart-gula-darah').getContext('2d');
-            var ctx3 = document.getElementById('chart-kolesterol').getContext('2d');
-            var ctx4 = document.getElementById('chart-tekanan-darah').getContext('2d');
-            var ctx5 = document.getElementById('chart-imt').getContext('2d');
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctxLingkarPerut = document.getElementById('chart-lingkar-perut').getContext('2d');
+            var ctxGulaDarah = document.getElementById('chart-gula-darah').getContext('2d');
+            var ctxKolesterol = document.getElementById('chart-kolesterol').getContext('2d');
+            var ctxTekananDarah = document.getElementById('chart-tekanan-darah').getContext('2d');
+            var ctxIMT = document.getElementById('chart-imt').getContext('2d');
+            var ctxAsamUrat = document.getElementById('chart-asam-urat').getContext('2d');
 
-            var chart1 = new Chart(ctx1, {
+            var dataLingkarPerut = @json($dataPerGrafik['Lingkar Perut']);
+            var dataGulaDarah = @json($dataPerGrafik['Gula Darah']);
+            var dataKolesterol = @json($dataPerGrafik['Kolesterol']);
+            var dataTekananDarahSistolik = @json($dataPerGrafik['Tekanan Darah Sistolik']);
+            var dataTekananDarahDiastolik = @json($dataPerGrafik['Tekanan Darah Diastolik']);
+            var dataAsamUrat = @json($dataPerGrafik['Asam Urat']);
+            var labels = @json($recordDates);
+            var imtDates = @json($imtDates);
+            var imtValues = @json($imtValues);
+            
+            new Chart(ctxAsamUrat, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Asam Urat',
+                data: dataAsamUrat,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderWidth: 2,
+                tension: 0.3, // Smoother curve
+                pointRadius: 5, // Radius of points
+                pointHoverRadius: 7, // Radius of points on hover
+                fill: true // Fill area under the curve
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Asam Urat: ' + context.raw + ' mg/dL';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeInOutCubic'
+            }
+        }
+    });
+
+            // Grafik Lingkar Perut
+            new Chart(ctxLingkarPerut, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: labels,
                     datasets: [{
                         label: 'Lingkar Perut',
-                        data: [10, 20, 15, 25, 30, 35],
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
-                        fill: false
+                        data: dataLingkarPerut,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3, // Smoother curve
+                        pointRadius: 5, // Radius of points
+                        pointHoverRadius: 7, // Radius of points on hover
+                        fill: true // Fill area under the curve
                     }]
                 },
                 options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Lingkar Perut: ' + context.raw + ' cm';
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        x: { beginAtZero: true },
-                        y: { beginAtZero: true }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInOutCubic'
                     }
                 }
             });
 
-            var chart2 = new Chart(ctx2, {
+            // Grafik Gula Darah
+            new Chart(ctxGulaDarah, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: labels,
                     datasets: [{
                         label: 'Gula Darah',
-                        data: [80, 85, 82, 87, 90, 95],
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1,
-                        fill: false
+                        data: dataGulaDarah,
+                        borderColor: 'rgb(153, 102, 255)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3, // Smoother curve
+                        pointRadius: 5, // Radius of points
+                        pointHoverRadius: 7, // Radius of points on hover
+                        fill: true // Fill area under the curve
                     }]
                 },
                 options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Gula Darah: ' + context.raw + ' mg/dL';
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        x: { beginAtZero: true },
-                        y: { beginAtZero: true }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInOutCubic'
                     }
                 }
             });
 
-            var chart3 = new Chart(ctx3, {
+            // Grafik Kolesterol
+            new Chart(ctxKolesterol, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: labels,
                     datasets: [{
                         label: 'Kolesterol',
-                        data: [180, 190, 185, 200, 210, 220],
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 1,
-                        fill: false
+                        data: dataKolesterol,
+                        borderColor: 'rgb(255, 159, 64)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3, // Smoother curve
+                        pointRadius: 5, // Radius of points
+                        pointHoverRadius: 7, // Radius of points on hover
+                        fill: true // Fill area under the curve
                     }]
                 },
                 options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Kolesterol: ' + context.raw + ' mg/dL';
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        x: { beginAtZero: true },
-                        y: { beginAtZero: true }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInOutCubic'
                     }
                 }
             });
 
-            var chart4 = new Chart(ctx4, {
+            // Grafik Tekanan Darah
+            new Chart(ctxTekananDarah, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: labels,
                     datasets: [{
-                        label: 'Tekanan Darah',
-                        data: [120, 125, 130, 135, 140, 145],
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1,
-                        fill: false
+                        label: 'Sistolik',
+                        data: dataTekananDarahSistolik,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3, // Smoother curve
+                        pointRadius: 5, // Radius of points
+                        pointHoverRadius: 7, // Radius of points on hover
+                        fill: true // Fill area under the curve
+                    }, {
+                        label: 'Diastolik',
+                        data: dataTekananDarahDiastolik,
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3, // Smoother curve
+                        pointRadius: 5, // Radius of points
+                        pointHoverRadius: 7, // Radius of points on hover
+                        fill: true // Fill area under the curve
                     }]
                 },
                 options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataset.label === 'Sistolik') {
+                                        return 'Tekanan Darah Sistolik: ' + context.raw + ' mmHg';
+                                    } else {
+                                        return 'Tekanan Darah Diastolik: ' + context.raw + ' mmHg';
+                                    }
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        x: { beginAtZero: true },
-                        y: { beginAtZero: true }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInOutCubic'
                     }
                 }
             });
 
-            var chart5 = new Chart(ctx5, {
+            // Grafik IMT
+            new Chart(ctxIMT, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: imtDates,
                     datasets: [{
                         label: 'IMT',
-                        data: [22, 23, 22.5, 23.5, 24, 24.5],
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                        fill: false
+                        data: imtValues,
+                        borderColor: 'rgb(255, 206, 86)',
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3, // Smoother curve
+                        pointRadius: 5, // Radius of points
+                        pointHoverRadius: 7, // Radius of points on hover
+                        fill: true // Fill area under the curve
                     }]
                 },
                 options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'IMT: ' + context.raw;
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        x: { beginAtZero: true },
-                        y: { beginAtZero: true }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInOutCubic'
                     }
                 }
             });

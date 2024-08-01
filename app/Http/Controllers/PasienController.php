@@ -13,124 +13,124 @@ use Illuminate\Support\Facades\Storage;
 
 class PasienController extends Controller
 {
-   /**
- * Menampilkan dashboard kesehatan pasien.
- *
- * @return \Illuminate\View\View
- */
-public function index()
-{
-    // Mendapatkan data pasien berdasarkan user yang sedang login
-    $user = Auth::user();
-    $pasien = $user->patient;
+    /**
+     * Menampilkan dashboard kesehatan pasien.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        // Mendapatkan data pasien berdasarkan user yang sedang login
+        $user = Auth::user();
+        $pasien = $user->patient;
 
-    // Mendapatkan data riwayat pasien
-    $patientRecords = PatientRecord::where('patient_id', $pasien->id)
-        ->orderBy('record_date', 'asc')
-        ->get();
+        // Mendapatkan data riwayat pasien
+        $patientRecords = PatientRecord::where('patient_id', $pasien->id)
+            ->orderBy('record_date', 'asc')
+            ->get();
 
-    // Mengambil data untuk masing-masing grafik
-    $dataPerGrafik = [
-        'Lingkar Perut' => $patientRecords->pluck('lingkar_perut'),
-        'Gula Darah' => $patientRecords->pluck('gula_darah_sewaktu'),
-        'Tekanan Darah Sistolik' => $patientRecords->pluck('tekanan_darah_sistolik'),
-        'Tekanan Darah Diastolik' => $patientRecords->pluck('tekanan_darah_diastolik'),
-        'Kolesterol' => $patientRecords->pluck('kolesterol_total'),
-        'Asam Urat' => $patientRecords->pluck('asam_urat'),
-    ];
-
-    // Hitung IMT
-    $imtData = $patientRecords->map(function ($record) {
-        $heightInMeters = $record->tinggi_badan / 100; // Convert cm to meters
-        $imt = $record->berat_badan / ($heightInMeters * $heightInMeters);
-        return [
-            'date' => $record->record_date->format('F Y'),
-            'imt' => $imt
+        // Mengambil data untuk masing-masing grafik
+        $dataPerGrafik = [
+            'Lingkar Perut' => $patientRecords->pluck('lingkar_perut'),
+            'Gula Darah' => $patientRecords->pluck('gula_darah_sewaktu'),
+            'Tekanan Darah Sistolik' => $patientRecords->pluck('tekanan_darah_sistolik'),
+            'Tekanan Darah Diastolik' => $patientRecords->pluck('tekanan_darah_diastolik'),
+            'Kolesterol' => $patientRecords->pluck('kolesterol_total'),
+            'Asam Urat' => $patientRecords->pluck('asam_urat'),
         ];
-    });
 
-    // Kategorisasi IMT
-    $imtCategories = $imtData->map(function ($data) {
-        if ($data['imt'] < 23) {
-            return ['date' => $data['date'], 'category' => 'Kekurangan berat badan'];
-        } elseif ($data['imt'] < 30) {
-            return ['date' => $data['date'], 'category' => 'Berat badan normal'];
-        } else {
-            return ['date' => $data['date'], 'category' => 'Kelebihan berat badan/obesitas'];
-        }
-    });
+        // Hitung IMT
+        $imtData = $patientRecords->map(function ($record) {
+            $heightInMeters = $record->tinggi_badan / 100; // Convert cm to meters
+            $imt = $record->berat_badan / ($heightInMeters * $heightInMeters);
+            return [
+                'date' => $record->record_date->format('F Y'),
+                'imt' => $imt
+            ];
+        });
 
-    // Kategorisasi Kolesterol
-    $kolesterolCategories = $patientRecords->map(function ($record) {
-        if ($record->kolesterol_total > 240) {
-            return ['date' => $record->record_date->format('F Y'), 'category' => 'Tinggi'];
-        } elseif ($record->kolesterol_total < 200) {
-            return ['date' => $record->record_date->format('F Y'), 'category' => 'Baik'];
-        }
-        return ['date' => $record->record_date->format('F Y'), 'category' => 'Normal'];
-    });
+        // Kategorisasi IMT
+        $imtCategories = $imtData->map(function ($data) {
+            if ($data['imt'] < 23) {
+                return ['date' => $data['date'], 'category' => 'Kekurangan berat badan'];
+            } elseif ($data['imt'] < 30) {
+                return ['date' => $data['date'], 'category' => 'Berat badan normal'];
+            } else {
+                return ['date' => $data['date'], 'category' => 'Kelebihan berat badan/obesitas'];
+            }
+        });
 
-    // Kategorisasi Tekanan Darah
-    $tekananDarahCategories = $patientRecords->map(function ($record) {
-        $sistolik = $record->tekanan_darah_sistolik;
-        $diastolik = $record->tekanan_darah_diastolik;
-        if ($sistolik > 160 || $diastolik > 100) {
-            return ['date' => $record->record_date->format('F Y'), 'category' => 'Hipertensi tingkat 2'];
-        } elseif ($sistolik >= 140 || $diastolik >= 90) {
-            return ['date' => $record->record_date->format('F Y'), 'category' => 'Hipertensi tingkat 1'];
-        } elseif ($sistolik >= 120 || $diastolik >= 80) {
-            return ['date' => $record->record_date->format('F Y'), 'category' => 'Pra-hipertensi'];
-        } else {
+        // Kategorisasi Kolesterol
+        $kolesterolCategories = $patientRecords->map(function ($record) {
+            if ($record->kolesterol_total > 240) {
+                return ['date' => $record->record_date->format('F Y'), 'category' => 'Tinggi'];
+            } elseif ($record->kolesterol_total < 200) {
+                return ['date' => $record->record_date->format('F Y'), 'category' => 'Baik'];
+            }
             return ['date' => $record->record_date->format('F Y'), 'category' => 'Normal'];
+        });
+
+        // Kategorisasi Tekanan Darah
+        $tekananDarahCategories = $patientRecords->map(function ($record) {
+            $sistolik = $record->tekanan_darah_sistolik;
+            $diastolik = $record->tekanan_darah_diastolik;
+            if ($sistolik > 160 || $diastolik > 100) {
+                return ['date' => $record->record_date->format('F Y'), 'category' => 'Hipertensi tingkat 2'];
+            } elseif ($sistolik >= 140 || $diastolik >= 90) {
+                return ['date' => $record->record_date->format('F Y'), 'category' => 'Hipertensi tingkat 1'];
+            } elseif ($sistolik >= 120 || $diastolik >= 80) {
+                return ['date' => $record->record_date->format('F Y'), 'category' => 'Pra-hipertensi'];
+            } else {
+                return ['date' => $record->record_date->format('F Y'), 'category' => 'Normal'];
+            }
+        });
+
+        $imtDates = $imtData->pluck('date');
+        $imtValues = $imtData->pluck('imt');
+
+        // Ambil tanggal record unik
+        $recordDates = $patientRecords->pluck('record_date')->map(fn ($date) => $date->format('F Y'));
+
+        // Tanggal unik untuk grafik
+        $dates = $patientRecords->pluck('record_date')->unique(fn ($item) => $item->format('Y-m'))
+            ->map(fn ($date) => $date->format('F Y'));
+
+        // Menghitung status kesehatan untuk data terbaru
+        $latestRecord = $patientRecords->last();
+
+        if ($latestRecord) {
+            $statusKolesterol = $kolesterolCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
+            $statusIMT = $imtCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
+            $statusLingkarPerut = $latestRecord->lingkar_perut > 90 ? 'Tinggi' : 'Normal';
+            $statusTekananDarah = $tekananDarahCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
+        } else {
+            $statusKolesterol = 'Data tidak tersedia';
+            $statusIMT = 'Data tidak tersedia';
+            $statusLingkarPerut = 'Data tidak tersedia';
+            $statusTekananDarah = 'Data tidak tersedia';
         }
-    });
 
-    $imtDates = $imtData->pluck('date');
-    $imtValues = $imtData->pluck('imt');
+        // Ambil jadwal pemeriksaan kesehatan
+        $schedules = HealthCheckSchedule::all();
 
-    // Ambil tanggal record unik
-    $recordDates = $patientRecords->pluck('record_date')->map(fn($date) => $date->format('F Y'));
-
-    // Tanggal unik untuk grafik
-    $dates = $patientRecords->pluck('record_date')->unique(fn($item) => $item->format('Y-m'))
-        ->map(fn($date) => $date->format('F Y'));
-
-    // Menghitung status kesehatan untuk data terbaru
-    $latestRecord = $patientRecords->last();
-
-    if ($latestRecord) {
-        $statusKolesterol = $kolesterolCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
-        $statusIMT = $imtCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
-        $statusLingkarPerut = $latestRecord->lingkar_perut > 90 ? 'Tinggi' : 'Normal';
-        $statusTekananDarah = $tekananDarahCategories->where('date', $latestRecord->record_date->format('F Y'))->first()['category'] ?? 'Data tidak tersedia';
-    } else {
-        $statusKolesterol = 'Data tidak tersedia';
-        $statusIMT = 'Data tidak tersedia';
-        $statusLingkarPerut = 'Data tidak tersedia';
-        $statusTekananDarah = 'Data tidak tersedia';
+        return view('pages.pasien.beranda', compact(
+            'pasien',
+            'dataPerGrafik',
+            'recordDates',
+            'imtDates',
+            'imtValues',
+            'imtData',
+            'imtCategories',
+            'kolesterolCategories',
+            'tekananDarahCategories',
+            'statusKolesterol',
+            'statusIMT',
+            'statusLingkarPerut',
+            'statusTekananDarah',
+            'schedules',
+            'dates'
+        ));
     }
-
-    // Ambil jadwal pemeriksaan kesehatan
-    $schedules = HealthCheckSchedule::all();
-
-    return view('pages.pasien.beranda', compact(
-        'pasien',
-        'dataPerGrafik',
-        'recordDates',
-        'imtDates',
-        'imtValues',
-        'imtData',
-        'imtCategories',
-        'kolesterolCategories',
-        'tekananDarahCategories',
-        'statusKolesterol',
-        'statusIMT',
-        'statusLingkarPerut',
-        'statusTekananDarah',
-        'schedules',
-        'dates'
-    ));
-}
 
 
     public function tambahPasien()
@@ -365,7 +365,7 @@ public function index()
         $user = Auth::user();
         $pasien = $user->patient;
         $schedules = HealthCheckSchedule::all();
-        return view('pages.pasien.jadwal', compact('schedules','user', 'pasien')); // Pastikan Anda memiliki beranda.blade.php di resources/views
+        return view('pages.pasien.jadwal', compact('schedules', 'user', 'pasien')); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
 
     public function showRiwayatBulanIni()
@@ -384,34 +384,28 @@ public function index()
         return view('pages.pasien.riwayat_bulan_ini', compact('pasien', 'healthRecords'));
     }
 
-    
+
 
     public function searchPasien(Request $request)
-{
-    $searchTerm = $request->input('search');
+    {
+        $searchTerm = $request->input('search');
 
-    // Cari pasien berdasarkan nama, NIK, atau email
-    $patients = Patient::where('nama_lengkap', 'LIKE', "%{$searchTerm}%")
-                        ->orWhere('nik', 'LIKE', "%{$searchTerm}%")
-                        ->orWhere('email', 'LIKE', "%{$searchTerm}%")
-                        ->get();
+        // Cari pasien berdasarkan nama, NIK, atau email
+        $patients = Patient::where('nama_lengkap', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('nik', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('email', 'LIKE', "%{$searchTerm}%")
+            ->get();
 
-    // Kembalikan hasil pencarian sebagai JSON
-    return response()->json($patients);
-}
+        // Kembalikan hasil pencarian sebagai JSON
+        return response()->json($patients);
+    }
 
-public function showHealthHistory($id)
-{
-    // Ambil data riwayat kesehatan pasien berdasarkan ID
-    $patient = Patient::findOrFail($id);
-    $healthHistory = $patient->healthHistory;
+    public function showHealthHistory($id)
+    {
+        // Ambil data riwayat kesehatan pasien berdasarkan ID
+        $patient = Patient::findOrFail($id);
+        $healthHistory = $patient->healthHistory;
 
-    return view('pages.admin.riwayat_kesehatan', compact('patient', 'healthHistory'));
-}
-
-
-
-
-
-    
+        return view('pages.admin.riwayat_kesehatan', compact('patient', 'healthHistory'));
+    }
 }

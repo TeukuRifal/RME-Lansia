@@ -151,35 +151,67 @@
             // Event listeners for tab clicks
             document.getElementById('dataDiriTab').addEventListener('click', showDataDiri);
             document.getElementById('riwayatKesehatanTab').addEventListener('click', showRiwayatKesehatan);
-        });
 
-        function showDataDiri() {
-            document.getElementById('dataDiriContent').style.display = 'block';
-            document.getElementById('riwayatKesehatanContent').style.display = 'none';
-            document.getElementById('dataDiriTab').classList.add('border-b-4', 'border-blue-500');
-            document.getElementById('riwayatKesehatanTab').classList.remove('border-b-4', 'border-blue-500');
-            localStorage.setItem('activeTab', 'dataDiri');
-        }
+            function showDataDiri() {
+                document.getElementById('dataDiriContent').style.display = 'block';
+                document.getElementById('riwayatKesehatanContent').style.display = 'none';
+                localStorage.setItem('activeTab', 'dataDiri');
+            }
 
-        function showRiwayatKesehatan() {
-            document.getElementById('dataDiriContent').style.display = 'none';
-            document.getElementById('riwayatKesehatanContent').style.display = 'block';
-            document.getElementById('dataDiriTab').classList.remove('border-b-4', 'border-blue-500');
-            document.getElementById('riwayatKesehatanTab').classList.add('border-b-4', 'border-blue-500');
-            localStorage.setItem('activeTab', 'riwayatKesehatan');
-        }
+            function showRiwayatKesehatan() {
+                document.getElementById('dataDiriContent').style.display = 'none';
+                document.getElementById('riwayatKesehatanContent').style.display = 'block';
+                localStorage.setItem('activeTab', 'riwayatKesehatan');
+            }
 
-        // Search functionality for health records
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const filter = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#healthRecordsTable tbody tr');
+            // Event listener for export to PDF button
+            document.getElementById('exportPdfButton').addEventListener('click', exportToPdf);
 
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const match = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(
-                    filter));
-                row.style.display = match ? '' : 'none';
+            function exportToPdf() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                doc.text('Data Riwayat Kesehatan', 14, 10);
+
+                // Get the table
+                const table = document.getElementById('healthRecordsTable');
+                const rows = Array.from(table.querySelectorAll('tr'));
+                const data = rows.map(row => {
+                    const cells = row.querySelectorAll('th, td');
+                    return Array.from(cells).map(cell => cell.textContent.trim());
+                });
+
+                doc.autoTable({
+                    head: [data[0]], // Header
+                    body: data.slice(1), // Body
+                });
+
+                doc.save('riwayat_kesehatan.pdf');
+            }
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('#healthRecordsTable tbody tr');
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let found = false;
+
+                    cells.forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                            found = true;
+                        }
+                    });
+
+                    if (found) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
             });
         });
     </script>
 @endsection
+        

@@ -34,7 +34,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
-    Route::get('/export-patients', [ExportController::class, 'export']);
+    
 
     Route::get('patients', [PasienController::class, 'showImportForm'])->name('patients');
     Route::post('import', [PasienController::class, 'import'])->name('import');
@@ -60,7 +60,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/profile/posbindu', [ProfileController::class, 'show'])->name('profile.posbindu');
 
     // Rute untuk halaman detail riwayat kesehatan pasien
-    Route::get('/riwayatKesehatan/{id}', [PasienController::class, 'showHealthHistory'])->name('healthHistory');
+    // Route::get('/riwayatKesehatan/{id}', [PasienController::class, 'showHealthHistory'])->name('healthHistory');
 
     // Rekam Medis
     Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
 
     // Riwayat Kesehatan
-    // Route::get('/riwayat/{patient_id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
+    Route::get('/riwayat/{id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
     Route::get('/riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
     Route::put('/riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
 
@@ -81,7 +81,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('fetchHealthRecord');
 });
 
-
+Route::get('/export-patients', [ExportController::class, 'export']);
 
 
 // Super admin routes
