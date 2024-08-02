@@ -5,40 +5,53 @@
 @section('content')
 
 <!-- Form Pencarian -->
-<div class="px-6 mt-10">
-    <form id="searchForm" class="relative mb-4 flex items-center">
-        <input type="text" id="default-search" name="search" placeholder="Cari pasien..." class="form-control flex-grow border border-gray-300 rounded-l-md p-2 focus:ring-blue-500 focus:border-blue-500">
-        <button type="submit" class="btn btn-primary ml-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            Cari
-        </button>
-        <div id="searchResults" class="hidden absolute bg-white border border-gray-200 rounded-md shadow-lg mt-24 w-full max-h-60 overflow-y-auto z-10">
-            <!-- Hasil pencarian akan muncul di sini -->
-        </div>
-    </form>
-</div>
+<div class="container mx-auto px-4 py-8">
+    <!-- Form Pencarian -->
+    <div class="px-6 mb-8">
+        <form id="searchForm" class="relative flex items-center">
+            <input type="text" id="default-search" name="search" placeholder="Cari pasien..." class="form-control flex-grow border border-gray-300 rounded-l-md p-2 focus:ring-blue-500 focus:border-blue-500">
+            <button type="submit" class="btn btn-primary ml-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                <i class="bi bi-search"></i> Cari
+            </button>
+            <div id="searchResults" class="hidden absolute bg-white border border-gray-200 rounded-md shadow-lg mt-12 w-full max-h-60 overflow-y-auto z-10">
+                <!-- Hasil pencarian akan muncul di sini -->
+            </div>
+        </form>
+    </div>
 
-
-<div class="container mx-auto px-4 py-2">
+    <!-- Dashboard Konten -->
     <div class="bg-white shadow-md rounded-lg p-6">
         <h1 class="font-semibold text-2xl mb-6">Dashboard Admin</h1>
 
         <!-- Statistik Utama -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <div class="bg-blue-100 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-bold">Total Klien</h2>
-                <p class="text-2xl">{{ $totalPatients }}</p>
+            <div class="bg-blue-100 p-4 rounded-lg shadow-md flex items-center">
+                <i class="bi bi-person-lines-fill text-blue-500 text-3xl mr-4"></i>
+                <div>
+                    <h2 class="text-lg font-bold">Total Klien</h2>
+                    <p class="text-2xl">{{ $totalPatients }}</p>
+                </div>
             </div>
-            <div class="bg-green-100 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-bold">Jumlah Lansia</h2>
-                <p class="text-2xl">{{ $totalElderly }}</p>
+            <div class="bg-green-100 p-4 rounded-lg shadow-md flex items-center">
+                <i class="bi bi-person-fill text-green-500 text-3xl mr-4"></i>
+                <div>
+                    <h2 class="text-lg font-bold">Jumlah Lansia</h2>
+                    <p class="text-2xl">{{ $totalElderly }}</p>
+                </div>
             </div>
-            <div class="bg-yellow-100 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-bold">Total Admin</h2>
-                <p class="text-2xl">{{ $totalAdmins }}</p>
+            <div class="bg-yellow-100 p-4 rounded-lg shadow-md flex items-center">
+                <i class="bi bi-person-check text-yellow-500 text-3xl mr-4"></i>
+                <div>
+                    <h2 class="text-lg font-bold">Total Admin</h2>
+                    <p class="text-2xl">{{ $totalAdmins }}</p>
+                </div>
             </div>
-            <div class="bg-red-100 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-bold">Total Super Admin</h2>
-                <p class="text-2xl">{{ $totalSuperAdmins }}</p>
+            <div class="bg-red-100 p-4 rounded-lg shadow-md flex items-center">
+                <i class="bi bi-shield-check text-red-500 text-3xl mr-4"></i>
+                <div>
+                    <h2 class="text-lg font-bold">Super Admin</h2>
+                    <p class="text-2xl">{{ $totalSuperAdmins }}</p>
+                </div>
             </div>
         </div>
 
@@ -88,13 +101,16 @@
         </div>
 
         <!-- Navigasi Cepat -->
-        <div class="flex justify-end mt-4">
-            <a href="{{ route('tambahPasien') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mr-2">Tambah Klien Baru</a>
-            <a href="{{ route('daftarPasien') }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Kelola Data Klien</a>
+        <div class="flex justify-end mt-4 space-x-2">
+            <a href="{{ route('tambahPasien') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                <i class="bi bi-person-plus mr-2"></i> Tambah Klien Baru
+            </a>
+            <a href="{{ route('daftarPasien') }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded flex items-center focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                <i class="bi bi-person-gear mr-2"></i> Kelola Data Klien
+            </a>
         </div>
     </div>
 </div>
-
 <!-- Script Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>

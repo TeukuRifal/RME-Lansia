@@ -39,7 +39,8 @@
             margin-bottom: 20px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             border: 1px solid #ddd;
             text-align: left;
@@ -117,22 +118,26 @@
             <div class="status-kesehatan mb-6">
                 <div class="section-title text-xl font-semibold mb-4">Status Kesehatan Bulan Ini</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusKolesterol == 'Normal' ? 'status-card-green' : ($statusKolesterol == 'Tinggi' ? 'status-card-red' : 'status-card-blue') }}">
                         Kolesterol: {{ $statusKolesterol }}
                     </div>
 
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusIMT == 'Berat badan normal' ? 'status-card-green' : ($statusIMT == 'Kelebihan berat badan' ? 'status-card-red' : 'status-card-yellow') }}">
                         IMT: {{ $statusIMT }}
                     </div>
 
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusLingkarPerut == 'Normal' ? 'status-card-green' : ($statusLingkarPerut == 'Tinggi' ? 'status-card-red' : 'status-card-gray') }}">
                         Lingkar Perut: {{ $statusLingkarPerut }}
                     </div>
 
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusTekananDarah == 'Normal'
                             ? 'status-card-green'
                             : ($statusTekananDarah == 'Pra-hipertensi'
@@ -162,13 +167,14 @@
                 </thead>
                 <tbody>
                     @foreach ($patientRecords as $rec)
-                    <tr>
-                        <td>{{ $rec->record_date->format('d M Y') }}</td>
-                        <td>{{ number_format($rec->berat_badan / (($rec->tinggi_badan / 100) * ($rec->tinggi_badan / 100)), 2) }}</td>
-                        <td>{{ $rec->kolesterol_total }} mg/dL</td>
-                        <td>{{ $rec->tekanan_darah_sistolik }}/{{ $rec->tekanan_darah_diastolik }}</td>
-                        <td>{{ $rec->lingkar_perut }} cm</td>
-                    </tr>
+                        <tr>
+                            <td>{{ $rec->record_date->format('d M Y') }}</td>
+                            <td>{{ number_format($rec->berat_badan / (($rec->tinggi_badan / 100) * ($rec->tinggi_badan / 100)), 2) }}
+                            </td>
+                            <td>{{ $rec->kolesterol_total }} mg/dL</td>
+                            <td>{{ $rec->tekanan_darah_sistolik }}/{{ $rec->tekanan_darah_diastolik }}</td>
+                            <td>{{ $rec->lingkar_perut }} cm</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -202,7 +208,8 @@
                     </tr>
                     <tr>
                         <th>Indeks Massa Tubuh</th>
-                        <td>{{ number_format($record->berat_badan / (($record->tinggi_badan / 100) * ($record->tinggi_badan / 100)), 2) }}</td>
+                        <td>{{ number_format($record->berat_badan / (($record->tinggi_badan / 100) * ($record->tinggi_badan / 100)), 2) }}
+                        </td>
                     </tr>
 
                     <tr>
@@ -211,19 +218,23 @@
                     </tr>
                     <tr>
                         <th>Tekanan Darah</th>
-                        <td>{{ $record->tekanan_darah_sistolik ?? '-' }}/{{ $record->tekanan_darah_diastolik ?? '-' }} mmHg</td>
+                        <td>{{ $record->tekanan_darah_sistolik ?? '-' }}/{{ $record->tekanan_darah_diastolik ?? '-' }}
+                            mmHg</td>
                     </tr>
                     <tr>
                         <th>Gula Darah Sewaktu</th>
                         <td>{{ $record->gula_darah_sewaktu ?? '-' }} mg/dL</td>
                     </tr>
                     <tr>
+                        <th>Gula Darah Puasa</th>
+                        <td>{{ $record->gula_darah_puasa ?? '-' }} mg/dL</td>
+                    <tr>
                         <th>Masalah Kesehatan</th>
                         <td>{{ $record->masalah_kesehatan ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th>Obat</th>
-                        <td>{{ $record->obat_fasilitas ?? '-' }}</td>
+                        <td>{{ $record->obat ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th>Tindak Lanjut</th>

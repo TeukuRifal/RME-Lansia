@@ -289,7 +289,28 @@
             collapseIcon.classList.toggle('hidden');
             menuIcon.classList.toggle('hidden');
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            @endif
+
+            @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ implode('', $errors->all(':message ')) }}'
+            });
+            @endif
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @stack('scripts')
 </body>
 </html>

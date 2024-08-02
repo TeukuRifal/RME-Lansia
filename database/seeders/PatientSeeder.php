@@ -73,9 +73,10 @@ class PatientSeeder extends Seeder
                     'tekanan_darah_sistolik' => 120,
                     'tekanan_darah_diastolik' => 80,
                     'gula_darah_sewaktu' => '140',
+                    'gula_darah_puasa' => '90',
                     'kolesterol_total' => '150',
                     'masalah_kesehatan' => 'Tidak ada',
-                    'obat_fasilitas' => 'Tidak ada',
+                    'obat' => 'Tidak ada',
                     'tindak_lanjut' => 'Check-up rutin',
                 ],
                 // Tambahkan data catatan pasien lainnya jika perlu

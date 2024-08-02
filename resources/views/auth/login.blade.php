@@ -52,7 +52,7 @@
                     <label for="role" class="block text-gray-700 text-medium">Masuk Sebagai:</label>
                     <select name="role" id="role"
                         class="block w-full border border-gray-300 rounded input-large mt-1">
-                        <option value="patient">Lansia</option>
+                        <option value="patient">Klien</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>

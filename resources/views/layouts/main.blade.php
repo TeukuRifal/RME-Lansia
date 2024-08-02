@@ -13,6 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.2/alpine.min.js" defer></script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap"
         rel="stylesheet">
@@ -31,37 +33,38 @@
             font-family: "Roboto", sans-serif;
             font-weight: 500;
             font-style: normal;
-          }
-      
-          .roboto-bold {
+        }
+
+        .roboto-bold {
             font-family: "Roboto", sans-serif;
             font-weight: 700;
             font-style: normal;
-          }
-      
-          .roboto-black {
+        }
+
+        .roboto-black {
             font-family: "Roboto", sans-serif;
             font-weight: 900;
             font-style: normal;
-          }
-      
-          .roboto-medium-italic {
+        }
+
+        .roboto-medium-italic {
             font-family: "Roboto", sans-serif;
             font-weight: 500;
             font-style: italic;
-          }
-      
-          .roboto-bold-italic {
+        }
+
+        .roboto-bold-italic {
             font-family: "Roboto", sans-serif;
             font-weight: 700;
             font-style: italic;
-          }
-      
-          .roboto-black-italic {
+        }
+
+        .roboto-black-italic {
             font-family: "Roboto", sans-serif;
             font-weight: 900;
             font-style: italic;
-          }
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -91,7 +94,7 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
 
 </body>
 

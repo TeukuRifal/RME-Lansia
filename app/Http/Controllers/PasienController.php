@@ -146,7 +146,7 @@ class PasienController extends Controller
             'nik' => 'required|unique:patients|string',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string',
-            'email' => 'required|email|unique:patients|unique:users,email',
+            'email' => 'nullable|email|unique:patients|unique:users,email',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -158,7 +158,7 @@ class PasienController extends Controller
 
         $user = User::create([
             'name' => $validatedData['nama_lengkap'],
-            'email' => $validatedData['email'],
+            'email' => $validatedData['email'] ?? null, // Menangani email nullable
             'username' => $validatedData['nik'],
             'password' => bcrypt('password123'),
         ]);
@@ -183,12 +183,13 @@ class PasienController extends Controller
             'pekerjaan' => $request->input('pekerjaan'),
             'status_kawin' => $request->input('status_kawin'),
             'gol_darah' => $request->input('gol_darah'),
-            'email' => $validatedData['email'],
+            'email' => $validatedData['email'] ?? null, // Menangani email nullable
             'foto' => $fotoPath,
         ]);
 
-        return redirect()->back()->with('success', 'Data pasien berhasil ditambahkan');
+        return redirect()->route('daftarPasien')->with('success', 'Data pasien berhasil ditambahkan.');
     }
+
 
     public function daftarPasien()
     {
@@ -410,4 +411,11 @@ class PasienController extends Controller
 
         return view('pages.admin.riwayat_kesehatan', compact('patient', 'healthHistory'));
     }
+
+    public function edukasi()
+    {
+        $patients = Patient::all();
+        return view('pages.pasien.edukasi', compact('patients'));
+    }
+
 }

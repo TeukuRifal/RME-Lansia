@@ -35,7 +35,7 @@
 
 <body class="flex flex-col min-h-screen">
     <!-- Navbar -->
-    <nav class="border-gray-200 bg-lightblue  dark:border-gray-700 px-6 shadow-md">
+    <nav class="border-gray-200 bg-lightblue dark:border-gray-700 px-6 shadow-md">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ route('beranda') }}" class="text-3xl font-bold flex items-center">
@@ -57,13 +57,12 @@
             </div>
 
             <!-- Desktop menu -->
-            <div class="hidden md:flex items-center space-x-8 text-xl font-bold ">
+            <div class="hidden md:flex items-center space-x-8 text-xl font-bold">
                 @guest
                     <a href="{{ route('login') }}"
                         class="bg-cyan-100 hover:bg-cyan-600 hover:text-white focus:ring-4 focus:ring-cyan-300 text-black text-2xl font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
                         Masuk
                     </a>
-
                 @endguest
                 @auth
                     <a href="{{ route('beranda') }}"
@@ -72,7 +71,8 @@
                         class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">Jadwal</a>
                     <a href="{{ route('profil') }}"
                         class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">Profil</a>
-                    {{-- <a href="{{ route('pasien') }}" class="hover-text hover:border-b-2 hover:border-gray-400">Data Pasien</a> --}}
+                    <a href="{{ route('edukasi') }}"
+                        class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">Edukasi</a>
                     <form action="{{ route('logout') }}" method="POST" class="inline-block">
                         @csrf
                         <button type="submit" class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">
@@ -92,7 +92,8 @@
             @endguest
             @auth
                 <a href="{{ route('beranda') }}" class="hover-text hover:border-b-2 hover:border-black">Dashboard</a>
-                <a href="{{ route('jadwal') }}" class="hover-text hover:border-b-2 hover:border-black">Jadwal Dokter</a>
+                <a href="{{ route('edukasi') }}" class="hover-text hover:border-b-2 hover:border-black">Edukasi</a>
+                <a href="{{ route('jadwal') }}" class="hover-text hover:border-b-2 hover:border-black">Jadwal</a>
                 <a href="{{ route('profil') }}" class="hover-text hover:border-b-2 hover:border-black">Profil</a>
                 <form action="{{ route('logout') }}" method="POST" class="block">
                     @csrf

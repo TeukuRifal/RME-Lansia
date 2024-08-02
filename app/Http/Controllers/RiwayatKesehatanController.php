@@ -108,9 +108,10 @@ class RiwayatKesehatanController extends Controller
             'tekanan_darah_sistolik' => 'nullable|string',
             'tekanan_darah_diastolik' => 'nullable|string',
             'gula_darah_sewaktu' => 'nullable|numeric',
+            'gula_darah_puasa' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
             'masalah_kesehatan' => 'nullable|string',
-            'obat_fasilitas' => 'nullable|string',
+            'obat' => 'nullable|string',
             'tindak_lanjut' => 'nullable|string',
         ]);
 
@@ -133,13 +134,14 @@ class RiwayatKesehatanController extends Controller
             'tekanan_darah_sistolik' => $request->tekanan_darah_sistolik,
             'tekanan_darah_diastolik' => $request->tekanan_darah_diastolik,
             'gula_darah_sewaktu' => $request->gula_darah_sewaktu,
+            'gula_darah_puasa' => $request->gula_darah_puasa,
             'kolesterol_total' => $request->kolesterol_total,
             'masalah_kesehatan' => $request->masalah_kesehatan,
-            'obat_fasilitas' => $request->obat_fasilitas,
+            'obat' => $request->obat,
             'tindak_lanjut' => $request->tindak_lanjut,
         ]);
 
-        return redirect()->route('rekamMedis')->with('success', 'Patient record added successfully.');
+        return redirect()->route('daftarPasien')->with('success', 'Patient record added successfully.');
     }
 
 
@@ -168,9 +170,10 @@ class RiwayatKesehatanController extends Controller
             'tekanan_darah_sistolik' => 'nullable|string',
             'tekanan_darah_diastolik' => 'nullable|string',
             'gula_darah_sewaktu' => 'nullable|numeric',
+            'gula_darah_puasa' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
             'masalah_kesehatan' => 'nullable|string',
-            'obat_fasilitas' => 'nullable|string',
+            'obat' => 'nullable|string',
             'tindak_lanjut' => 'nullable|string',
         ]);
 
@@ -205,9 +208,10 @@ class RiwayatKesehatanController extends Controller
             'tekanan_darah_sistolik' => 'nullable|string',
             'tekanan_darah_diastolik' => 'nullable|string',
             'gula_darah_sewaktu' => 'nullable|numeric',
+            'gula_darah_puasa' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
             'masalah_kesehatan' => 'nullable|string',
-            'obat_fasilitas' => 'nullable|string',
+            'obat' => 'nullable|string',
             'tindak_lanjut' => 'nullable|string',
         ]);
 
@@ -228,9 +232,10 @@ class RiwayatKesehatanController extends Controller
         $patientRecord->tekanan_darah_sistolik = $request->tekanan_darah_sistolik;
         $patientRecord->tekanan_darah_diastolik = $request->tekanan_darah_diastolik;
         $patientRecord->gula_darah_sewaktu = $request->gula_darah_sewaktu;
+        $patientRecord->gula_darah_puasa = $request->gula_darah_puasa;
         $patientRecord->kolesterol_total = $request->kolesterol_total;
         $patientRecord->masalah_kesehatan = $request->masalah_kesehatan;
-        $patientRecord->obat_fasilitas = $request->obat_fasilitas;
+        $patientRecord->obat = $request->obat;
         $patientRecord->tindak_lanjut = $request->tindak_lanjut;
         $patientRecord->save();
 

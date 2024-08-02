@@ -23,6 +23,8 @@ Route::get('/landingpage', function () {
 
 
 
+
+
 Route::delete('/admin/hapus-pasien/{id}', [PasienController::class, 'deletePasien'])->name('deletePasien');
 
 // Auth routes for admin and pasien
@@ -34,7 +36,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
-    
+
 
     Route::get('patients', [PasienController::class, 'showImportForm'])->name('patients');
     Route::post('import', [PasienController::class, 'import'])->name('import');
@@ -85,6 +87,7 @@ Route::get('/export-patients', [ExportController::class, 'export']);
 Route::get('/print-pasien/{id}', [ExportController::class, 'print'])->name('print.pasien');
 
 
+
 // Super admin routes
 Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('superadmin.dashboard');
@@ -95,7 +98,6 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::put('/superadmin/superadmins/{id}', [SuperAdminController::class, 'update'])->name('superadmin.superadmins.update');
     Route::delete('/superadmin/superadmins/{id}', [SuperAdminController::class, 'destroy'])->name('superadmin.superadmins.destroy');
     Route::get('/superadmin/logs', [SuperAdminController::class, 'logs'])->name('superadmin.logs');
-
 });
 
 
@@ -109,9 +111,5 @@ Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/profil', [PasienController::class, 'profil'])->name('profil');
     Route::get('/jadwal', [PasienController::class, 'jadwal'])->name('jadwal');
     Route::get('/riwayat-bulan-ini', [RiwayatKesehatanController::class, 'showRiwayatBulanIni'])->name('riwayat.bulan.ini');
-
-
-
-    
-    
+    Route::get('/edukasi', [PasienController::class, 'edukasi'])->name('edukasi');
 });

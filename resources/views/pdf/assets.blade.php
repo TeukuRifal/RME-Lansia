@@ -53,15 +53,19 @@
                             Tekanan Darah Diastolik</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             indeks Massa Tubuh</th>
-                            
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gula
                             Darah Sewaktu</th>
+                        <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gula
+                            Darah Puasa</th>
+                        <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asam
+                            Urat</th>
+
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Kolesterol Total</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Masalah Kesehatan</th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Obat
-                            Fasilitas</th>
+                        </th>
                         <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Tindak Lanjut</th>
                     </tr>
@@ -86,11 +90,12 @@
                             <td class="py-3 px-4">{{ $record->tekanan_darah ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tekanan_darah_sistolik ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tekanan_darah_diastolik ?? '-' }}</td>
-                            
                             <td class="py-3 px-4">{{ $record->gula_darah_sewaktu ?? '-' }}</td>
+                            <td class="py-3 px-4">{{ $record->gula_darah_puasa ?? '-' }}</td>
+                            <td class="py-3 px-4">{{ $record->asam_urat ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->kolesterol_total ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->masalah_kesehatan ?? '-' }}</td>
-                            <td class="py-3 px-4">{{ $record->obat_fasilitas ?? '-' }}</td>
+                            <td class="py-3 px-4">{{ $record->obat ?? '-' }}</td>
                             <td class="py-3 px-4">{{ $record->tindak_lanjut ?? '-' }}</td>
                         </tr>
                     @endforeach

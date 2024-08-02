@@ -115,6 +115,13 @@
                                     Sewaktu:</label>
                                 <span id="gulaDarahSewaktu" class="text-gray-900">-</span>
                             </div>
+                            
+                            <div>
+                                <label for="gulaDarahPuasa" class="block text-sm font-bold text-gray-700">Gula Darah
+                                    Puasa:</label>
+                                <span id="gulaDarahPuasa" class="text-gray-900">-</span>
+                            </div>
+
                             <div>
                                 <label for="kolesterolTotal" class="block text-sm font-bold text-gray-700">Kolesterol
                                     Total:</label>
@@ -191,9 +198,10 @@
                 $('#asamUrat').text(selectedRecord.asam_urat || '-');
                 $('#tekananDarah').text(selectedRecord.tekanan_darah || '-');
                 $('#gulaDarahSewaktu').text(selectedRecord.gula_darah_sewaktu || '-');
+                $('#gulaDarahSewaktu').text(selectedRecord.gula_darah_puasa || '-');
                 $('#kolesterolTotal').text(selectedRecord.kolesterol_total || '-');
                 $('#masalahKesehatan').text(selectedRecord.masalah_kesehatan || '-');
-                $('#obatFasilitas').text(selectedRecord.obat_fasilitas || '-');
+                $('#obatFasilitas').text(selectedRecord.obat || '-');
                 $('#tindakLanjut').text(selectedRecord.tindak_lanjut || '-');
             } else {
                 resetData();
@@ -217,6 +225,7 @@
             $('#asamUrat').text('-');
             $('#tekananDarah').text('-');
             $('#gulaDarahSewaktu').text('-');
+            $('#gulaDarahPuasa').text('-');
             $('#kolesterolTotal').text('-');
             $('#masalahKesehatan').text('-');
             $('#obatFasilitas').text('-');
