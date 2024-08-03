@@ -141,7 +141,7 @@ class RiwayatKesehatanController extends Controller
             'tindak_lanjut' => $request->tindak_lanjut,
         ]);
 
-        return redirect()->route('daftarPasien')->with('success', 'Patient record added successfully.');
+        return redirect()->route('daftarPasien')->with('success', 'Pasien Berhasil Ditambahkan.');
     }
 
 

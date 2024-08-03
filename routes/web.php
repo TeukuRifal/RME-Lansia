@@ -83,8 +83,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('fetchHealthRecord');
 });
 
-Route::get('/export-patients', [ExportController::class, 'export']);
-Route::get('/print-pasien/{id}', [ExportController::class, 'print'])->name('print.pasien');
+
 
 
 
@@ -112,4 +111,8 @@ Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/jadwal', [PasienController::class, 'jadwal'])->name('jadwal');
     Route::get('/riwayat-bulan-ini', [RiwayatKesehatanController::class, 'showRiwayatBulanIni'])->name('riwayat.bulan.ini');
     Route::get('/edukasi', [PasienController::class, 'edukasi'])->name('edukasi');
+    Route::get('/export-patients', [ExportController::class, 'export']);
+    Route::get('/print-pasien/{id}', [ExportController::class, 'print'])->name('print.pasien');
+    Route::get('/rekam-medis/{id}', [ExportController::class, 'show'])->name('lihatriwayat');
+
 });

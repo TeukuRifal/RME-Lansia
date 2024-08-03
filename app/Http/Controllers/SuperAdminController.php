@@ -46,7 +46,7 @@ class SuperAdminController extends Controller
             'role' => $role,
         ]);
 
-        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($role) . ' created successfully.');
+        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($role) . ' Sukses dibuat.');
     }
 
     public function edit($id)

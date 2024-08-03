@@ -3,173 +3,177 @@
 @section('title', 'Riwayat Kesehatan')
 
 @section('content')
-    <div class="container mx-auto px-4 py-6">
-        <div class="flex justify-between items-center mb-6">
-            <nav class="text-md mb-4">
-                <a href="{{ route('daftarPasien') }}" class="text-blue-500">Klien</a> >
-                <span class="text-gray-500">Detail Riwayat Klien</span>
-            </nav>
-            <a href="{{ route('daftarPasien') }}"
-                class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-200 mb-4">Kembali</a>
-        </div>
+<div class="container mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-6">
+        <nav class="text-md mb-4">
+            <a href="{{ route('daftarPasien') }}" class="text-blue-500">Klien</a> &gt;
+            <span class="text-gray-500">Detail Riwayat Klien</span>
+        </nav>
+        <a href="{{ route('daftarPasien') }}"
+            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 mb-4">Kembali</a>
+    </div>
 
-        <div class="grid grid-cols-2 gap-6">
-            <div class="pasien">
-                <div class="data bg-white rounded-lg overflow-hidden p-2 border mb-4 ">
-                    <p class="font-semibold text-xl">Info Klien</p>
-                    <hr>
-                    <div class="data py-3">
-                        <div class="p-2">
-                            <label for="namaLengkap" class="block text-sm font-bold text-gray-700">Nama Lengkap:</label>
-                            <span id="namaLurator" class="text-gray-900"> {{ $patient->nama_lengkap }}</span>
-                        </div>
-                        <div class="p-2">
-                            <label for="nik" class="block text-sm font-bold text-gray-700">Nik:</label>
-                            <span id="nik" class="text-gray-900"> {{ $patient->nik }}</span>
-                        </div>
-
-                        <div class="p-2">
-                            <label for="gender" class="block text-sm font-bold text-gray-700">Jenis Kelamin:</label>
-                            <span id="gender" class="text-gray-900"> {{ $patient->jenis_kelamin }}</span>
-                        </div>
-
-                    </div>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div class="info bg-white rounded-lg p-4 border mb-4">
+            <p class="font-semibold text-xl mb-2">Info Klien</p>
+            <hr class="mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-2">
+                    <label for="namaLengkap" class="block text-sm font-bold text-gray-700">Nama Lengkap:</label>
+                    <span id="namaLengkap" class="text-gray-900"> {{ $patient->nama_lengkap }}</span>
                 </div>
-
-
-                <div class="riwayat bg-white border rounded-lg overflow-hidden p-4 mb-4">
-                    <p class="font-bold text-2xl">Riwayat Kesehatan <span></span> </p>
-                    <hr class="h-px bg-black border-0">
-                    <br>
-                    <div class="dropdown mb-4">
-                        <label for="tanggalRekamMedik">Pilih Tanggal Rekam Medik:</label>
-                        <select id="tanggalRekamMedik"
-                            class="form-select block w-52 mt-2 p-2 border rounded-lg hover:bg-blue-50"
-                            onchange="selectRecordDate(this.value)">
-                            @foreach ($recordDates as $index => $date)
-                                <option class="p-2" value="{{ $index }}">{{ $date }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <form>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                            <div>
-                                <label for="riwayatPenyakitKeluarga" class="block text-sm font-bold text-gray-700">Riwayat
-                                    Penyakit Keluarga:</label>
-                                <span id="riwayatPenyakitKeluarga" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="riwayatPenyakitSendiri" class="block text-sm font-bold text-gray-700">Riwayat
-                                    Penyakit Sendiri:</label>
-                                <span id="riwayatPenyakitSendiri" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="merokok" class="block text-sm font-bold text-gray-700">Merokok:</label>
-                                <span id="merokok" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="aktivitasFisik" class="block text-sm font-bold text-gray-700">Rutin Aktivitas
-                                    Fisik:</label>
-                                <span id="aktivitasFisik" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="konsumsiSayurBuah" class="block text-sm font-bold text-gray-700">Rutin Konsumsi
-                                    Sayur Buah:</label>
-                                <span id="konsumsiSayurBuah" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="konsumsiAlkohol" class="block text-sm font-bold text-gray-700">Konsumsi
-                                    Alkohol:</label>
-                                <span id="konsumsiAlkohol" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="beratBadan" class="block text-sm font-bold text-gray-700">Berat Badan
-                                    (kg):</label>
-                                <span id="beratBadan" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="tinggiBadan" class="block text-sm font-bold text-gray-700">Tinggi Badan
-                                    (cm):</label>
-                                <span id="tinggiBadan" class="text-gray-900">-</span>
-                            </div>
-
-                            <div>
-                                <label for="lingkarPerut" class="block text-sm font-bold text-gray-700">Lingkar Perut
-                                    (cm):</label>
-                                <span id="lingkarPerut" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="asamUrat" class="block text-sm font-bold text-gray-700">Asam Urat
-                                    (mg):</label>
-                                <span id="lingkarPerut" class="text-gray-900">-</span>
-                            </div>
-
-                            <div>
-                                <label for="tekananDarah" class="block text-sm font-bold text-gray-700">Tekanan
-                                    Darah:</label>
-                                <span id="tekananDarah" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="gulaDarahSewaktu" class="block text-sm font-bold text-gray-700">Gula Darah
-                                    Sewaktu:</label>
-                                <span id="gulaDarahSewaktu" class="text-gray-900">-</span>
-                            </div>
-                            
-                            <div>
-                                <label for="gulaDarahPuasa" class="block text-sm font-bold text-gray-700">Gula Darah
-                                    Puasa:</label>
-                                <span id="gulaDarahPuasa" class="text-gray-900">-</span>
-                            </div>
-
-                            <div>
-                                <label for="kolesterolTotal" class="block text-sm font-bold text-gray-700">Kolesterol
-                                    Total:</label>
-                                <span id="kolesterolTotal" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="masalahKesehatan" class="block text-sm font-bold text-gray-700">Masalah
-                                    Kesehatan:</label>
-                                <span id="masalahKesehatan" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="obatFasilitas" class="block text-sm font-bold text-gray-700">Obat yang
-                                    Diberikan
-                                    oleh Fasilitas:</label>
-                                <span id="obatFasilitas" class="text-gray-900">-</span>
-                            </div>
-                            <div>
-                                <label for="tindakLanjut" class="block text-sm font-bold text-gray-700">Tindak
-                                    Lanjut:</label>
-                                <span id="tindakLanjut" class="text-gray-900">-</span>
-                            </div>
-                        </div>
-                    </form>
+                <div class="p-2">
+                    <label for="nik" class="block text-sm font-bold text-gray-700">NIK:</label>
+                    <span id="nik" class="text-gray-900"> {{ $patient->nik }}</span>
+                </div>
+                <div class="p-2">
+                    <label for="gender" class="block text-sm font-bold text-gray-700">Jenis Kelamin:</label>
+                    <span id="gender" class="text-gray-900"> {{ $patient->jenis_kelamin }}</span>
+                </div>
+                <div class="p-2">
+                    <label for="tanggalLahir" class="block text-sm font-bold text-gray-700">Tanggal Lahir:</label>
+                    <span id="tanggalLahir" class="text-gray-900"> {{ $patient->tanggal_lahir }}</span>
                 </div>
             </div>
+        </div>
 
-            <!-- Bagian untuk Grafik -->
-            <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-                <h3 class="text-xl font-bold mb-4">Grafik Kesehatan</h3>
-                <div id="loading" class="hidden text-center text-gray-500 mb-4">Memuat data...</div>
+        <h3 class="text-xl font-bold mb-4">Grafik Kesehatan</h3>
+        <div id="loading" class="hidden text-center text-gray-500 mb-4">Memuat data...</div>
 
-                {{-- <!-- Chart untuk IMT -->
-                <canvas id="chartIMT" width="400" height="200" class="mb-4"></canvas> --}}
-
-                <!-- Chart untuk Lingkar Perut -->
+        <!-- Grid untuk grafik -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Chart untuk Lingkar Perut -->
+            <div class="col-span-1">
                 <canvas id="chartLingkarPerut" width="400" height="200" class="mb-4"></canvas>
+            </div>
 
-                <!-- Chart untuk Tekanan Darah -->
+            <!-- Chart untuk Tekanan Darah -->
+            <div class="col-span-1">
                 <canvas id="chartTekananDarah" width="400" height="200" class="mb-4"></canvas>
+            </div>
 
-                <!-- Chart untuk Gula Darah Sewaktu -->
+            <!-- Chart untuk Gula Darah Sewaktu -->
+            <div class="col-span-1">
                 <canvas id="chartGulaDarah" width="400" height="200" class="mb-4"></canvas>
+            </div>
 
-                <!-- Chart untuk Kolesterol -->
-                <canvas id="chartKolesterol" width="400" height="200"></canvas>
+            <!-- Chart untuk Kolesterol -->
+            <div class="col-span-1">
+                <canvas id="chartKolesterol" width="400" height="200" class="mb-4"></canvas>
+            </div>
+
+            <!-- Chart untuk IMT -->
+            <div class="col-span-1">
+                <canvas id="chartIMT" width="400" height="200" class="mb-4"></canvas>
             </div>
         </div>
     </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div class="riwayat">
+            <p class="font-bold text-2xl mb-4">Riwayat Kesehatan</p>
+            <hr class="h-px bg-gray-300 border-0 mb-4">
+
+            <div class="dropdown mb-6">
+                <label for="tanggalRekamMedik" class="block text-sm font-bold text-gray-700">Pilih Tanggal Rekam Medik:</label>
+                <select id="tanggalRekamMedik"
+                    class="form-select block w-full md:w-1/3 mt-2 p-2 border rounded-lg hover:bg-blue-50"
+                    onchange="selectRecordDate(this.value)">
+                    @foreach ($recordDates as $index => $date)
+                        <option class="p-2" value="{{ $index }}">{{ $date }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                    <label for="riwayatPenyakitKeluarga" class="block text-sm font-bold text-gray-700">Riwayat Penyakit Keluarga:</label>
+                    <span id="riwayatPenyakitKeluarga" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="riwayatPenyakitSendiri" class="block text-sm font-bold text-gray-700">Riwayat Penyakit Sendiri:</label>
+                    <span id="riwayatPenyakitSendiri" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="merokok" class="block text-sm font-bold text-gray-700">Merokok:</label>
+                    <span id="merokok" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="aktivitasFisik" class="block text-sm font-bold text-gray-700">Rutin Aktivitas Fisik:</label>
+                    <span id="aktivitasFisik" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="konsumsiSayurBuah" class="block text-sm font-bold text-gray-700">Rutin Konsumsi Sayur Buah:</label>
+                    <span id="konsumsiSayurBuah" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="konsumsiAlkohol" class="block text-sm font-bold text-gray-700">Konsumsi Alkohol:</label>
+                    <span id="konsumsiAlkohol" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="beratBadan" class="block text-sm font-bold text-gray-700">Berat Badan (kg):</label>
+                    <span id="beratBadan" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="tinggiBadan" class="block text-sm font-bold text-gray-700">Tinggi Badan (cm):</label>
+                    <span id="tinggiBadan" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="lingkarPerut" class="block text-sm font-bold text-gray-700">Lingkar Perut (cm):</label>
+                    <span id="lingkarPerut" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="asamUrat" class="block text-sm font-bold text-gray-700">Asam Urat (mg):</label>
+                    <span id="asamUrat" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="tekananDarah" class="block text-sm font-bold text-gray-700">Tekanan Darah:</label>
+                    <span id="tekananDarah" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="gulaDarahSewaktu" class="block text-sm font-bold text-gray-700">Gula Darah Sewaktu:</label>
+                    <span id="gulaDarahSewaktu" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="gulaDarahPuasa" class="block text-sm font-bold text-gray-700">Gula Darah Puasa:</label>
+                    <span id="gulaDarahPuasa" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="kolesterolTotal" class="block text-sm font-bold text-gray-700">Kolesterol Total:</label>
+                    <span id="kolesterolTotal" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="masalahKesehatan" class="block text-sm font-bold text-gray-700">Masalah Kesehatan:</label>
+                    <span id="masalahKesehatan" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="obatFasilitas" class="block text-sm font-bold text-gray-700">Obat Fasilitas:</label>
+                    <span id="obatFasilitas" class="text-gray-900">-</span>
+                </div>
+                <div>
+                    <label for="tindakLanjut" class="block text-sm font-bold text-gray-700">Tindak Lanjut:</label>
+                    <span id="tindakLanjut" class="text-gray-900">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load chart data
+        loadChartData();
+    });
+
+    function loadChartData() {
+        // Placeholder for chart data loading
+    }
+
+    function selectRecordDate(dateValue) {
+        // Placeholder for updating health history data based on selected date
+    }
+</script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

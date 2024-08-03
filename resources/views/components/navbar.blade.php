@@ -67,12 +67,12 @@
                 @auth
                     <a href="{{ route('beranda') }}"
                         class="hover-text hover:border-b-2 hover:border-black hover:pb-3 hover:scale-110">Dashboard</a>
+                    <a href="{{ route('edukasi') }}" class="hover-text hover:border-b-2 hover:border-black">Edukasi</a>
                     <a href="{{ route('jadwal') }}"
                         class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">Jadwal</a>
                     <a href="{{ route('profil') }}"
                         class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">Profil</a>
-                    <a href="{{ route('edukasi') }}"
-                        class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">Edukasi</a>
+
                     <form action="{{ route('logout') }}" method="POST" class="inline-block">
                         @csrf
                         <button type="submit" class="hover-text hover:border-b-2 hover:pb-3 hover:border-black">
