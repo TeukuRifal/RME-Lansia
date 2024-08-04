@@ -73,6 +73,6 @@ class ExportController extends Controller
         ]);
 
         // Tampilkan PDF
-        return $pdf->stream('RekamMedis_' . $record->patient->nama_lengkap . '.pdf');
+        return $pdf->download('RekamMedis_' . $record->patient->nama_lengkap . '.pdf');
     }
 }

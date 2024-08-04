@@ -105,12 +105,12 @@
 
             <!-- Section 1: Cara Menjaga Kesehatan -->
             <section id="cara-menjaga-kesehatan" class="bg-white rounded-lg shadow-lg p-6">
-                <div class="md:flex md:items-center">
+                <div class="md:flex md:items-center ">
                     <div class="md:w-1/2 mb-6 md:mb-0">
                         <img src="{{ asset('images/hidupsehat.jpeg') }}" alt="Cara Menjaga Kesehatan"
                             class="rounded-lg shadow-lg object-cover w-full h-72">
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 ml-4">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Cara Menjaga Kesehatan</h2>
                         <p class="text-lg text-gray-700 mb-4">Menjaga kesehatan adalah hal yang sangat penting. Berikut
                             adalah beberapa tips untuk menjaga kesehatan Anda:</p>
@@ -134,7 +134,7 @@
                         <img src="{{ asset('images/asamurat.jpeg') }}" alt="Tentang Asam Urat"
                             class="rounded-lg shadow-lg object-cover w-full h-72">
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 ml-4">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Tentang Asam Urat</h2>
                         <p class="text-lg text-gray-700 mb-4">Asam urat adalah kondisi di mana terdapat kadar asam urat yang
                             tinggi dalam darah. Berikut adalah beberapa hal yang perlu Anda ketahui tentang asam urat:</p>
@@ -157,7 +157,7 @@
                         <img src="{{ asset('images/imt.jpeg') }}" alt="Indeks Massa Tubuh"
                             class="rounded-lg shadow-lg object-cover w-full h-72">
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 ml-4">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Indeks Massa Tubuh</h2>
                         <p class="text-lg text-gray-700 mb-4">Indeks Massa Tubuh (IMT) adalah ukuran yang digunakan untuk
                             menilai berat badan seseorang dalam hubungannya dengan tinggi badannya. Berikut adalah beberapa
@@ -220,7 +220,7 @@
                         <img src="{{ asset('images/mental.jpeg') }}" alt="Kesehatan Mental"
                             class="rounded-lg shadow-lg object-cover w-full h-72">
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 ml-4">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Kesehatan Mental</h2>
                         <p class="text-lg text-gray-700 mb-4">Kesehatan mental adalah aspek penting dari kesehatan
                             keseluruhan. Berikut adalah beberapa cara untuk menjaga kesehatan mental Anda:</p>
@@ -243,7 +243,7 @@
                         <img src="{{ asset('images/penyakitumum.jpeg') }}" alt="Gejala Penyakit Umum"
                             class="rounded-lg shadow-lg object-cover w-full h-72">
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 ml-4">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Gejala Penyakit Umum</h2>
                         <p class="text-lg text-gray-700 mb-4">Mengetahui gejala penyakit umum dapat membantu Anda dalam
                             deteksi dini dan pengobatan. Berikut adalah beberapa gejala penyakit umum yang perlu
@@ -268,7 +268,7 @@
                         <img src="{{ asset('images/sehat.jpg') }}" alt="Tips Hidup Sehat"
                             class="rounded-lg shadow-lg object-cover w-full h-72">
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 ml-4">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Tips Hidup Sehat</h2>
                         <p class="text-lg text-gray-700 mb-4">Mengadopsi kebiasaan hidup sehat dapat meningkatkan kualitas
                             hidup Anda. Berikut adalah beberapa tips untuk hidup sehat:</p>
