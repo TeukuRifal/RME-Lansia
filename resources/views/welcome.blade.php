@@ -98,7 +98,7 @@
             <h1 class="text-4xl font-bold mb-4">Selamat Datang di REMELA</h1>
             <h3 class="text-3xl font-bold mb-4">Website Rekam Medik Elektronik Lansia</h3>
             <p class="text-xl mb-8">Silahkan masuk untuk mengakses halaman kesehatan Anda!</p>
-            <a href="{{ route('login') }}" class="bg-lightblue shadow-lg text-white py-2 px-4 rounded">Masuk</a>
+            <a href="{{ route('login') }}" class="bg-lightblue shadow-lg text py-2 px-4 rounded">Masuk</a>
         </div>
     </div>
     <div class="flex-auto hidden md:flex justify-center items-center">

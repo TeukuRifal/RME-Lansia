@@ -121,8 +121,7 @@
                             <li>Istirahat yang cukup</li>
                             <li>Hindari stres</li>
                         </ul>
-                        <a href="#" class="text-cyan-600 hover:underline">Pelajari lebih lanjut tentang pola makan
-                            sehat</a>
+
                     </div>
                 </div>
             </section>
@@ -144,8 +143,7 @@
                             <li>Cara mengelola asam urat</li>
                             <li>Makanan yang harus dihindari</li>
                         </ul>
-                        <a href="#" class="text-cyan-600 hover:underline">Pelajari lebih lanjut tentang manajemen
-                            asam urat</a>
+
                     </div>
                 </div>
             </section>
@@ -167,10 +165,7 @@
                             <li>Kategori IMT</li>
                             <li>Pentingnya menjaga IMT yang sehat</li>
                         </ul>
-                        <button id="open-modal-btn"
-                            class="inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-cyan-600 rounded-lg shadow-lg hover:bg-cyan-700 transition-transform transform hover:scale-105 active:scale-95">
-                            <span class="relative">Gunakan kalkulator IMT kami</span>
-                        </button>
+
                     </div>
                 </div>
             </section>
@@ -230,8 +225,7 @@
                             <li>Menjaga keseimbangan kerja dan kehidupan</li>
                             <li>Berlatih mindfulness atau meditasi</li>
                         </ul>
-                        <a href="#" class="text-cyan-600 hover:underline">Pelajari lebih lanjut tentang cara menjaga
-                            kesehatan mental</a>
+
                     </div>
                 </div>
             </section>
@@ -255,8 +249,7 @@
                             <li>Nyeri tubuh</li>
                             <li>Keletihan</li>
                         </ul>
-                        <a href="#" class="text-cyan-600 hover:underline">Pelajari lebih lanjut tentang gejala
-                            penyakit umum</a>
+
                     </div>
                 </div>
             </section>
@@ -278,21 +271,10 @@
                             <li>Menjaga pola tidur</li>
                             <li>Hindari kebiasaan buruk</li>
                         </ul>
-                        <a href="#" class="text-cyan-600 hover:underline">Pelajari lebih lanjut tentang tips hidup
-                            sehat</a>
                     </div>
                 </div>
             </section>
         </div>
     </div>
 
-    <script>
-        document.getElementById('open-modal-btn').addEventListener('click', function() {
-            document.getElementById('bmi-modal').classList.remove('hidden');
-        });
-
-        document.getElementById('close-modal-btn').addEventListener('click', function() {
-            document.getElementById('bmi-modal').classList.add('hidden');
-        });
-    </script>
 @endsection

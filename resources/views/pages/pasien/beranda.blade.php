@@ -65,14 +65,14 @@
                 transition: background-color 0.3s ease;
             }
 
-            .whatsapp-button:hover {
+            /* .whatsapp-button:hover {
                 background-color: #128C7E;
             }
 
             .whatsapp-button i {
                 color: white;
                 font-size: 24px;
-            }
+            } */
         </style>
     </head>
 
@@ -243,11 +243,11 @@
                 </ul>
             </div>
         </div>
-        <div class="whatsapp-button">
+        {{-- <div class="whatsapp-button">
             <a href="https://wa.me/+6285362521792" target="_blank" rel="noopener noreferrer">
                 <i class="bi bi-whatsapp"></i>
             </a>
-        </div>
+        </div> --}}
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var ctxLingkarPerut = document.getElementById('chart-lingkar-perut').getContext('2d');

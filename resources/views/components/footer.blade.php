@@ -8,13 +8,13 @@
                 peningkatan kualitas hidup melalui inovasi dan teknologi yang mudah diakses.
             </p>
             <p class="mb-2">info@remela.id</p>
-            <p>Telepon: +62 852</p>
+            <p>Telepon: +62 82274475383</p>
         </div>
         <div class="w-full lg:w-1/4 p-5">
             <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
             <ul>
                 <li class="mb-2"><a href="{{ route('beranda') }}" class="hover:underline">Dashboard</a></li>
-                <li class="mb-2"><a href="{{ route('jadwal') }}" class="hover:underline">Jadwal Dokter</a></li>
+                <li class="mb-2"><a href="{{ route('jadwal') }}" class="hover:underline">Jadwal</a></li>
                 <li class="mb-2"><a href="{{ route('profil') }}" class="hover:underline">Profil</a></li>
             </ul>
         </div>
