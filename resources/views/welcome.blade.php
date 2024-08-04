@@ -151,26 +151,58 @@
         </div>
     </div>
 </div>
-
-<!-- Section Galeri -->
-<div id="galeri" class="mx-auto p-5 bg-white">
-    <h2 class="text-3xl font-bold mb-8 text-center mt-10">Kegiatan</h2>
+<!-- Section Pelayanan -->
+<div id="pelayanan" class=" mx-auto p-5 bg-white">
+    <h2 class="text-3xl font-bold mb-8 text-center mt-10">Pelayanan Kami</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xl">
-        <div class="gallery-item">
-            <img src="{{ asset('images/posbindu1.jpg') }}" alt="Gallery Image 1"
-                class="w-full rounded-lg shadow-lg">
-            <p class="h-32 shadow-md bg-white rounded-lg p-5 text-center">Foto Bersama Kader Posyandu Lansia & Posbindu Ptm</p>
+        <!-- Card 1 -->
+        <div class="group relative bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+            <img src="{{ asset('images/pemantauan.png') }}" alt="Pemeriksaan Kesehatan Rutin" class=" object-cover mx-auto">
+            <div class="p-5">
+                <h3 class="text-xl font-bold text-gray-900">Pemantauan Kesehatan Rutin</h3>
+                <p class="mt-2 text-gray-700 ">Pemantauan tekanan darah, gula darah, kolesterol, berat badan, tinggi badan, dan lingkar perut secara berkala dengan grafik dan visualisasi data kesehatan.</p>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300">
+                <p class="text-white text-center">Klik untuk informasi lebih lanjut</p>
+            </div>
         </div>
-        <div class="gallery-item">
-            <img src="{{ asset('images/posbindu2.jpg') }}" alt="Gallery Image 2"
-                class="w-full rounded-lg shadow-lg">
-            <p class="h-32 shadow-md bg-white rounded-lg p-5 text-center">Pemeriksaan Kesehatan Lansia</p>
+        <!-- Card 2 -->
+        <div class="group relative bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+            <img src="{{asset('images/konsultasi.png')}}" alt="Konsultasi Kesehatan" class=" m-auto object-cover">
+            <div class="p-5">
+                <h3 class="text-xl font-bold text-gray-900">Konsultasi dan Edukasi Kesehatan</h3>
+                <p class="mt-2 text-gray-700 ">Informasi dan penyuluhan tentang pola makan sehat, aktivitas fisik, dan pencegahan penyakit dengan materi edukasi interaktif yang mudah dipahami oleh lansia.</p>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300">
+                <p class="text-white text-center">Klik untuk informasi lebih lanjut</p>
+            </div>
         </div>
-        <div class="gallery-item">
-            <img src="{{ asset('images/posbindu3.jpg') }}" alt="Gallery Image 3"
-                class="w-full rounded-lg shadow-lg">
-            <p class="h-32 shadow-md bg-white rounded-lg p-5 text-center">Pengukuran Lingkar Pinggang Sebagai Bagian Dari Pengecekan Kesehatan</p>
+        <!-- Card 3 -->
+        <div class="group relative bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+            <img src="{{asset('images/analisis.png')}}" alt="Senam Lansia" class=" mx-auto object-cover">
+            <div class="p-5">
+                <h3 class="text-xl font-bold text-gray-900">Laporan dan Analisis Kesehatan</h3>
+                <p class="mt-2 text-gray-700 ">Generasi laporan kesehatan individu dan kelompok, serta analisis tren kesehatan untuk evaluasi program Posbindu.</p>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300">
+                <p class="text-white text-center">Klik untuk informasi lebih lanjut</p>
+            </div>
         </div>
+        
+       
     </div>
 </div>
+
+<style>
+    .truncate-multiline {
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Jumlah baris yang diizinkan */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+
+
 @endsection

@@ -2,15 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExportController;
-use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\AktivitasController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RiwayatKesehatanController;
 use App\Http\Controllers\HealthCheckScheduleController;
-use App\Http\Controllers\ProfileController; // Add this line to import the ProfileController class
 
 
 Route::get('/', function () {
@@ -56,13 +54,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
     Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
     Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
-    // Route::get('/daftarPasien', [PasienController::class, 'daftarPasien'])->name('daftarPasien');
     Route::get('/daftarPasien/search', [PasienController::class, 'searchPasien'])->name('searchPasien');
-
-    Route::get('/profile/posbindu', [ProfileController::class, 'show'])->name('profile.posbindu');
-
-    // Rute untuk halaman detail riwayat kesehatan pasien
-    // Route::get('/riwayatKesehatan/{id}', [PasienController::class, 'showHealthHistory'])->name('healthHistory');
 
     // Rekam Medis
     Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');
@@ -81,10 +73,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Fetch Health Record
     Route::get('/admin/fetchHealthRecord/{patient_id}', [RiwayatKesehatanController::class, 'fetchHealthRecord'])
         ->name('fetchHealthRecord');
+
+        Route::get('/Kegiatan', [AktivitasController::class, 'index'])->name('kegiatan');
+        Route::resource('aktivitas', AktivitasController::class);
 });
-
-
-
 
 
 // Super admin routes
@@ -114,5 +106,4 @@ Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/export-patients', [ExportController::class, 'export']);
     Route::get('/print-pasien/{id}', [ExportController::class, 'print'])->name('print.pasien');
     Route::get('/rekam-medis/{id}', [ExportController::class, 'show'])->name('lihatriwayat');
-
 });

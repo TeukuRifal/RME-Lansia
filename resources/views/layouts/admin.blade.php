@@ -250,6 +250,10 @@
                             <img src="{{ asset('images/jadwal.png') }}" alt="jadwal">
                             <span class="item-text font-semibold">Jadwal</span>
                         </a>
+                        <a href="{{ route('kegiatan') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                            <img src="{{ asset('images/kegiatan.png') }}" alt="jadwal">
+                            <span class="item-text font-semibold">Kegiatan</span>
+                        </a>
                     </div>
                 </nav>
             </div>

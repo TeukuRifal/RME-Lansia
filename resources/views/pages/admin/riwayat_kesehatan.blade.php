@@ -65,7 +65,7 @@
             <!-- Chart untuk IMT -->
             <div class="col-span-1">
                 <canvas id="chartIMT" width="400" height="200" class="mb-4"></canvas>
-            </div>
+            </div>  
         </div>
     </div>
 
@@ -372,6 +372,34 @@
                 }
             });
         }
+
+        const ImtData = records.map(record => record.indeks_massa_tubuh);
+
+        const ImtChart = document.getElementById('chartIMT').getContext('2d');
+            new Chart(ImtChart, {
+                type: 'line',
+                data: {
+                    labels: imtLabels,
+                    datasets: [{
+                        label: 'Indeks Massa Tubuh',
+                        data: ImtData,
+                        fill: false,
+                        borderColor: 'rgb(255, 159, 64)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0, // Nilai minimum untuk sumbu Y
+                            max: 400, // Nilai maksimum untuk sumbu Y
+                            ticks: {
+                                stepSize: 50 // Langkah-nilai untuk sumbu Y
+                            }
+                        }
+                    }
+                }
+            });
 
         // Fungsi untuk mengubah format tanggal menjadi bulan dan tahun (misalnya "Juli 2024")
         function formatDate(dateString) {

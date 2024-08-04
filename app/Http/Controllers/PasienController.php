@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Patient;
-use App\Models\HealthCheckSchedule;
+use App\Models\Aktivitas;
 use Illuminate\Http\Request;
 use App\Models\PatientRecord;
+use Illuminate\Routing\Controller;
+use App\Models\HealthCheckSchedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -368,7 +370,8 @@ class PasienController extends Controller
         $user = Auth::user();
         $pasien = $user->patient;
         $schedules = HealthCheckSchedule::all();
-        return view('pages.pasien.jadwal', compact('schedules', 'user', 'pasien')); // Pastikan Anda memiliki beranda.blade.php di resources/views
+        $aktivitas = Aktivitas::orderBy('tgl_aktivitas', 'desc')->take(3)->get(); 
+        return view('pages.pasien.jadwal', compact('schedules', 'aktivitas', 'user', 'pasien')); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
 
     public function showRiwayatBulanIni()

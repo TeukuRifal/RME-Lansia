@@ -38,25 +38,21 @@
     <!-- Dokumentasi -->
     <div id="galeri" class="container mx-auto p-5 rounded-xl bg-white">
         <h2 class="text-3xl font-bold mb-8 text-center">Dokumentasi</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="gallery-item bg-gray-100 p-4 rounded-lg shadow-sm">
-                <a href="{{ asset('images/posbindu1.jpg') }}" data-lightbox="gallery" data-title="Foto Bersama Kader Posyandu Lansia & Posbindu Ptm">
-                    <img src="{{ asset('images/posbindu1.jpg') }}" alt="Foto Bersama Kader Posyandu Lansia & Posbindu Ptm" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
-                </a>
-                <p class="text-lg font-semibold">Foto Bersama Kader Posyandu Lansia & Posbindu Ptm</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xl">
+            @foreach ($aktivitas as $kegiatan)
+            <div class="gallery-item relative group">
+                <img src="{{ asset('storage/' . $kegiatan->gambar) }}" alt="{{ $kegiatan->judul }}"
+                    class="w-full h-64 object-cover rounded-lg shadow-lg transform group-hover:scale-105 transition duration-300 cursor-pointer"
+                    onclick="openViewModal('{{ asset('storage/' . $kegiatan->gambar) }}', '{{ $kegiatan->judul }}', '{{ $kegiatan->deskripsi }}', '{{ \Carbon\Carbon::parse($kegiatan->tgl_aktivitas)->format('d M Y') }}')">
+                <div class="h-32 shadow-md bg-white rounded-lg p-5 text-center mt-4 text-wrap truncate-multiline">
+                    <p class="font-bold text-lg text-gray-900">{{ $kegiatan->judul }}</p>
+                    <p class="text-sm text-gray-700 mt-1">{{ $kegiatan->deskripsi }}</p>
+                    <p class="text-sm text-gray-500 mt-1">
+                        {{ \Carbon\Carbon::parse($kegiatan->tgl_aktivitas)->format('d M Y') }}
+                    </p>
+                </div>
             </div>
-            <div class="gallery-item bg-gray-100 p-4 rounded-lg shadow-sm">
-                <a href="{{ asset('images/posbindu2.jpg') }}" data-lightbox="gallery" data-title="Pemeriksaan Kesehatan Lansia">
-                    <img src="{{ asset('images/posbindu2.jpg') }}" alt="Pemeriksaan Kesehatan Lansia" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
-                </a>
-                <p class="text-lg font-semibold">Pemeriksaan Kesehatan Lansia</p>
-            </div>
-            <div class="gallery-item bg-gray-100 p-4 rounded-lg shadow-sm">
-                <a href="{{ asset('images/posbindu3.jpg') }}" data-lightbox="gallery" data-title="Pengukuran Lingkar Pinggang Sebagai Bagian Dari Pengecekan Kesehatan">
-                    <img src="{{ asset('images/posbindu3.jpg') }}" alt="Pengukuran Lingkar Pinggang Sebagai Bagian Dari Pengecekan Kesehatan" class="w-full h-48 object-cover rounded-lg shadow-lg mb-2">
-                </a>
-                <p class="text-lg font-semibold">Pengukuran Lingkar Pinggang Sebagai Bagian Dari Pengecekan Kesehatan</p>
-            </div>
+            @endforeach
         </div>
     </div>
 
