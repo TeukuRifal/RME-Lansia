@@ -1,11 +1,12 @@
 <?php
 
-// app/Http/Controllers/AktivitasController.php
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Aktivitas;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AktivitasController extends Controller
 {
@@ -17,6 +18,7 @@ class AktivitasController extends Controller
         });
         return view('pages.kegiatan.index', compact('aktivitas'));
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -36,5 +38,19 @@ class AktivitasController extends Controller
         ]);
 
         return redirect()->route('aktivitas.index')->with('success', 'Dokumentasi kegiatan berhasil ditambahkan.');
+    }
+
+    public function destroy($id)
+    {
+        $aktivitas = Aktivitas::findOrFail($id);
+
+        // Delete the image from storage
+        if ($aktivitas->gambar) {
+            Storage::disk('public')->delete($aktivitas->gambar);
+        }
+
+        $aktivitas->delete();
+
+        return redirect()->route('aktivitas.index')->with('success', 'Dokumentasi kegiatan berhasil dihapus.');
     }
 }

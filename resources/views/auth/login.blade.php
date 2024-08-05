@@ -7,6 +7,7 @@
     <title>Login</title>
     <link rel="icon" type="image/png" href="{{ asset('images/Logo_Remela.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-image: url('{{ asset('images/bgremela.png') }}');
@@ -38,7 +39,7 @@
 
 <body>
     <div class="min-h-screen flex items-center justify-center">
-        <div class="p-8 rounded-xl shadow-md w-full max-w-md bg-white">
+        <div class="relative p-8 rounded-xl shadow-md w-full max-w-md bg-white">
             <h2 class="text-large font-bold mb-6 text-center">Masuk</h2>
             @if ($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -71,6 +72,9 @@
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold btn-large rounded">Masuk</button>
                 </div>
             </form>
+            <a href="/superadmin/login" class="absolute top-4 right-4 text-gray-700 hover:text-gray-900">
+                <i class="fas fa-user-shield text-2xl"></i>
+            </a>
         </div>
     </div>
     <script>

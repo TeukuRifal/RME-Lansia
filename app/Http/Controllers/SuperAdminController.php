@@ -12,7 +12,6 @@ class SuperAdminController extends Controller
     public function index()
     {
         // Ambil data yang dibutuhkan untuk dashboard
-        // Misalnya statistik pengguna, data kesehatan, dll.
         return view('pages.superadmin.dashboard');
     }
 
@@ -46,7 +45,7 @@ class SuperAdminController extends Controller
             'role' => $role,
         ]);
 
-        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($role) . ' Sukses dibuat.');
+        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($role) . ' berhasil dibuat.');
     }
 
     public function edit($id)
@@ -75,7 +74,7 @@ class SuperAdminController extends Controller
             'password' => $superadmin->password,
         ]);
 
-        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($superadmin->role) . ' updated successfully.');
+        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($superadmin->role) . ' berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -93,19 +92,16 @@ class SuperAdminController extends Controller
 
     public function reports()
     {
-        // Ambil data untuk laporan dan analisis
         return view('pages.superadmin.reports');
     }
 
     public function settings()
     {
-        // Ambil data pengaturan aplikasi
         return view('pages.superadmin.settings');
     }
 
     public function content()
     {
-        // Ambil data konten yang dikelola
         return view('pages.superadmin.content');
     }
 }

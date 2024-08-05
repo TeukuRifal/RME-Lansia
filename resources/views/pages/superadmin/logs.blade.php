@@ -1,24 +1,25 @@
+<!-- resources/views/pages/superadmin/logs.blade.php -->
 @extends('layouts.super')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4">Activity Logs</h1>
-
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <table class="min-w-full bg-white divide-y divide-gray-200">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Log</th>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+<div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">Aktivitas Sistem</h1>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead>
+                <tr class="bg-gray-200 text-gray-600">
+                    <th class="py-3 px-4 border-b">Waktu</th>
+                    <th class="py-3 px-4 border-b">Aksi</th>
+                    <th class="py-3 px-4 border-b">Pengguna</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody>
                 @foreach($logs as $log)
                 <tr>
-                    <td class="py-3 px-4">{{ $log->description }}</td>
-                    <td class="py-3 px-4">{{ $log->created_at->format('d-m-Y H:i:s') }}</td>
-                    <td class="py-3 px-4">{{ $log->causer ? $log->causer->name : 'N/A' }}</td>
+                    <td class="py-3 px-4 border-b">{{ $log->created_at }}</td>
+                    <td class="py-3 px-4 border-b">{{ $log->description }}</td>
+                    <td class="py-3 px-4 border-b">{{ $log->user->name }}</td>
                 </tr>
                 @endforeach
             </tbody>
