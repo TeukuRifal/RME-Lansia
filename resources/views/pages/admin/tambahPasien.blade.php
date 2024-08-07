@@ -11,7 +11,6 @@
             <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
             @csrf
 
-
             @if ($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                     <strong class="font-bold">Ada kesalahan!</strong>
@@ -38,7 +37,7 @@
                         <label for="{{ $field }}" class="block text-gray-700 font-bold">{{ $label }}</label>
                         @if ($field == 'alamat')
                             <textarea id="{{ $field }}" name="{{ $field }}"
-                                class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required></textarea>
+                                class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"></textarea>
                         @elseif ($field == 'jenis_kelamin' || $field == 'agama' || $field == 'status_kawin')
                             <select id="{{ $field }}" name="{{ $field }}"
                                 class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"
@@ -56,7 +55,7 @@
                             <input type="{{ $field == 'tanggal_lahir' ? 'date' : ($field == 'email' ? 'email' : 'text') }}"
                                 id="{{ $field }}" name="{{ $field }}"
                                 class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"
-                                required>
+                                {{ $field != 'email' ? 'required' : '' }}>
                         @endif
                     </div>
                 @endforeach

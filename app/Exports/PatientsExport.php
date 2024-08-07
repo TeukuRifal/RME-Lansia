@@ -32,7 +32,8 @@ class PatientsExport implements FromCollection, WithHeadings, WithMapping, WithS
     public function map($patient): array
     {
         return [
-            $patient->user_id,
+            // Menambahkan nomor urut (indeks + 1)
+            $this->getRowNumber($patient),
             $patient->nama_lengkap,
             $patient->nik,
             $patient->tanggal_lahir,
@@ -49,6 +50,17 @@ class PatientsExport implements FromCollection, WithHeadings, WithMapping, WithS
     }
 
     /**
+     * Mendapatkan nomor urut baris
+     *
+     * @param mixed $patient
+     * @return int
+     */
+    private function getRowNumber($patient)
+    {
+        return $this->collection()->search($patient) + 1;
+    }
+
+    /**
      * Menetapkan judul kolom di file Excel
      *
      * @return array
@@ -56,7 +68,7 @@ class PatientsExport implements FromCollection, WithHeadings, WithMapping, WithS
     public function headings(): array
     {
         return [
-            'User ID',
+            'No',
             'Nama Lengkap',
             'NIK',
             'Tanggal Lahir',

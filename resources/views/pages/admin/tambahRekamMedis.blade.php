@@ -31,49 +31,48 @@
                         required readonly>
                     <button type="button"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        data-modal-target="patient-modal">Cari </button>
+                        data-modal-target="patient-modal">Cari</button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 ">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 @foreach ([
-            'riwayat_ptm_keluarga' => 'Penyakit Tidak Menular Keluarga',
-            'riwayat_ptm_sendiri' => 'Penyakit Tidak Menular Sendiri',
-            'merokok' => 'Merokok',
-            'kurang_aktivitas_fisik' => 'Kurang Aktivitas Fisik',
-            'kurang_sayur_buah' => 'Kurang Sayur dan Buah',
-            'konsumsi_alkohol' => 'Konsumsi Alkohol',
-            'berat_badan' => 'Berat Badan (kg)',
-            'tinggi_badan' => 'Tinggi Badan (cm)',
-            'lingkar_perut' => 'Lingkar Perut (cm)',
-            'asam_urat' => 'asam urat',
-            'tekanan_darah_sistolik' => 'Tekanan Darah Sistolik',
-            'tekanan_darah_diastolik' => 'Tekanan Darah Diastolik',
-            'gula_darah_sewaktu' => 'Gula Darah Sewaktu (mg/dL)',
-            'gula_darah_puasa' => 'Gula Darah Puasa (mg/dL)',
-            'kolesterol_total' => 'Kolesterol Total (mg/dL)',
-            'masalah_kesehatan' => 'Masalah Kesehatan',
-            'obat' => 'Obat ',
-            'tindak_lanjut' => 'Tindak Lanjut',
-        ] as $name => $label)
-                    <div class="mb-4 ">
-                        <label for="{{ $name }}"
-                            class="block text-gray-700 text-sm font-semibold mb-2">{{ $label }} @if (in_array($name, [
+                    'riwayat_ptm_keluarga' => 'Penyakit Tidak Menular Keluarga',
+                    'riwayat_ptm_sendiri' => 'Penyakit Tidak Menular Sendiri',
+                    'merokok' => 'Merokok',
+                    'kurang_aktivitas_fisik' => 'Kurang Aktivitas Fisik',
+                    'kurang_sayur_buah' => 'Kurang Sayur dan Buah',
+                    'konsumsi_alkohol' => 'Konsumsi Alkohol',
+                    'berat_badan' => 'Berat Badan (kg)',
+                    'tinggi_badan' => 'Tinggi Badan (cm)',
+                    'lingkar_perut' => 'Lingkar Perut (cm)',
+                    'asam_urat' => 'Asam Urat (mg/dL)',
+                    'tekanan_darah_sistolik' => 'Tekanan Darah Sistolik (mmHg)',
+                    'tekanan_darah_diastolik' => 'Tekanan Darah Diastolik (mmHg)',
+                    'gula_darah_sewaktu' => 'Gula Darah Sewaktu (mg/dL)',
+                    'gula_darah_puasa' => 'Gula Darah Puasa (mg/dL)',
+                    'kolesterol_total' => 'Kolesterol Total (mg/dL)',
+                    'masalah_kesehatan' => 'Masalah Kesehatan',
+                    'obat' => 'Obat',
+                    'tindak_lanjut' => 'Tindak Lanjut',
+                ] as $name => $label)
+                    <div class="mb-4">
+                        <label for="{{ $name }}" class="block text-gray-700 text-sm font-semibold mb-2">{{ $label }}
+                            @if (in_array($name, [
                                     'berat_badan',
                                     'tinggi_badan',
                                     'lingkar_perut',
-                                    'tekanan_darah',
                                     'tekanan_darah_sistolik',
                                     'tekanan_darah_diastolik',
                                 ]))
                                 <span class="text-red-400">*</span>
                             @endif
                         </label>
-                        <input
-                            type="{{ in_array($name, ['berat_badan', 'tinggi_badan', 'lingkar_perut', 'gula_darah_sewaktu', 'gula_darah_puasa', 'kolesterol_total']) ? 'number' : 'text' }}"
+                        <input type="{{ in_array($name, ['berat_badan', 'tinggi_badan', 'lingkar_perut', 'asam_urat', 'gula_darah_sewaktu', 'gula_darah_puasa', 'kolesterol_total']) ? 'number' : 'text' }}"
                             name="{{ $name }}" id="{{ $name }}"
                             class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="{{ $label }}">
+                            placeholder="{{ $label }}"
+                            @if (in_array($name, ['berat_badan', 'tinggi_badan', 'lingkar_perut', 'asam_urat', 'gula_darah_sewaktu', 'gula_darah_puasa', 'kolesterol_total'])) step="0.01" @endif>
                     </div>
                 @endforeach
             </div>
@@ -88,7 +87,6 @@
         </form>
     </div>
 
-
     <!-- Patient Modal -->
     <div id="patient-modal" class="fixed hidden inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
         <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl overflow-hidden">
@@ -96,7 +94,7 @@
                 <h2 class="text-xl font-semibold">Cari Pasien</h2>
                 <button class="text-gray-600 hover:text-gray-800" onclick="closeModal('patient-modal')">&times;</button>
             </div>
-            <div class="p-6 overflow-y-auto max-h-[70vh] min-h-[70vh]"> <!-- Make content scrollable -->
+            <div class="p-6 overflow-y-auto max-h-[70vh] min-h-[70vh]">
                 <input type="text" id="search"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
                     placeholder="Cari berdasarkan NIK, Nama, atau Alamat">
@@ -117,7 +115,6 @@
         </div>
     </div>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const patientList = document.getElementById('patient-list');
@@ -131,11 +128,11 @@
                         data.forEach(patient => {
                             const row = document.createElement('tr');
                             row.innerHTML = `
-                        <td class="py-2 px-4 border-b">${patient.nama_lengkap}</td>
-                        <td class="py-2 px-4 border-b">${patient.nik}</td>
-                        <td class="py-2 px-4 border-b">${patient.alamat}</td>
-                        <td class="py-2 px-4 border-b"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onclick="selectPatient('${patient.nik}')">Pilih</button></td>
-                    `;
+                                <td class="py-2 px-4 border-b">${patient.nama_lengkap}</td>
+                                <td class="py-2 px-4 border-b">${patient.nik}</td>
+                                <td class="py-2 px-4 border-b">${patient.alamat}</td>
+                                <td class="py-2 px-4 border-b"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onclick="selectPatient('${patient.nik}')">Pilih</button></td>
+                            `;
                             patientList.appendChild(row);
                         });
                     });
@@ -149,19 +146,23 @@
             document.querySelectorAll('[data-modal-target]').forEach(button => {
                 button.addEventListener('click', function() {
                     const modalId = this.getAttribute('data-modal-target');
-                    document.getElementById(modalId).classList.remove('hidden');
-                    fetchPatients(); // Fetch all patients when modal opens
+                    openModal(modalId);
+                    fetchPatients(); // Fetch patients when the modal opens
                 });
             });
 
             window.selectPatient = function(nik) {
                 document.getElementById('nik').value = nik;
                 closeModal('patient-modal');
-            }
-
-            window.closeModal = function(modalId) {
-                document.getElementById(modalId).classList.add('hidden');
-            }
+            };
         });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
     </script>
 @endsection

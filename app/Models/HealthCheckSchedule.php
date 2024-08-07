@@ -10,4 +10,8 @@ class HealthCheckSchedule extends Model
     use HasFactory;
 
     protected $fillable = ['nama_tempat', 'tanggal', 'waktu_mulai', 'waktu_selesai', 'lokasi'];
+
+    protected $casts = [
+        'tanggal' => 'datetime',
+    ];
 }

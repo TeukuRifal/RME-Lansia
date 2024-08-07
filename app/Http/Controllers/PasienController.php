@@ -193,6 +193,7 @@ class PasienController extends Controller
     }
 
 
+
     public function daftarPasien()
     {
         $patients = Patient::all();
@@ -209,45 +210,6 @@ class PasienController extends Controller
     {
         $pasien = Patient::findOrFail($id);
         return view('pages.admin.editPasien', compact('pasien'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama_lengkap' => 'required|string',
-            'nik' => 'required|string|unique:patients,nik,' . $id,
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|string',
-            'alamat' => 'nullable|string',
-            'no_hp' => 'nullable|string',
-            'pendidikan_terakhir' => 'nullable|string',
-            'pekerjaan' => 'nullable|string',
-            'status_kawin' => 'nullable|string',
-            'gol_darah' => 'nullable|string',
-            'email' => 'nullable|email',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $patient = Patient::findOrFail($id);
-
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $filename = strtolower(str_replace(' ', '_', $request->nama_lengkap)) . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('public/foto_pasien', $filename);
-            // Simpan path ke database
-            $data['foto'] = $filename;
-        }
-
-        $patient->update($request->except('foto'));
-
-        $user = $patient->user;
-        $user->update([
-            'name' => $request->nama_lengkap,
-            'username' => $request->nik,
-            'email' => $request->email,
-        ]);
-
-        return redirect()->route('admin.daftarPasien')->with('success', 'Data pasien berhasil diupdate');
     }
 
 
@@ -282,11 +244,17 @@ class PasienController extends Controller
 
         $patient->update($validatedData);
 
-        $patient->user->update([
+        $userUpdateData = [
             'name' => $validatedData['nama_lengkap'],
             'username' => $validatedData['nik'],
-            'email' => $validatedData['email'],
-        ]);
+            'email' => $validatedData['email'] ?? $patient->user->email,
+        ];
+
+        if (isset($validatedData['email'])) {
+            $userUpdateData['email'] = $validatedData['email'];
+        }
+
+        $patient->user->update($userUpdateData);
 
         return redirect()->route('daftarPasien')->with('success', 'Data pasien berhasil diperbarui.');
     }
@@ -304,9 +272,9 @@ class PasienController extends Controller
             }
             $patient->delete(); // Hapus data pasien
 
-            return response()->json(['success' => 'Pasien berhasil dihapus']);
+            redirect()->route('daftarPasien')->with(['success' => 'Pasien berhasil dihapus']);
         } else {
-            return response()->json(['error' => 'Pasien tidak ditemukan'], 404);
+            redirect()->route('daftarPasien')->with(['error' => 'Pasien tidak ditemukan'], 404);
         }
     }
 
@@ -370,7 +338,7 @@ class PasienController extends Controller
         $user = Auth::user();
         $pasien = $user->patient;
         $schedules = HealthCheckSchedule::all();
-        $aktivitas = Aktivitas::orderBy('tgl_aktivitas', 'desc')->take(3)->get(); 
+        $aktivitas = Aktivitas::orderBy('tgl_aktivitas', 'desc')->take(3)->get();
         return view('pages.pasien.jadwal', compact('schedules', 'aktivitas', 'user', 'pasien')); // Pastikan Anda memiliki beranda.blade.php di resources/views
     }
 
@@ -420,5 +388,4 @@ class PasienController extends Controller
         $patients = Patient::all();
         return view('pages.pasien.edukasi', compact('patients'));
     }
-
 }

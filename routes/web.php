@@ -34,12 +34,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
-
-
-    Route::get('patients', [PasienController::class, 'showImportForm'])->name('patients');
-    Route::post('import', [PasienController::class, 'import'])->name('import');
-    Route::get('export', [PasienController::class, 'export'])->name('export');
-
+    Route::get('export', [ExportController::class, 'export'])->name('export');
+    Route::get('/export-patients', [ExportController::class, 'export']);
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/admin/patientRecords/print/{id}', [RiwayatKesehatanController::class, 'print'])->name('admin.patientRecords.print');
@@ -53,8 +49,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/tambah-pasien', [PasienController::class, 'tambahPasien'])->name('tambahPasien');
     Route::post('/admin/simpan-pasien', [PasienController::class, 'storePasien'])->name('simpanPasien');
     Route::get('/admin/edit-pasien/{id}', [PasienController::class, 'editPasien'])->name('editPasien');
-    Route::post('/admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
+    Route::post('admin/update-pasien/{id}', [PasienController::class, 'updatePasien'])->name('updatePasien');
     Route::get('/daftarPasien/search', [PasienController::class, 'searchPasien'])->name('searchPasien');
+    Route::delete('/hapus-pasien/{id}', [PasienController::class, 'deletePasien'])->name('hapusPasien');
+
 
     // Rekam Medis
     Route::get('/admin/rekam-medis', [RiwayatKesehatanController::class, 'rekamMedis'])->name('rekamMedis');
@@ -64,18 +62,22 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/pasien-record/add/{patient_id}', [RiwayatKesehatanController::class, 'addPatientRecord'])->name('addPatientRecord');
     Route::post('/admin/pasien-record/store/{patient_id}', [RiwayatKesehatanController::class, 'storePatientRecord'])->name('storePatientRecord');
     Route::get('/admin/health-history/filter', [RiwayatKesehatanController::class, 'filterByMonth'])->name('filterByMonth');
+    // routes/web.php
+    Route::get('/edit/riwayat{id}', [RiwayatKesehatanController::class, 'edit'])->name('editRiwayat');
+    Route::put('/admin/patientRecords/{id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
+
 
     // Riwayat Kesehatan
     Route::get('/riwayat/{id}', [RiwayatKesehatanController::class, 'index'])->name('healthHistory');
-    Route::get('/riwayat/edit/{record_id}', [RiwayatKesehatanController::class, 'editRiwayat'])->name('editRiwayat');
-    Route::put('/riwayat/update/{record_id}', [RiwayatKesehatanController::class, 'update'])->name('updateRiwayat');
+    Route::delete('/admin/patient-records/{id}', [RiwayatKesehatanController::class, 'hapusRiwayat'])->name('hapusRiwayat');
+
 
     // Fetch Health Record
     Route::get('/admin/fetchHealthRecord/{patient_id}', [RiwayatKesehatanController::class, 'fetchHealthRecord'])
         ->name('fetchHealthRecord');
 
-        Route::get('/Kegiatan', [AktivitasController::class, 'index'])->name('kegiatan');
-        Route::resource('aktivitas', AktivitasController::class);
+    Route::get('/Kegiatan', [AktivitasController::class, 'index'])->name('kegiatan');
+    Route::resource('aktivitas', AktivitasController::class);
 });
 
 
@@ -103,7 +105,6 @@ Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/jadwal', [PasienController::class, 'jadwal'])->name('jadwal');
     Route::get('/riwayat-bulan-ini', [RiwayatKesehatanController::class, 'showRiwayatBulanIni'])->name('riwayat.bulan.ini');
     Route::get('/edukasi', [PasienController::class, 'edukasi'])->name('edukasi');
-    Route::get('/export-patients', [ExportController::class, 'export']);
     Route::get('/print-pasien/{id}', [ExportController::class, 'print'])->name('print.pasien');
     Route::get('/rekam-medis/{id}', [ExportController::class, 'show'])->name('lihatriwayat');
 });

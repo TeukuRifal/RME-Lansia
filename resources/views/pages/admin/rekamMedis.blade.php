@@ -79,9 +79,12 @@
                             <td>
                                 @php
                                     $tinggi_badan_m = $record->tinggi_badan / 100;
-                                    $imt = $record->berat_badan / ($tinggi_badan_m * $tinggi_badan_m);
+                                    $imt =
+                                        $tinggi_badan_m > 0
+                                            ? $record->berat_badan / ($tinggi_badan_m * $tinggi_badan_m)
+                                            : 'N/A';
                                 @endphp
-                                {{ number_format($imt, 2) }}
+                                {{ is_numeric($imt) ? number_format($imt, 2) : $imt }}
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $record->gula_darah_sewaktu ?? '-' }}</td>
@@ -99,6 +102,18 @@
                                     class="text-blue-500 hover:text-blue-600">
                                     <i class="bi bi-file-earmark-text-fill"></i> Cetak
                                 </a>
+                                <a href="{{ route('editRiwayat', $record->id) }}"
+                                    class="text-green-500 hover:text-green-600">
+                                    <i class="bi bi-pencil-fill"></i> Edit
+                                </a>
+                                <form action="{{ route('hapusRiwayat', $record->id) }}" method="POST"
+                                    class="inline-block ml-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-600">
+                                        <i class="bi bi-trash-fill"></i> Hapus
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

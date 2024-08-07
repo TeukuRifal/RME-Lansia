@@ -146,15 +146,15 @@ class RiwayatKesehatanController extends Controller
 
 
 
-    public function editRiwayat($record_id)
+    public function edit($id)
     {
-        $riwayat = PatientRecord::findOrFail($record_id);
-        return view('pages.admin.edit_riwayat', compact('riwayat'));
+        $record = PatientRecord::findOrFail($id);
+        return view('pages.admin.edit_riwayat', compact('record'));
     }
 
-    public function update(Request $request, $record_id)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'record_date' => 'required|date',
             'riwayat_ptm_keluarga' => 'nullable|string',
             'riwayat_ptm_sendiri' => 'nullable|string',
@@ -164,11 +164,10 @@ class RiwayatKesehatanController extends Controller
             'konsumsi_alkohol' => 'nullable|string',
             'berat_badan' => 'nullable|numeric',
             'tinggi_badan' => 'nullable|numeric',
-            'asam_urat' => 'nullable|string',
             'lingkar_perut' => 'nullable|numeric',
-            'tekanan_darah' => 'nullable|string',
-            'tekanan_darah_sistolik' => 'nullable|string',
-            'tekanan_darah_diastolik' => 'nullable|string',
+            'asam_urat' => 'nullable|numeric',
+            'tekanan_darah_sistolik' => 'nullable|numeric',
+            'tekanan_darah_diastolik' => 'nullable|numeric',
             'gula_darah_sewaktu' => 'nullable|numeric',
             'gula_darah_puasa' => 'nullable|numeric',
             'kolesterol_total' => 'nullable|numeric',
@@ -177,12 +176,12 @@ class RiwayatKesehatanController extends Controller
             'tindak_lanjut' => 'nullable|string',
         ]);
 
-        $riwayat = PatientRecord::findOrFail($record_id);
-        $riwayat->update($request->all());
+        $record = PatientRecord::findOrFail($id);
+        $record->update($validatedData);
 
-        return redirect()->route('healthHistory', ['patient_id' => $riwayat->patient_id])
-            ->with('success', 'Riwayat kesehatan berhasil diperbarui.');
+        return redirect()->route('rekamMedis')->with('success', 'Riwayat kesehatan berhasil diperbarui.');
     }
+
 
     public function addPatientRecord($patient_id)
     {
@@ -279,7 +278,7 @@ class RiwayatKesehatanController extends Controller
         // Hitung IMT untuk setiap rekam medis
         $imtData = $patientRecords->map(function ($record) {
             $heightInMeters = $record->tinggi_badan / 100; // Convert cm to meters
-            $imt = $record->berat_badan / ($heightInMeters * $heightInMeters);
+            $imt = $heightInMeters > 0 ? ($record->berat_badan / ($heightInMeters * $heightInMeters)) : null;
             return [
                 'date' => $record->record_date->format('F Y'),
                 'imt' => $imt
@@ -288,7 +287,7 @@ class RiwayatKesehatanController extends Controller
 
         // Kategorisasi IMT berdasarkan data terakhir
         $lastImt = $imtData->last()['imt'] ?? 0;
-        $statusIMT = $lastImt < 18.5 ? 'Kekurangan berat badan' : ($lastImt >= 18.5 && $lastImt < 23 ? 'Berat badan normal' : ($lastImt >= 23 && $lastImt < 30 ? 'Kelebihan berat badan' : 'Obesitas'));
+        $statusIMT = $lastImt !== null ? ($lastImt < 18.5 ? 'Kekurangan berat badan' : ($lastImt >= 18.5 && $lastImt < 23 ? 'Berat badan normal' : ($lastImt >= 23 && $lastImt < 30 ? 'Kelebihan berat badan' : 'Obesitas'))) : 'Data tidak lengkap';
 
         // Kategorisasi Kolesterol berdasarkan data terakhir
         $lastKolesterol = $patientRecords->last()->kolesterol_total ?? 0;
@@ -298,7 +297,7 @@ class RiwayatKesehatanController extends Controller
         $lastRecord = $patientRecords->last();
         $sistolik = $lastRecord->tekanan_darah_sistolik ?? 0;
         $diastolik = $lastRecord->tekanan_darah_diastolik ?? 0;
-        $statusTekananDarah = $sistolik > 160 || $diastolik > 100 ? 'Hipertensi tingkat 2' : ($sistolik >= 140 || $diastolik >= 90 ? 'Hipertensi tingkat 1' : ($sistolik >= 120 || $diastolik >= 80 ? 'Pra-hipertensi' : 'Normal'));
+        $statusTekananDarah = ($sistolik > 160 || $diastolik > 100) ? 'Hipertensi tingkat 2' : (($sistolik >= 140 || $diastolik >= 90) ? 'Hipertensi tingkat 1' : (($sistolik >= 120 || $diastolik >= 80) ? 'Pra-hipertensi' : 'Normal'));
 
         // Kategorisasi Lingkar Perut (Jika diperlukan)
         $statusLingkarPerut = 'Normal'; // Default, sesuaikan jika ada logika tambahan
@@ -314,9 +313,16 @@ class RiwayatKesehatanController extends Controller
         ]);
 
         // Tampilkan PDF
-        return $pdf->stream('RekamMedis_' . $record->patient->nama_lengkap . '.pdf');
+        return $pdf->download('RekamMedis_' . $record->patient->nama_lengkap . '.pdf');
     }
 
+    public function hapusRiwayat($id)
+    {
+        $record = PatientRecord::findOrFail($id);
+        $record->delete();
+
+        return redirect()->route('rekamMedis')->with('success', 'Rekam medis berhasil dihapus.');
+    }
 
 
 

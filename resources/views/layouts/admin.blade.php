@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,32 +31,40 @@
             height: 100%;
             background-color: #EDFAFD;
             z-index: 40;
-            overflow: hidden; /* Ensure no content overflows */
+            overflow: hidden;
+            /* Ensure no content overflows */
         }
 
         .sidebar.collapsed {
-            width: 100px !important; /* Adjust to the collapsed width */
+            width: 100px !important;
+            /* Adjust to the collapsed width */
         }
 
         .sidebar-logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative; /* Add relative positioning */
+            position: relative;
+            /* Add relative positioning */
         }
 
         .sidebar-logo img {
-            width: 70px; /* Fixed size of the logo */
-            height: 70px; /* Fixed size of the logo */
+            width: 70px;
+            /* Fixed size of the logo */
+            height: 70px;
+            /* Fixed size of the logo */
             transition: width 0.3s ease, height 0.3s ease;
         }
 
         .sidebar.collapsed .sidebar-logo {
-            width: 100px; /* Adjust width for collapsed state */
+            width: 100px;
+            /* Adjust width for collapsed state */
         }
 
-        #collapseIcon, #menuIcon {
-            position: absolute; /* Absolute positioning for correct placement */
+        #collapseIcon,
+        #menuIcon {
+            position: absolute;
+            /* Absolute positioning for correct placement */
             top: 1rem;
             right: 1rem;
             cursor: pointer;
@@ -88,16 +99,19 @@
 
         .sidebar.collapsed .item {
             justify-content: center;
-            width: 100%; /* Ensure items adjust to the collapsed sidebar width */
+            width: 100%;
+            /* Ensure items adjust to the collapsed sidebar width */
         }
 
         .sidebar.collapsed .item img {
-            width: 24px; /* Ensure icon size remains the same */
+            width: 24px;
+            /* Ensure icon size remains the same */
             height: 24px;
         }
 
         .sidebar.collapsed .item-text {
-            display: none; /* Hide text when collapsed */
+            display: none;
+            /* Hide text when collapsed */
         }
 
         .sidebar .item:hover {
@@ -117,7 +131,8 @@
         }
 
         .main-content.collapsed {
-            margin-left: 100px; /* Adjust margin to match collapsed sidebar width */
+            margin-left: 100px;
+            /* Adjust margin to match collapsed sidebar width */
         }
 
         .logout-button {
@@ -191,11 +206,16 @@
         }
     </style>
 </head>
+
 <body class="flex bg-gray-50 text-gray-800 font-sans">
-    <button id="menuToggle" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+    <button id="menuToggle" type="button"
+        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
         <span class="sr-only">Open sidebar</span>
-        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+            </path>
         </svg>
     </button>
 
@@ -204,16 +224,23 @@
         <!-- Sidebar Header with Logo and Toggle Button -->
         <div class="relative flex flex-col items-center p-4 border-b border-gray-200">
             <div class="sidebar-logo">
-                <img src="{{ asset('images/Logo_Remela.png') }}" alt="Logo" class="rounded-full border-1 border-blue-400">
+                <img src="{{ asset('images/Logo_Remela.png') }}" alt="Logo"
+                    class="rounded-full border-1 border-blue-400">
             </div>
-            <button class="text-gray-600 hover:text-gray-800 focus:outline-none" id="collapseIcon" onclick="toggleSidebar()">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            <button class="text-gray-600 hover:text-gray-800 focus:outline-none" id="collapseIcon"
+                onclick="toggleSidebar()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
                 </svg>
             </button>
-            <button class="text-gray-600 hover:text-gray-800 focus:outline-none hidden" id="menuIcon" onclick="toggleSidebar()">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            <button class="text-gray-600 hover:text-gray-800 focus:outline-none hidden" id="menuIcon"
+                onclick="toggleSidebar()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
                 </svg>
             </button>
         </div>
@@ -222,40 +249,65 @@
         <div class="flex flex-col flex-grow overflow-y-auto">
             <div class="p-4">
                 <div class="flex items-center space-x-3 mb-4">
-                    <img src="{{ asset('images/profilehitam.png') }}" alt="profil" class="w-12 h-12 rounded-full border-2 border-blue-400">
+                    <img src="{{ asset('images/profilehitam.png') }}" alt="profil"
+                        class="w-12 h-12 rounded-full border-2 border-blue-400">
                     <div>
                         <h2 class="text-lg font-semibold text-gray-900 item-text">{{ Auth::user()->name }}</h2>
                         <p class="text-sm text-gray-600 item-text">{{ Auth::user()->email }}</p>
                     </div>
                 </div>
-                <nav class="space-y-4">
-                    <div>
-                        <p class="font-bold text-sm text-gray-600 mb-4 item-text">Data</p>
-                        <a href="{{ route('admin.dashboard') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
-                            <img src="{{ asset('images/dashboard.png') }}" alt="dashboard" class="w-6 h-6">
-                            <span class="item-text font-semibold">Dashboard</span>
-                        </a>
-                    </div>
-                    <div>
-                        <p class="font-bold text-sm text-gray-600 mb-4 item-text">Klien</p>
-                        <a href="{{ route('daftarPasien') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
-                            <img src="{{ asset('images/pasien.png') }}" alt="pasien">
-                            <span class="item-text  font-semibold">Klien</span>
-                        </a>
-                        <a href="{{ route('rekamMedis') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
-                            <img src="{{ asset('images/rekammedis.png') }}" alt="rekam medis">
-                            <span class="item-text font-semibold">Rekam Medis</span>
-                        </a>
-                        <a href="{{ route('listJadwal') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
-                            <img src="{{ asset('images/jadwal.png') }}" alt="jadwal">
-                            <span class="item-text font-semibold">Jadwal</span>
-                        </a>
-                        <a href="{{ route('kegiatan') }}" class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
-                            <img src="{{ asset('images/kegiatan.png') }}" alt="jadwal">
-                            <span class="item-text font-semibold">Kegiatan</span>
-                        </a>
-                    </div>
-                </nav>
+
+                @if (Auth::user()->role == 'admin')
+                    <nav class="space-y-4">
+                        <div>
+                            <p class="font-bold text-sm text-gray-600 mb-4 item-text">Data</p>
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                                <img src="{{ asset('images/dashboard.png') }}" alt="dashboard" class="w-6 h-6">
+                                <span class="item-text font-semibold">Dashboard</span>
+                            </a>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm text-gray-600 mb-4 item-text">Klien</p>
+                            <a href="{{ route('daftarPasien') }}"
+                                class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                                <img src="{{ asset('images/pasien.png') }}" alt="pasien">
+                                <span class="item-text  font-semibold">Klien</span>
+                            </a>
+                            <a href="{{ route('rekamMedis') }}"
+                                class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                                <img src="{{ asset('images/rekammedis.png') }}" alt="rekam medis">
+                                <span class="item-text font-semibold">Rekam Medis</span>
+                            </a>
+                            <a href="{{ route('listJadwal') }}"
+                                class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                                <img src="{{ asset('images/jadwal.png') }}" alt="jadwal">
+                                <span class="item-text font-semibold">Jadwal</span>
+                            </a>
+                            <a href="{{ route('kegiatan') }}"
+                                class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                                <img src="{{ asset('images/kegiatan.png') }}" alt="jadwal">
+                                <span class="item-text font-semibold">Kegiatan</span>
+                            </a>
+                        </div>
+                    </nav>
+                @endif
+
+                @if (Auth::user()->role == 'superadmin')
+                    <p class="font-bold text-sm text-gray-600 mb-4 mt-4 item-text">Manager</p>
+                    <a href="{{ route('superadmin.dashboard') }}"
+                        class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                        <i class="bi bi-house-door text-lg text-blue-600"></i>
+                        <span class="item-text font-semibold">Dashboard</span>
+                    </a>
+                    <a href="{{ route('superadmin.superadmins.index') }}"
+                        class="item flex items-center space-x-3 hover:bg-blue-100 active:bg-blue-200 p-2 rounded-md">
+                        <i class="bi bi-person-circle text-lg text-blue-600"></i>
+                        <span class="item-text font-semibold">Manajemen Akun</span>
+                    </a>
+                @endif
+
+
             </div>
             <div class="p-4 border-t border-gray-200">
                 <form action="{{ route('logout') }}" method="POST">
@@ -294,22 +346,22 @@
             menuIcon.classList.toggle('hidden');
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             @if (session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 1500
-            });
+                Swal.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             @endif
 
             @if ($errors->any())
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '{{ implode('', $errors->all(':message ')) }}'
-            });
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ implode('', $errors->all(':message ')) }}'
+                });
             @endif
         });
     </script>
@@ -317,4 +369,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @stack('scripts')
 </body>
+
 </html>

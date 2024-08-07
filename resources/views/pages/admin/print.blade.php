@@ -147,22 +147,26 @@
             <div class="status-kesehatan mb-6">
                 <div class="section-title text-xl font-semibold mb-4">Status Kesehatan Bulan Ini</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusKolesterol == 'Normal' ? 'status-card-green' : ($statusKolesterol == 'Tinggi' ? 'status-card-red' : 'status-card-blue') }}">
                         Kolesterol: {{ $statusKolesterol }}
                     </div>
 
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusIMT == 'Berat badan normal' ? 'status-card-green' : ($statusIMT == 'Kelebihan berat badan' ? 'status-card-red' : 'status-card-yellow') }}">
                         IMT: {{ $statusIMT }}
                     </div>
 
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusLingkarPerut == 'Normal' ? 'status-card-green' : ($statusLingkarPerut == 'Tinggi' ? 'status-card-red' : 'status-card-gray') }}">
                         Lingkar Perut: {{ $statusLingkarPerut }}
                     </div>
 
-                    <div class="status-card
+                    <div
+                        class="status-card
                         {{ $statusTekananDarah == 'Normal'
                             ? 'status-card-green'
                             : ($statusTekananDarah == 'Pra-hipertensi'
@@ -195,24 +199,41 @@
                 <tbody>
                     @foreach ($patientRecords as $rec)
                         @php
-                            $imtColor = ($rec->berat_badan / (($rec->tinggi_badan / 100) * ($rec->tinggi_badan / 100))) < 25 ? 'color-indicator-green' : 'color-indicator-red';
-                            $kolesterolColor = $rec->kolesterol_total < 200 ? 'color-indicator-green' : 'color-indicator-red';
-                            $tekananDarahColor = ($rec->tekanan_darah_sistolik < 120 && $rec->tekanan_darah_diastolik < 80) ? 'color-indicator-green' : 'color-indicator-red';
-                            $lingkarPerutColor = $rec->lingkar_perut < 90 ? 'color-indicator-green' : 'color-indicator-red';
-                            $gulaDarahSewaktuColor = $rec->gula_darah_sewaktu < 140 ? 'color-indicator-green' : 'color-indicator-red';
-                            $gulaDarahPuasaColor = $rec->gula_darah_puasa < 100 ? 'color-indicator-green' : 'color-indicator-red';
+                            $heightInMeters = $rec->tinggi_badan / 100;
+                            $imt = $heightInMeters > 0 ? $rec->berat_badan / ($heightInMeters * $heightInMeters) : null;
+                            $imtColor = $imt < 25 ? 'color-indicator-green' : 'color-indicator-red';
+                            $kolesterolColor =
+                                $rec->kolesterol_total < 200 ? 'color-indicator-green' : 'color-indicator-red';
+                            $tekananDarahColor =
+                                $rec->tekanan_darah_sistolik < 120 && $rec->tekanan_darah_diastolik < 80
+                                    ? 'color-indicator-green'
+                                    : 'color-indicator-red';
+                            $lingkarPerutColor =
+                                $rec->lingkar_perut < 90 ? 'color-indicator-green' : 'color-indicator-red';
+                            $gulaDarahSewaktuColor =
+                                $rec->gula_darah_sewaktu < 140 ? 'color-indicator-green' : 'color-indicator-red';
+                            $gulaDarahPuasaColor =
+                                $rec->gula_darah_puasa < 100 ? 'color-indicator-green' : 'color-indicator-red';
                         @endphp
                         <tr>
                             <td>{{ $rec->record_date->format('d M Y') }}</td>
-                            <td class="{{ $imtColor }}">{{ number_format($rec->berat_badan / (($rec->tinggi_badan / 100) * ($rec->tinggi_badan / 100)), 2) }}</td>
+                            <td class="{{ $imtColor }}">
+                                @if ($imt !== null)
+                                    {{ number_format($imt, 2) }}
+                                @else
+                                    Data tidak lengkap
+                                @endif
+                            </td>
                             <td class="{{ $kolesterolColor }}">{{ $rec->kolesterol_total }} mg/dL</td>
-                            <td class="{{ $tekananDarahColor }}">{{ $rec->tekanan_darah_sistolik }}/{{ $rec->tekanan_darah_diastolik }}</td>
+                            <td class="{{ $tekananDarahColor }}">
+                                {{ $rec->tekanan_darah_sistolik }}/{{ $rec->tekanan_darah_diastolik }}</td>
                             <td class="{{ $lingkarPerutColor }}">{{ $rec->lingkar_perut }} cm</td>
                             <td class="{{ $gulaDarahSewaktuColor }}">{{ $rec->gula_darah_sewaktu }} mg/dL</td>
                             <td class="{{ $gulaDarahPuasaColor }}">{{ $rec->gula_darah_puasa }} mg/dL</td>
                         </tr>
                     @endforeach
                 </tbody>
+
             </table>
 
             <div class="section-title text-xl font-semibold mb-4">Informasi Rekam Medis</div>
@@ -265,10 +286,14 @@
                 <h2 class="text-xl font-semibold mb-4">Keterangan Indikator Warna</h2>
                 <ul class="list-disc pl-5">
                     <li><span class="color-indicator color-indicator-green">Hijau</span>: Kondisi Normal</li>
-                    <li><span class="color-indicator color-indicator-red">Merah</span>: Kondisi Abnormal / Perlu Perhatian</li>
-                    <li><span class="color-indicator color-indicator-yellow">Kuning</span>: Kondisi Meningkat / Awasi</li>
-                    <li><span class="color-indicator color-indicator-blue">Biru</span>: Data Khusus / Perlu Evaluasi</li>
-                    <li><span class="color-indicator color-indicator-gray">Abu-abu</span>: Data Tidak Tersedia / Tidak Terukur</li>
+                    <li><span class="color-indicator color-indicator-red">Merah</span>: Kondisi Abnormal / Perlu
+                        Perhatian</li>
+                    <li><span class="color-indicator color-indicator-yellow">Kuning</span>: Kondisi Meningkat / Awasi
+                    </li>
+                    <li><span class="color-indicator color-indicator-blue">Biru</span>: Data Khusus / Perlu Evaluasi
+                    </li>
+                    <li><span class="color-indicator color-indicator-gray">Abu-abu</span>: Data Tidak Tersedia / Tidak
+                        Terukur</li>
                 </ul>
             </div>
         </div>

@@ -34,11 +34,10 @@
                     <label for="{{ $field }}" class="block text-gray-700 font-bold">{{ $label }}</label>
                     @if ($field == 'alamat')
                     <textarea id="{{ $field }}" name="{{ $field }}"
-                        class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200"
-                        required>{{ old($field, $pasien->$field) }}</textarea>
+                        class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">{{ old($field, $pasien->$field) }}</textarea>
                     @elseif ($field == 'jenis_kelamin' || $field == 'status_kawin')
                     <select id="{{ $field }}" name="{{ $field }}"
-                        class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
+                        class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
                         <option value="">Pilih {{ $label }}</option>
                         @foreach (['jenis_kelamin' => ['Laki-laki', 'Perempuan'], 'status_kawin' => ['Belum Menikah', 'Menikah', 'Cerai']][$field] as $option)
                         <option value="{{ $option }}" @if (old($field, $pasien->$field) == $option) selected @endif>{{ $option }}</option>
@@ -47,7 +46,7 @@
                     @else
                     <input type="{{ $field == 'tanggal_lahir' ? 'date' : 'text' }}" id="{{ $field }}" name="{{ $field }}"
                         value="{{ old($field, $field == 'email' ? $pasien->user->email : $pasien->$field) }}"
-                        class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200" required>
+                        class="w-full p-2 border border-gray-300 rounded mt-1 focus:ring focus:ring-blue-200">
                     @endif
                 </div>
                 @endforeach

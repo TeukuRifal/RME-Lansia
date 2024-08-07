@@ -62,6 +62,10 @@
                                     class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded flex items-center">
                                     <i class="bi bi-pencil-fill mr-1"></i> Edit
                                 </a>
+                                <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded flex items-center delete-btn"
+                                        data-id="{{ $patient->id }}">
+                                    <i class="bi bi-trash-fill mr-1"></i> Hapus
+                                </button>
                             </td>
                         </tr>
                     @endforeach
@@ -71,11 +75,14 @@
     </div>
 </div>
 
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -138,6 +145,45 @@
                 infoEmpty: "Tidak ada data tersedia",
                 zeroRecords: "Tidak ada data yang cocok ditemukan"
             }
+        });
+
+        $('.delete-btn').on('click', function() {
+            var patientId = $(this).data('id');
+            Swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Anda Tidak Bisa Mengembalikannya lagi!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Iya, Hapus !"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/hapus-pasien/${patientId}`,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                title: "Terhapus!",
+                                text: "Pasien Berhasil Dihapus.",
+                                icon: "success"
+                            }).then(() => {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: "Terjadi kesalahan saat menghapus data.",
+                                icon: "error"
+                            });
+                        }
+                    });
+                }
+            });
         });
     });
 </script>
