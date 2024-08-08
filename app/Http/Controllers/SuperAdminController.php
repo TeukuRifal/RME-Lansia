@@ -10,6 +10,7 @@ use App\Models\PatientRecord;
 use Illuminate\Routing\Controller;
 use App\Models\HealthCheckSchedule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Spatie\Activitylog\Models\Activity;
 
 class SuperAdminController extends Controller
@@ -101,19 +102,21 @@ class SuperAdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,superadmin',
+            'role' => 'required|in:admin',
         ]);
 
         $role = $request->role;
 
-        User::create([
+        $admin = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $role,
         ]);
 
-        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($role) . ' berhasil dibuat.');
+        event(new Registered($admin));
+
+        return redirect()->route('superadmin.superadmins.index')->with('success', ucfirst($role) . ' berhasil dibuat. Silakan verifikasi email Anda.');
     }
 
     public function edit($id)

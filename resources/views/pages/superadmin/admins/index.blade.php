@@ -6,8 +6,9 @@
         <h1 class="text-3xl font-bold mb-4">Daftar Pengguna</h1>
 
         <a href="{{ route('superadmin.superadmins.create') }}"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block"><i class="bi bi-person-plus"></i>Tambah
-            Pengguna</a>
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 inline-flex items-center shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+            <i class="bi bi-person-plus mr-2"></i>Tambah Pengguna
+        </a>
 
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white shadow-md rounded-lg">

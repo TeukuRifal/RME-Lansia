@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,21 +8,20 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f4f8;
-            background-image: url('https://www.transparenttextures.com/patterns/diagmonds-light.png');
+            background: linear-gradient(135deg, #e0f2f1 0%, #b9fbc0 100%);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 0 2rem;
+            padding: 1rem;
         }
 
         .card {
             background: #ffffff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
-            padding: 3rem;
+            padding: 2rem;
             max-width: 400px;
             width: 100%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -86,21 +84,21 @@
         }
 
         .left-content {
-            max-width: 600px;
-            text-align: left;
-            padding-right: 2rem;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
         }
 
         .left-content h1 {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
             font-weight: bold;
             margin-bottom: 1rem;
             color: #1f2937;
         }
 
         .left-content p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
             color: #4b5563;
         }
 
@@ -109,15 +107,45 @@
             height: auto;
             border-radius: 12px;
         }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-to-home a {
+            color: #4f46e5;
+            font-weight: bold;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .back-to-home a:hover {
+            color: #3730a3;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 640px) {
+            .card {
+                padding: 1.5rem;
+            }
+
+            .left-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .left-content p {
+                font-size: 1rem;
+            }
+
+            .btn-primary {
+                padding: 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
     </style>
 </head>
-
 <body>
-    <div class="left-content">
-        <h1>Selamat Datang di Portal SuperAdmin Rekam Medis Elektronik</h1>
-
-        <img src="{{ asset('images/healthcare-illustration.png') }}" alt="Healthcare Illustration">
-    </div>
     <div class="card">
         <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Super Admin Login</h2>
         @if ($errors->any())
@@ -136,12 +164,15 @@
                 <label for="password" class="block text-gray-700 text-lg font-semibold">Password:</label>
                 <input type="password" name="password" id="password" class="input" required>
             </div>
-            <div class="mb-4">
-                <input type="checkbox" id="showPassword" onclick="togglePassword()">
+            <div class="mb-4 flex items-center">
+                <input type="checkbox" id="showPassword" onclick="togglePassword()" class="mr-2">
                 <label for="showPassword" class="text-gray-700">Tampilkan Password</label>
             </div>
             <button type="submit" class="btn-primary font-bold">Login</button>
         </form>
+        <div class="back-to-home">
+            <a href="/">Kembali ke Beranda</a>
+        </div>
     </div>
 
     <script>
@@ -155,5 +186,4 @@
         }
     </script>
 </body>
-
 </html>

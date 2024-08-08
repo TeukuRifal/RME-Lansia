@@ -1,51 +1,53 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container mx-auto">
-    <h1 class="text-2xl font-bold mb-4">Edit Superadmin</h1>
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-6">Edit Admin</h1>
+        <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <form action="{{ route('superadmin.superadmins.update', $superadmin->id) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-    @if(session('success'))
-    <div class="bg-green-200 text-green-800 rounded-md p-3 mb-4">
-        {{ session('success') }}
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Nama</label>
+                    <input type="text"
+                        class="form-input w-full border border-gray-300 rounded-lg p-2 focus:border-blue-500 focus:outline-none"
+                        id="name" name="name" value="{{ $superadmin->name }}" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email</label>
+                    <input type="email"
+                        class="form-input w-full border border-gray-300 rounded-lg p-2 focus:border-blue-500 focus:outline-none"
+                        id="email" name="email" value="{{ $superadmin->email }}" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password (kosongkan jika
+                        tidak ingin mengubah)</label>
+                    <input type="password"
+                        class="form-input w-full border border-gray-300 rounded-lg p-2 focus:border-blue-500 focus:outline-none"
+                        id="password" name="password">
+                </div>
+
+                <div class="mb-4">
+                    <label for="password_confirmation" class="block text-gray-700 text-sm font-semibold mb-2">Konfirmasi
+                        Password</label>
+                    <input type="password"
+                        class="form-input w-full border border-gray-300 rounded-lg p-2 focus:border-blue-500 focus:outline-none"
+                        id="password_confirmation" name="password_confirmation">
+                </div>
+
+                <div class="flex justify-end gap-1 ">
+                    <a href="{{ route('superadmin.superadmins.index') }}"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        <i class="bi bi-arrow-left mr-2"></i> Kembali
+                    </a>
+                    <button type="submit"
+                        class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">Simpan</button>
+                </div>
+
+            </form>
+        </div>
     </div>
-    @endif
-
-    <form action="{{ route('superadmin.superadmins.update', $superadmin->id) }}" method="POST" class="max-w-md bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
-        @csrf
-        @method('PUT')
-
-        <div class="mb-4">
-            <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
-            <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('name', $superadmin->name) }}" required autofocus>
-            @error('name')
-            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="mb-4">
-            <label for="email" class="block text-gray-700 font-bold mb-2">Email Address</label>
-            <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('email', $superadmin->email) }}" required>
-            @error('email')
-            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="mb-4">
-            <label for="password" class="block text-gray-700 font-bold mb-2">New Password</label>
-            <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            @error('password')
-            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="mb-4">
-            <label for="password_confirmation" class="block text-gray-700 font-bold mb-2">Confirm New Password</label>
-            <input type="password" id="password_confirmation" name="password_confirmation" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        </div>
-
-        <div class="flex items-center justify-between">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Perbarui Akun</button>
-        </div>
-    </form>
-</div>
 @endsection
